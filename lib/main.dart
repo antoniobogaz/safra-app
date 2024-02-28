@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_safraapp/views/loginPage.dart';
 import 'package:flutter_safraapp/views/startScreen.dart';
 
 void main() {

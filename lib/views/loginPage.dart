@@ -1,6 +1,7 @@
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_safraapp/views/forgotpassword.dart';
+import 'package:flutter_safraapp/views/homePage.dart';
 import 'package:flutter_safraapp/views/signinPage.dart';
 
 class loginPage extends StatefulWidget {
@@ -164,7 +165,10 @@ class _loginPageState extends State<loginPage> {
               Container(
                 padding: EdgeInsets.only(top: 80),
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => homePage()));
+                  },
                   child: Container(
                     height: 60,
                     width: MediaQuery.of(context).size.width / 1.3,
