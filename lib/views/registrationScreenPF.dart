@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_safraapp/views/profilePage.dart';
 import 'package:flutter_safraapp/views/registrationScreenPJ.dart';
+import 'package:flutter_safraapp/views/homePage.dart';
 
 class registrationScreenPF extends StatefulWidget {
   const registrationScreenPF({super.key});
@@ -495,7 +496,7 @@ class _registrationScreenPFState extends State<registrationScreenPF> {
               child: InkWell(
                 onTap: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => profilePage()));
+                      MaterialPageRoute(builder: (context) => homePage()));
                 },
                 child: Container(
                   height: 60,

@@ -1,6 +1,7 @@
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_safraapp/views/forgotpassword.dart';
+import 'package:flutter_safraapp/views/dashboardPage.dart';
 import 'package:flutter_safraapp/views/homePage.dart';
 import 'package:flutter_safraapp/views/signinPage.dart';
 

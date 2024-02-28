@@ -118,7 +118,7 @@ class _profilePageState extends State<profilePage> {
                         width: 380,
                         height: 50,
                         decoration: BoxDecoration(
-                          color: Color.fromARGB(50, 8, 46, 28),
+                          color: Colors.grey,
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Row(
@@ -146,7 +146,7 @@ class _profilePageState extends State<profilePage> {
                         width: 380,
                         height: 50,
                         decoration: BoxDecoration(
-                          color: Color.fromARGB(50, 8, 46, 28),
+                          color: Colors.grey,
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Row(
