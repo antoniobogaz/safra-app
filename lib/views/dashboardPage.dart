@@ -3,6 +3,7 @@ import 'package:flutter_safraapp/views/historicoPage.dart';
 import 'package:flutter_safraapp/views/insumoPage.dart';
 import 'package:flutter_safraapp/views/lavouraPage.dart';
 import 'package:flutter_safraapp/views/profilePage.dart';
+import 'package:flutter_safraapp/views/viewLavouraInsumo.dart';
 import 'package:flutter_safraapp/widgets/bottom_nav_bar.dart';
 import 'package:flutter_safraapp/widgets/drawer.dart';
 import 'package:flutter/cupertino.dart';
@@ -45,17 +46,27 @@ class _dashboardPageState extends State<dashboardPage> {
       ),
       body: ListView.builder(
         itemCount: 10,
-        itemBuilder: (context, index) => Card(
-          child: ListTile(
-            tileColor: Color.fromARGB(150, 181, 185, 183),
-            visualDensity: VisualDensity(vertical: 4),
-            title: Text('Nome da Lavoura'),
-            subtitle: Text('Descrição'),
-            trailing: const Icon(Icons.arrow_forward),
-            leading: CircleAvatar(
-              radius: 9,
-              backgroundColor: Colors.green,
-            ),
+        itemBuilder: (context, index) => InkWell(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => viewLavouraInsumoPage()));
+          },
+          child: Card(
+            child: ListTile(
+                tileColor: Color.fromARGB(255, 220, 220, 220),
+                visualDensity: VisualDensity(vertical: 4),
+                title: Text('Nome da Lavoura'),
+                subtitle: Text('Descrição'),
+                trailing: const Icon(
+                  Icons.arrow_forward,
+                  color: Color.fromARGB(255, 2, 89, 47),
+                ),
+                leading: Icon(
+                  Icons.eco_outlined,
+                  color: Color.fromARGB(255, 2, 89, 47),
+                )),
           ),
         ),
       ),

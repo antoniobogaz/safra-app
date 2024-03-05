@@ -34,8 +34,27 @@ class _lavouraPageState extends State<lavouraPage> {
         backgroundColor: Color.fromARGB(255, 2, 89, 47),
         centerTitle: true,
       ),
-      body: Center(
-        child: Text('lavoura'),
+      body: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(50),
+              bottomRight: Radius.circular(50)),
+          color: Color.fromARGB(255, 2, 89, 47),
+        ),
+        width: MediaQuery.of(context).size.width,
+        height: 120,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 18.0, left: 10),
+          child: Center(
+            child: Text(
+              'Cadastrar Lavoura'.toUpperCase(),
+              style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+          ),
+        ),
       ),
     );
   }

@@ -90,7 +90,7 @@ class _NavigationDrawerState extends State<NavigationDrawer1> {
             ),
             ListTile(
               leading: const Icon(Icons.water_drop),
-              title: const Text('Registro de Uso de Aplicações'),
+              title: const Text('Cadastro de Insumos'),
               onTap: () {
                 Navigator.pop(context);
 

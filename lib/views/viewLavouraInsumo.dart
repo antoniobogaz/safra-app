@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
-//import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:flutter_safraapp/widgets/drawer.dart';
 
-class editProfilePage extends StatefulWidget {
-  const editProfilePage({super.key});
+class viewLavouraInsumoPage extends StatefulWidget {
+  const viewLavouraInsumoPage({super.key});
 
   @override
-  State<editProfilePage> createState() => _editProfilePageState();
+  State<viewLavouraInsumoPage> createState() => _viewLavouraInsumoPageState();
 }
 
 @override
-class _editProfilePageState extends State<editProfilePage> {
-  @override
+class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        /*title: Text(
+          'Suas Culturas',
+          style: TextStyle(fontSize: 22),
+        ),*/
         flexibleSpace: Center(
           child: Padding(
             padding: const EdgeInsets.only(top: 30.0),
@@ -34,9 +35,8 @@ class _editProfilePageState extends State<editProfilePage> {
         backgroundColor: Color.fromARGB(255, 2, 89, 47),
         centerTitle: true,
       ),
-      body: Center(
-        child: Text('editar perfil'),
-      ),
+      body:
+          Center(child: Text('Lavoura com visão para as aplicações de insumo')),
     );
   }
 }

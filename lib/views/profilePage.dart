@@ -42,7 +42,12 @@ class _profilePageState extends State<profilePage> {
           child: Column(
             children: [
               Container(
-                color: Color.fromARGB(255, 2, 89, 47),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(50),
+                      bottomRight: Radius.circular(50)),
+                  color: Color.fromARGB(255, 2, 89, 47),
+                ),
                 height: 280,
                 width: MediaQuery.of(context).size.width,
                 child: Column(
@@ -110,7 +115,7 @@ class _profilePageState extends State<profilePage> {
                     padding: const EdgeInsets.only(top: 25.0),
                     child: InkWell(
                       onTap: () {
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => const editProfilePage(),
                         ));
                       },

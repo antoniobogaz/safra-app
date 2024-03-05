@@ -34,8 +34,27 @@ class _historicoPageState extends State<historicoPage> {
         backgroundColor: Color.fromARGB(255, 2, 89, 47),
         centerTitle: true,
       ),
-      body: Center(
-        child: Text('historico'),
+      body: ListView.builder(
+        itemCount: 10,
+        itemBuilder: (context, index) => Card(
+          child: Container(
+            height: 200,
+            child: ListTile(
+                tileColor: Color.fromARGB(255, 220, 220, 220),
+                visualDensity: VisualDensity(vertical: 4),
+                title: Text('Nome do insumo aplicado'),
+                subtitle: Text('Breve descrição\nbreve descrição'),
+                trailing: const Icon(
+                  Icons.arrow_forward,
+                  color: Color.fromARGB(255, 2, 89, 47),
+                ),
+                leading: Icon(
+                  Icons.history_outlined,
+                  color: Color.fromARGB(255, 2, 89, 47),
+                  size: 35,
+                )),
+          ),
+        ),
       ),
     );
   }
