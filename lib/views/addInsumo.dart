@@ -167,6 +167,7 @@ class _addInsumoPageState extends State<addInsumoPage> {
                         color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                 child: DropdownButton(
                   value: _selectedValue,
+                  isExpanded: true,
                   hint: const Text(
                     'Tipo de Formulação',
                     style: TextStyle(
