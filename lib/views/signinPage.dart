@@ -1,5 +1,6 @@
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_safraapp/servicos/autenticacao_servico.dart';
 import 'package:flutter_safraapp/views/loginPage.dart';
 import 'package:flutter_safraapp/views/registrationScreenPF.dart';
 
@@ -14,6 +15,14 @@ class _signinPageState extends State<signinPage> {
   String logo = 'images/Logo_SafraApp1.png';
   bool _obscureText = true;
   bool _obscureText2 = true;
+
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _senhaController = TextEditingController();
+  TextEditingController _nomeController = TextEditingController();
+
+  AutenticacaoServico _autenServico = AutenticacaoServico();
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -46,24 +55,18 @@ class _signinPageState extends State<signinPage> {
             ),
             Container(
               child: Padding(
-                padding: const EdgeInsets.only(top: 18.0, left: 10),
+                padding: const EdgeInsets.only(
+                  top: 18.0,
+                  left: 10,
+                ),
                 child: Text(
                   'Vamos realizar seu cadastro, precisamos apenas de algumas informações:',
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
                 ),
               ),
             ),
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 28.0),
-                child: Text(
-                  'Usuário e Senha',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
             Padding(
-              padding: const EdgeInsets.only(top: 28.0),
+              padding: const EdgeInsets.only(top: 28.0, bottom: 15),
               child: Container(
                 width: MediaQuery.of(context).size.width / 1.1,
                 height: 50,
@@ -75,15 +78,59 @@ class _signinPageState extends State<signinPage> {
                     color: Colors.white,
                     border: Border.all(
                         color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
-                child: TextField(
+                child: TextFormField(
+                  controller: _nomeController,
+                  validator: (String? value) {
+                    if (value == null) {
+                      return "O nome não pode ser vazio";
+                    }
+                    if (value.length < 2) {
+                      return "O nome é muito curto";
+                    }
+                    return null;
+                  },
                   decoration: InputDecoration(
                       border: InputBorder.none,
                       icon: Icon(Icons.person,
                           color: Color.fromARGB(255, 8, 46, 28)),
-                      hintText: 'Usuário',
+                      hintText: 'Nome',
                       hintStyle:
                           TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
                 ),
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width / 1.1,
+              height: 50,
+              padding: EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(50),
+                  ),
+                  color: Colors.white,
+                  border: Border.all(
+                      color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
+              child: TextFormField(
+                controller: _emailController,
+                validator: (String? value) {
+                  if (value == null) {
+                    return "O e-mail não pode ser vazio";
+                  }
+                  if (value.length < 5) {
+                    return "O e-mail é muito curto";
+                  }
+                  if (!value.contains("@")) {
+                    return "O e-mail não é valido";
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    icon: Icon(Icons.email,
+                        color: Color.fromARGB(255, 8, 46, 28)),
+                    hintText: 'E-mail',
+                    hintStyle:
+                        TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
               ),
             ),
             Container(
@@ -102,7 +149,17 @@ class _signinPageState extends State<signinPage> {
                         color: Colors.white,
                         border: Border.all(
                             color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
-                    child: TextField(
+                    child: TextFormField(
+                      controller: _senhaController,
+                      validator: (String? value) {
+                        if (value == null) {
+                          return "A senha não pode ser vazia";
+                        }
+                        if (value.length < 5) {
+                          return "A senha é muito curta";
+                        }
+                        return null;
+                      },
                       obscureText: _obscureText,
                       decoration: InputDecoration(
                         hintText: 'Senha',
@@ -148,7 +205,7 @@ class _signinPageState extends State<signinPage> {
                         color: Colors.white,
                         border: Border.all(
                             color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
-                    child: TextField(
+                    child: TextFormField(
                       obscureText: _obscureText2,
                       decoration: InputDecoration(
                         hintText: 'Confirme a Senha',
@@ -182,10 +239,11 @@ class _signinPageState extends State<signinPage> {
               padding: EdgeInsets.only(top: 40),
               child: InkWell(
                 onTap: () {
-                  Navigator.push(
+                  metodoAutenticacao();
+                  /*Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => registrationScreenPF()));
+                          builder: (context) => registrationScreenPF()));*/
                 },
                 child: Container(
                   height: 60,
@@ -246,5 +304,13 @@ class _signinPageState extends State<signinPage> {
         ),
       ),
     );
+  }
+
+  metodoAutenticacao() {
+    String nome = _nomeController.text;
+    String email = _emailController.text;
+    String senha = _emailController.text;
+
+    _autenServico.cadastrarUsuario(nome: nome, senha: senha, email: email);
   }
 }
