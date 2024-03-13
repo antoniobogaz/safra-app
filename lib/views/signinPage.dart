@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_safraapp/servicos/autenticacao_servico.dart';
 import 'package:flutter_safraapp/views/loginPage.dart';
 import 'package:flutter_safraapp/views/registrationScreenPF.dart';
+import 'package:flutter_safraapp/widgets/meu_snackbar.dart';
 
 class signinPage extends StatefulWidget {
   const signinPage({super.key});
@@ -14,7 +15,6 @@ class signinPage extends StatefulWidget {
 class _signinPageState extends State<signinPage> {
   String logo = 'images/Logo_SafraApp1.png';
   bool _obscureText = true;
-  bool _obscureText2 = true;
 
   TextEditingController _emailController = TextEditingController();
   TextEditingController _senhaController = TextEditingController();
@@ -151,7 +151,7 @@ class _signinPageState extends State<signinPage> {
                             color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                     child: TextFormField(
                       controller: _senhaController,
-                      validator: (String? value) {
+                      validator: (value) {
                         if (value == null) {
                           return "A senha não pode ser vazia";
                         }
@@ -180,52 +180,6 @@ class _signinPageState extends State<signinPage> {
                           onPressed: () {
                             setState(() {
                               _obscureText = !_obscureText;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.only(top: 15),
-              child: Column(
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width / 1.1,
-                    height: 50,
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(50),
-                        ),
-                        color: Colors.white,
-                        border: Border.all(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
-                    child: TextFormField(
-                      obscureText: _obscureText2,
-                      decoration: InputDecoration(
-                        hintText: 'Confirme a Senha',
-                        hintStyle: TextStyle(
-                          color: Color.fromARGB(255, 8, 46, 28),
-                        ),
-                        border: InputBorder.none,
-                        icon: Icon(
-                          Icons.lock,
-                          color: Color.fromARGB(255, 8, 46, 28),
-                        ),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                              _obscureText2
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
-                              color: Color.fromARGB(255, 8, 46, 28)),
-                          onPressed: () {
-                            setState(() {
-                              _obscureText2 = !_obscureText2;
                             });
                           },
                         ),
@@ -269,7 +223,7 @@ class _signinPageState extends State<signinPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    padding: EdgeInsets.only(top: 150),
+                    padding: EdgeInsets.only(top: 200),
                     child: Text(
                       'Já tem uma conta?',
                       style: TextStyle(
@@ -279,7 +233,7 @@ class _signinPageState extends State<signinPage> {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.only(top: 150),
+                    padding: EdgeInsets.only(top: 200),
                     child: InkWell(
                       onTap: () {
                         Navigator.push(
@@ -311,6 +265,19 @@ class _signinPageState extends State<signinPage> {
     String email = _emailController.text;
     String senha = _emailController.text;
 
-    _autenServico.cadastrarUsuario(nome: nome, senha: senha, email: email);
+    _autenServico.cadastrarUsuario(nome: nome, senha: senha, email: email).then(
+      (String? erro) {
+        //Voltou com erro
+        if (erro != null) {
+          mostrarSnackBar(context: context, texto: erro);
+        } else {
+          //Deu certo
+          mostrarSnackBar(
+              context: context,
+              texto: "Cadastro efetuado com sucesso",
+              isErro: false);
+        }
+      },
+    );
   }
 }

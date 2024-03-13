@@ -4,6 +4,8 @@ import 'package:flutter_safraapp/views/forgotpassword.dart';
 import 'package:flutter_safraapp/views/dashboardPage.dart';
 import 'package:flutter_safraapp/views/homePage.dart';
 import 'package:flutter_safraapp/views/signinPage.dart';
+import 'package:flutter_safraapp/servicos/autenticacao_servico.dart';
+import 'package:flutter_safraapp/widgets/meu_snackbar.dart';
 
 class loginPage extends StatefulWidget {
   const loginPage({super.key});
@@ -15,6 +17,11 @@ class loginPage extends StatefulWidget {
 class _loginPageState extends State<loginPage> {
   String logo = 'images/Logo_SafraApp1.png';
   bool _obscureText = true;
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _senhaController = TextEditingController();
+
+  AutenticacaoServico _autenServico = AutenticacaoServico();
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -81,7 +88,8 @@ class _loginPageState extends State<loginPage> {
                           border: Border.all(
                               color: Color.fromARGB(255, 8, 46, 28),
                               width: 2.0)),
-                      child: TextField(
+                      child: TextFormField(
+                        controller: _emailController,
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             icon: Icon(Icons.person,
@@ -108,7 +116,8 @@ class _loginPageState extends State<loginPage> {
                                 border: Border.all(
                                     color: Color.fromARGB(255, 8, 46, 28),
                                     width: 2.0)),
-                            child: TextField(
+                            child: TextFormField(
+                              controller: _senhaController,
                               obscureText: _obscureText,
                               decoration: InputDecoration(
                                 hintText: 'Senha',
@@ -167,8 +176,7 @@ class _loginPageState extends State<loginPage> {
                 padding: EdgeInsets.only(top: 80),
                 child: InkWell(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => homePage()));
+                    metodoLogin();
                   },
                   child: Container(
                     height: 60,
@@ -228,6 +236,23 @@ class _loginPageState extends State<loginPage> {
               )
             ],
           )),
+    );
+  }
+
+  metodoLogin() {
+    String email = _emailController.text;
+    String senha = _emailController.text;
+
+    _autenServico.logarUsuarios(senha: senha, email: email).then(
+      (String? erro) {
+        //Voltou com erro
+        if (erro != null) {
+          mostrarSnackBar(context: context, texto: erro);
+        } else {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => homePage()));
+        }
+      },
     );
   }
 }
