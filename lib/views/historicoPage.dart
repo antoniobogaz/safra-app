@@ -15,16 +15,20 @@ class _historicoPageState extends State<historicoPage> {
     return Scaffold(
       drawer: NavigationDrawer1(),
       appBar: AppBar(
+        title: Text(
+          'Suas Aplicações',
+          style: TextStyle(fontSize: 22),
+        ),
         flexibleSpace: Center(
           child: Padding(
             padding: const EdgeInsets.only(top: 30.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Image.asset(
+                /*Image.asset(
                   'images/Logo_SafraApp3.png', // Substitua pelo caminho da sua imagem
                   height: 40, // Ajuste a altura conforme necessário
-                ),
+                ),*/
               ],
             ),
           ),

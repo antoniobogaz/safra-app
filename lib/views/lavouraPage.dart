@@ -42,7 +42,7 @@ class _lavouraPageState extends State<lavouraPage> {
           color: Color.fromARGB(255, 2, 89, 47),
         ),
         width: MediaQuery.of(context).size.width,
-        height: 120,
+        height: 90,
         child: Padding(
           padding: const EdgeInsets.only(top: 18.0, left: 10),
           child: Center(
