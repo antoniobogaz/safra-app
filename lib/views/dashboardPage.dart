@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_safraapp/views/historicoPage.dart';
-import 'package:flutter_safraapp/views/insumoPage.dart';
-import 'package:flutter_safraapp/views/lavouraPage.dart';
-import 'package:flutter_safraapp/views/profilePage.dart';
 import 'package:flutter_safraapp/views/viewLavouraInsumo.dart';
-import 'package:flutter_safraapp/widgets/bottom_nav_bar.dart';
 import 'package:flutter_safraapp/widgets/drawer.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -30,12 +25,7 @@ class _dashboardPageState extends State<dashboardPage> {
             padding: const EdgeInsets.only(top: 30.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                /*Image.asset(
-                  'images/Logo_SafraApp3.png', // Substitua pelo caminho da sua imagem
-                  height: 40, // Ajuste a altura conforme necessário
-                ),*/
-              ],
+              children: [],
             ),
           ),
         ),

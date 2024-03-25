@@ -146,50 +146,58 @@ class _addInsumoPageState extends State<addInsumoPage> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 48.0),
-              child: Container(
-                width: MediaQuery.of(context).size.width / 1.1,
-                height: 50,
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(50),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 48.0),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width / 2.2,
+                    height: 50,
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(50),
+                        ),
+                        color: Colors.white,
+                        border: Border.all(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
+                    child: TextField(
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Nome do insumo',
+                          hintStyle:
+                              TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
                     ),
-                    color: Colors.white,
-                    border: Border.all(
-                        color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
-                child: TextField(
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Nome do insumo',
-                      hintStyle:
-                          TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
+                  ),
                 ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 18.0),
-              child: Container(
-                width: MediaQuery.of(context).size.width / 1.1,
-                height: 50,
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(50),
+                SizedBox(
+                  width: 4,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 48.0),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width / 2.2,
+                    height: 50,
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(50),
+                        ),
+                        color: Colors.white,
+                        border: Border.all(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
+                    child: TextField(
+                      decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Nome Técnico do Insumo',
+                          hintStyle:
+                              TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
                     ),
-                    color: Colors.white,
-                    border: Border.all(
-                        color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
-                child: TextField(
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Nome Técnico do Insumo',
-                      hintStyle:
-                          TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
+                  ),
                 ),
-              ),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.only(top: 18.0),
@@ -280,13 +288,15 @@ class _addInsumoPageState extends State<addInsumoPage> {
                       color: Color.fromARGB(255, 8, 46, 28),
                     ),
                   ),
-                  items: _opcoes_classe_agronomica
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
+                  items:
+                      _opcoes_classe_agronomica.map<DropdownMenuItem<String>>(
+                    (String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    },
+                  ).toList(),
                   onChanged: (String? newValue) {
                     setState(() {
                       _selectedValue_classe = newValue;

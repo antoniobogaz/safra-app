@@ -4,8 +4,6 @@ import 'package:flutter_safraapp/views/insumoPage.dart';
 import 'package:flutter_safraapp/views/lavouraPage.dart';
 import 'package:flutter_safraapp/views/profilePage.dart';
 import 'package:flutter_safraapp/widgets/bottom_nav_bar.dart';
-import 'package:flutter_safraapp/widgets/drawer.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_safraapp/views/dashboardPage.dart';
 
 class homePage extends StatefulWidget {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_safraapp/widgets/drawer.dart';
+import 'package:flutter_safraapp/views/viewLavouraInsumo.dart';
 
 class historicoPage extends StatefulWidget {
   const historicoPage({super.key});
@@ -40,23 +41,31 @@ class _historicoPageState extends State<historicoPage> {
       ),
       body: ListView.builder(
         itemCount: 10,
-        itemBuilder: (context, index) => Card(
-          child: Container(
-            height: 200,
-            child: ListTile(
-                tileColor: Color.fromARGB(255, 220, 220, 220),
-                visualDensity: VisualDensity(vertical: 4),
-                title: Text('Nome do insumo aplicado'),
-                subtitle: Text('Breve descrição\nbreve descrição'),
-                trailing: const Icon(
-                  Icons.arrow_forward,
-                  color: Color.fromARGB(255, 2, 89, 47),
-                ),
-                leading: Icon(
-                  Icons.history_outlined,
-                  color: Color.fromARGB(255, 2, 89, 47),
-                  size: 35,
-                )),
+        itemBuilder: (context, index) => InkWell(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => viewLavouraInsumoPage()));
+          },
+          child: Card(
+            child: Container(
+              height: 200,
+              child: ListTile(
+                  tileColor: Color.fromARGB(255, 220, 220, 220),
+                  visualDensity: VisualDensity(vertical: 4),
+                  title: Text('Nome do insumo aplicado'),
+                  subtitle: Text('Breve descrição\nbreve descrição'),
+                  trailing: const Icon(
+                    Icons.arrow_forward,
+                    color: Color.fromARGB(255, 2, 89, 47),
+                  ),
+                  leading: Icon(
+                    Icons.history_outlined,
+                    color: Color.fromARGB(255, 2, 89, 47),
+                    size: 35,
+                  )),
+            ),
           ),
         ),
       ),

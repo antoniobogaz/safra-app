@@ -125,8 +125,16 @@ class _NavigationDrawerState extends State<NavigationDrawer1> {
               color: Colors.black54,
             ),
             ListTile(
-              leading: const Icon(Icons.exit_to_app),
-              title: const Text('Sair da Conta'),
+              leading: const Icon(
+                Icons.exit_to_app,
+                color: Color.fromARGB(255, 182, 19, 8),
+              ),
+              title: const Text(
+                'Sair da Conta',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 182, 19, 8),
+                ),
+              ),
               onTap: () {},
             ),
           ],

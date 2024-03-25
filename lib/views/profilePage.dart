@@ -123,9 +123,11 @@ class _profilePageState extends State<profilePage> {
                         width: 380,
                         height: 50,
                         decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
+                            //color: Colors.grey,
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 2)),
                         child: Row(
                           children: [
                             Padding(
@@ -151,9 +153,11 @@ class _profilePageState extends State<profilePage> {
                         width: 380,
                         height: 50,
                         decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
+                            color: Color.fromARGB(255, 182, 19, 8),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 2)),
                         child: Row(
                           children: [
                             Padding(
@@ -161,12 +165,17 @@ class _profilePageState extends State<profilePage> {
                               child: Text(
                                 'Sair da Conta',
                                 style: TextStyle(
-                                    fontSize: 17, fontWeight: FontWeight.w600),
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white),
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(left: 240.0),
-                              child: Icon(Icons.arrow_forward_ios),
+                              child: Icon(
+                                Icons.arrow_forward_ios,
+                                color: Colors.white,
+                              ),
                             )
                           ],
                         )),
