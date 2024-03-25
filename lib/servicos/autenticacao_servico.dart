@@ -16,6 +16,7 @@ class AutenticacaoServico {
       );
 
       await userCredential.user!.updateDisplayName(nome);
+
       return null;
     } on FirebaseAuthException catch (e) {
       if (e.code == "email-already-in-use") {

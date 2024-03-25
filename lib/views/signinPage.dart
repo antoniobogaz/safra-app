@@ -2,7 +2,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_safraapp/servicos/autenticacao_servico.dart';
 import 'package:flutter_safraapp/views/loginPage.dart';
-import 'package:flutter_safraapp/views/registrationScreenPF.dart';
+import 'package:flutter_safraapp/views/editProfile.dart';
 import 'package:flutter_safraapp/widgets/meu_snackbar.dart';
 
 class signinPage extends StatefulWidget {
@@ -194,10 +194,6 @@ class _signinPageState extends State<signinPage> {
               child: InkWell(
                 onTap: () {
                   metodoAutenticacao();
-                  /*Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => registrationScreenPF()));*/
                 },
                 child: Container(
                   height: 60,
@@ -276,6 +272,8 @@ class _signinPageState extends State<signinPage> {
               context: context,
               texto: "Cadastro efetuado com sucesso",
               isErro: false);
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => editProfilePage()));
         }
       },
     );
