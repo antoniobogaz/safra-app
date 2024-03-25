@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_safraapp/widgets/drawer.dart';
 import 'package:flutter_safraapp/views/viewLavouraInsumo.dart';
 
 class historicoPage extends StatefulWidget {
@@ -14,11 +13,16 @@ class _historicoPageState extends State<historicoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavigationDrawer1(),
       appBar: AppBar(
-        title: Text(
-          'Suas Aplicações',
-          style: TextStyle(fontSize: 22),
+        automaticallyImplyLeading: false,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              'Suas Aplicações',
+              style: TextStyle(fontSize: 22),
+            ),
+          ],
         ),
         flexibleSpace: Center(
           child: Padding(
@@ -26,10 +30,10 @@ class _historicoPageState extends State<historicoPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                /*Image.asset(
-                  'images/Logo_SafraApp3.png', // Substitua pelo caminho da sua imagem
-                  height: 40, // Ajuste a altura conforme necessário
-                ),*/
+                Image.asset(
+                  'images/Logo_SafraApp3.png',
+                  height: 40,
+                ),
               ],
             ),
           ),
@@ -49,13 +53,14 @@ class _historicoPageState extends State<historicoPage> {
                     builder: (context) => viewLavouraInsumoPage()));
           },
           child: Card(
+            margin: EdgeInsets.only(top: 1),
             child: Container(
-              height: 200,
+              height: 130,
               child: ListTile(
-                  tileColor: Color.fromARGB(255, 220, 220, 220),
+                  tileColor: Colors.white,
                   visualDensity: VisualDensity(vertical: 4),
                   title: Text('Nome do insumo aplicado'),
-                  subtitle: Text('Breve descrição\nbreve descrição'),
+                  subtitle: Text('Nome da Lavoura\nNome do Insumo Aplicado'),
                   trailing: const Icon(
                     Icons.arrow_forward,
                     color: Color.fromARGB(255, 2, 89, 47),

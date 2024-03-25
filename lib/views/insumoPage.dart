@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_safraapp/views/addInsumo.dart';
 import 'package:flutter_safraapp/views/viewInsumo.dart';
-import 'package:flutter_safraapp/widgets/drawer.dart';
 
 class insumoPage extends StatefulWidget {
   const insumoPage({super.key});
@@ -15,11 +14,16 @@ class _insumoPageState extends State<insumoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavigationDrawer1(),
       appBar: AppBar(
-        title: Text(
-          'Seus Insumos',
-          style: TextStyle(fontSize: 22),
+        automaticallyImplyLeading: false,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              'Seus Insumos',
+              style: TextStyle(fontSize: 22),
+            ),
+          ],
         ),
         flexibleSpace: Center(
           child: Padding(
@@ -56,9 +60,10 @@ class _insumoPageState extends State<insumoPage> {
                 MaterialPageRoute(builder: (context) => viewInsumoPage()));
           },
           child: Card(
+            margin: EdgeInsets.only(top: 1),
             child: ListTile(
-                tileColor: Color.fromARGB(255, 220, 220, 220),
-                visualDensity: VisualDensity(vertical: 4),
+                tileColor: Colors.white,
+                //visualDensity: VisualDensity(vertical: 4),
                 title: Text('Nome do Insumo'),
                 subtitle: Text('Descrição'),
                 trailing: const Icon(

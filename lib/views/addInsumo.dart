@@ -146,11 +146,23 @@ class _addInsumoPageState extends State<addInsumoPage> {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.only(top: 48.0, left: 12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'Identificação',
+                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 48.0),
+                  padding: const EdgeInsets.only(top: 8.0),
                   child: Container(
                     width: MediaQuery.of(context).size.width / 2.2,
                     height: 50,
@@ -176,7 +188,7 @@ class _addInsumoPageState extends State<addInsumoPage> {
                   width: 4,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 48.0),
+                  padding: const EdgeInsets.only(top: 8.0),
                   child: Container(
                     width: MediaQuery.of(context).size.width / 2.2,
                     height: 50,
@@ -242,6 +254,18 @@ class _addInsumoPageState extends State<addInsumoPage> {
                       hintStyle:
                           TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
                 ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 48.0, left: 12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'Informações Técnicas',
+                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
             ),
             Padding(
@@ -505,7 +529,7 @@ class _addInsumoPageState extends State<addInsumoPage> {
                   ),
                   child: Center(
                     child: Text(
-                      'salvar'.toUpperCase(),
+                      'adicionar insumo'.toUpperCase(),
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),

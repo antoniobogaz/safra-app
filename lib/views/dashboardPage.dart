@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_safraapp/views/viewLavouraInsumo.dart';
-import 'package:flutter_safraapp/widgets/drawer.dart';
 import 'package:flutter/cupertino.dart';
 
 class dashboardPage extends StatefulWidget {
@@ -16,20 +15,30 @@ class _dashboardPageState extends State<dashboardPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Suas Culturas',
-          style: TextStyle(fontSize: 22),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              'Suas Culturas',
+              style: TextStyle(fontSize: 22),
+            ),
+          ],
         ),
         flexibleSpace: Center(
           child: Padding(
             padding: const EdgeInsets.only(top: 30.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
-              children: [],
+              children: [
+                Image.asset(
+                  'images/Logo_SafraApp3.png', // Substitua pelo caminho da sua imagem
+                  height: 40, // Ajuste a altura conforme necessário
+                ),
+              ],
             ),
           ),
         ),
-        //automaticallyImplyLeading: false,
+        automaticallyImplyLeading: false,
         elevation: 0,
         backgroundColor: Color.fromARGB(255, 2, 89, 47),
         centerTitle: true,
@@ -44,9 +53,10 @@ class _dashboardPageState extends State<dashboardPage> {
                     builder: (context) => viewLavouraInsumoPage()));
           },
           child: Card(
+            margin: EdgeInsets.only(top: 1),
             child: ListTile(
-                tileColor: Color.fromARGB(255, 220, 220, 220),
-                visualDensity: VisualDensity(vertical: 4),
+                tileColor: Colors.white,
+                //visualDensity: VisualDensity(vertical: 4),
                 title: Text('Nome da Lavoura'),
                 subtitle: Text('Descrição'),
                 trailing: const Icon(
@@ -60,7 +70,6 @@ class _dashboardPageState extends State<dashboardPage> {
           ),
         ),
       ),
-      drawer: NavigationDrawer1(),
     );
   }
 }
