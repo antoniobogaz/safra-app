@@ -98,10 +98,10 @@ class _addInsumoPageState extends State<addInsumoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        /*title: Text(
+        title: Text(
           'Adicionar Insumo',
           style: TextStyle(fontSize: 22),
-        ),*/
+        ),
         flexibleSpace: Center(
           child: Padding(
             padding: const EdgeInsets.only(top: 30.0),
@@ -124,7 +124,7 @@ class _addInsumoPageState extends State<addInsumoPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
+            /*Container( 
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(50),
@@ -145,9 +145,9 @@ class _addInsumoPageState extends State<addInsumoPage> {
                   ),
                 ),
               ),
-            ),
+            ),*/
             Padding(
-              padding: const EdgeInsets.only(top: 48.0, left: 12),
+              padding: const EdgeInsets.only(top: 28.0, left: 12),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
