@@ -111,6 +111,7 @@ class _signinPageState extends State<signinPage> {
                   border: Border.all(
                       color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
               child: TextFormField(
+                keyboardType: TextInputType.emailAddress,
                 controller: _emailController,
                 validator: (String? value) {
                   if (value == null) {
@@ -232,7 +233,7 @@ class _signinPageState extends State<signinPage> {
                     padding: EdgeInsets.only(top: 200),
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => loginPage()));

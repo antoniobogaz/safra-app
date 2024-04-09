@@ -88,6 +88,7 @@ class _loginPageState extends State<loginPage> {
                               color: Color.fromARGB(255, 8, 46, 28),
                               width: 2.0)),
                       child: TextFormField(
+                        keyboardType: TextInputType.emailAddress,
                         controller: _emailController,
                         decoration: InputDecoration(
                             border: InputBorder.none,
@@ -214,7 +215,7 @@ class _loginPageState extends State<loginPage> {
                       padding: EdgeInsets.only(top: 150),
                       child: InkWell(
                         onTap: () {
-                          Navigator.push(
+                          Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => signinPage()));
@@ -248,7 +249,7 @@ class _loginPageState extends State<loginPage> {
         if (erro != null) {
           mostrarSnackBar(context: context, texto: erro);
         } else {
-          Navigator.push(
+          Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => homePage()));
         }
       },

@@ -590,7 +590,7 @@ class _editProfilePageState extends State<editProfilePage> {
                   ),
                   child: Center(
                     child: Text(
-                      'salvar informações'.toUpperCase(),
+                      'salvar'.toUpperCase(),
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),

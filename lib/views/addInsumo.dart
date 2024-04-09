@@ -98,9 +98,13 @@ class _addInsumoPageState extends State<addInsumoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Adicionar Insumo',
-          style: TextStyle(fontSize: 22),
+        title: Row(
+          children: [
+            Text(
+              'Adicionar Insumo',
+              style: TextStyle(fontSize: 22),
+            ),
+          ],
         ),
         flexibleSpace: Center(
           child: Padding(
@@ -529,7 +533,7 @@ class _addInsumoPageState extends State<addInsumoPage> {
                   ),
                   child: Center(
                     child: Text(
-                      'adicionar insumo'.toUpperCase(),
+                      'salvar'.toUpperCase(),
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),

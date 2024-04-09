@@ -19,7 +19,7 @@ class _historicoPageState extends State<historicoPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              'Suas Aplicações',
+              'Histórico de Aplicações',
               style: TextStyle(fontSize: 22),
             ),
           ],
@@ -55,7 +55,7 @@ class _historicoPageState extends State<historicoPage> {
           child: Card(
             margin: EdgeInsets.only(top: 1),
             child: Container(
-              height: 130,
+              //height: 130,
               child: ListTile(
                   tileColor: Colors.white,
                   visualDensity: VisualDensity(vertical: 4),
