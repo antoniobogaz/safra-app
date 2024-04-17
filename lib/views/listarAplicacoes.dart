@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_safraapp/views/viewAplicacao.dart';
-import 'package:flutter_safraapp/views/viewLavouraInsumo.dart';
 import 'package:flutter/cupertino.dart';
 
 class listarAplicacoesPage extends StatefulWidget {

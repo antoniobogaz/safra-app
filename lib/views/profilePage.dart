@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_safraapp/views/editProfile.dart';
+import 'package:flutter_safraapp/views/loginPage.dart';
+import 'package:flutter_safraapp/servicos/autenticacao_servico.dart';
+import 'package:flutter_safraapp/views/loginPage.dart';
+import 'package:flutter_safraapp/widgets/meu_snackbar.dart';
 //import 'package:google_nav_bar/google_nav_bar.dart';
 
 class profilePage extends StatefulWidget {
@@ -11,6 +15,7 @@ class profilePage extends StatefulWidget {
 
 @override
 class _profilePageState extends State<profilePage> {
+  AutenticacaoServico _autenServico = AutenticacaoServico();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -145,37 +150,43 @@ class _profilePageState extends State<profilePage> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 18.0),
-                  child: Container(
-                      width: 380,
-                      height: 50,
-                      decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 182, 19, 8),
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(
-                              color: Color.fromARGB(255, 8, 46, 28), width: 2)),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20.0),
-                            child: Text(
-                              'Sair da Conta',
-                              style: TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white),
+                InkWell(
+                  onTap: () {
+                    _metodologout();
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 18.0),
+                    child: Container(
+                        width: 380,
+                        height: 50,
+                        decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 182, 19, 8),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 2)),
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20.0),
+                              child: Text(
+                                'Sair da Conta',
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white),
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 240.0),
-                            child: Icon(
-                              Icons.arrow_forward_ios,
-                              color: Colors.white,
-                            ),
-                          )
-                        ],
-                      )),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 240.0),
+                              child: Icon(
+                                Icons.arrow_forward_ios,
+                                color: Colors.white,
+                              ),
+                            )
+                          ],
+                        )),
+                  ),
                 ),
               ],
             )
@@ -183,5 +194,30 @@ class _profilePageState extends State<profilePage> {
         ),
       ),
     );
+  }
+
+  _metodologout() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+              child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation(Color.fromARGB(255, 8, 46, 28)),
+          ));
+        });
+
+    _autenServico.logout().then((String? erro) {
+      if (erro != null) {
+        Navigator.of(context).pop();
+        mostrarSnackBar(context: context, texto: erro);
+      } else {
+        //Deu certo
+        Navigator.of(context).pop();
+        mostrarSnackBar(
+            context: context, texto: "Deslogado com sucesso", isErro: false);
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => loginPage()));
+      }
+    });
   }
 }

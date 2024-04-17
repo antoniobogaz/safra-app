@@ -243,12 +243,23 @@ class _loginPageState extends State<loginPage> {
     String email = _emailController.text;
     String senha = _senhaController.text;
 
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+              child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation(Color.fromARGB(255, 8, 46, 28)),
+          ));
+        });
+
     _autenServico.logarUsuarios(email: email, senha: senha).then(
       (String? erro) {
         //Voltou com erro
         if (erro != null) {
+          Navigator.of(context).pop();
           mostrarSnackBar(context: context, texto: erro);
         } else {
+          Navigator.of(context).pop();
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => homePage()));
         }

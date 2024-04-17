@@ -263,16 +263,27 @@ class _signinPageState extends State<signinPage> {
     String email = _emailController.text;
     String senha = _senhaController.text;
 
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+              child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation(Color.fromARGB(255, 8, 46, 28)),
+          ));
+        });
+
     _autenServico.cadastrarUsuario(nome: nome, senha: senha, email: email).then(
       (String? erro) {
         //Voltou com erro
         if (erro != null) {
+          Navigator.of(context).pop();
           mostrarSnackBar(context: context, texto: erro);
         } else {
           //Deu certo
+          Navigator.of(context).pop();
           mostrarSnackBar(
               context: context,
-              texto: "Cadastro efetuado com sucesso",
+              texto: "Conta criada com sucesso",
               isErro: false);
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => editProfilePage()));
