@@ -10,7 +10,7 @@ mostrarSnackBar({
     backgroundColor: (isErro) ? Colors.red : Colors.green,
     shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
-    duration: Duration(seconds: 6),
+    duration: Duration(seconds: 3),
     action: SnackBarAction(
       label: "Ok",
       textColor: Colors.white,

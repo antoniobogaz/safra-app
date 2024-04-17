@@ -15,6 +15,7 @@ class _listarAplicacoesPageState extends State<listarAplicacoesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: true,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -38,7 +39,6 @@ class _listarAplicacoesPageState extends State<listarAplicacoesPage> {
             ),
           ),
         ),
-        automaticallyImplyLeading: false,
         elevation: 0,
         backgroundColor: Color.fromARGB(255, 2, 89, 47),
         centerTitle: true,

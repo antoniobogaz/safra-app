@@ -446,35 +446,6 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
                     ],
                   ),
                   Container(
-                    padding: EdgeInsets.only(top: 30),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => lavouraPage()));
-                      },
-                      child: Container(
-                        height: 60,
-                        width: MediaQuery.of(context).size.width / 1.1,
-                        decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 2, 89, 47),
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(15),
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Editar lavoura'.toUpperCase(),
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
                     padding: EdgeInsets.only(top: 10),
                     child: InkWell(
                       onTap: () {

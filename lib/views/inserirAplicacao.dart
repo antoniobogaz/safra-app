@@ -9,6 +9,35 @@ class inserirAplicacaoPage extends StatefulWidget {
 
 @override
 class _inserirAplicacaoPageState extends State<inserirAplicacaoPage> {
+  String? _selectedValue_opcoesmedidas;
+  String? _selectedValue_medidatempo;
+
+  final List<String> _opcoes_medidas = [
+    '',
+    'L/ha',
+    'Kg/ha',
+    'mL/ha',
+    'g/ha',
+    'L/ac',
+    'Kg/ac',
+    'mL/L',
+    'g/L',
+    'UI/ha',
+    'gotas/m2',
+  ];
+
+  final List<String> _medidas_tempo = [
+    '',
+    'Horas',
+    'Dias',
+    'Semanas',
+    'Meses',
+    'Bimestres',
+    'Trimestres',
+    'Semestres',
+    'Anos',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,7 +100,7 @@ class _inserirAplicacaoPageState extends State<inserirAplicacaoPage> {
                     border: Border.all(
                         color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                 child: TextField(
-                  keyboardType: TextInputType.number,
+                  //keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Insumo',
@@ -97,7 +126,7 @@ class _inserirAplicacaoPageState extends State<inserirAplicacaoPage> {
                         border: Border.all(
                             color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                     child: TextField(
-                      keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.datetime,
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: 'Data da Aplicação',
@@ -134,7 +163,7 @@ class _inserirAplicacaoPageState extends State<inserirAplicacaoPage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 18.0),
                   child: Container(
-                    width: MediaQuery.of(context).size.width / 4.25,
+                    width: MediaQuery.of(context).size.width / 3.95,
                     height: 50,
                     padding: EdgeInsets.all(8),
                     decoration: BoxDecoration(
@@ -145,13 +174,28 @@ class _inserirAplicacaoPageState extends State<inserirAplicacaoPage> {
                         color: Colors.white,
                         border: Border.all(
                             color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
-                    child: TextField(
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Medida',
-                          hintStyle:
-                              TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
+                    child: DropdownButton(
+                      value: _selectedValue_opcoesmedidas,
+                      isExpanded: true,
+                      hint: const Text(
+                        'Medida',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 8, 46, 28),
+                        ),
+                      ),
+                      items: _opcoes_medidas.map<DropdownMenuItem<String>>(
+                        (String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        },
+                      ).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          _selectedValue_opcoesmedidas = newValue;
+                        });
+                      },
                     ),
                   ),
                 ),
@@ -171,7 +215,7 @@ class _inserirAplicacaoPageState extends State<inserirAplicacaoPage> {
                     border: Border.all(
                         color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                 child: TextField(
-                  keyboardType: TextInputType.number,
+                  //keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Método de Aplicação',
@@ -194,7 +238,7 @@ class _inserirAplicacaoPageState extends State<inserirAplicacaoPage> {
                     border: Border.all(
                         color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                 child: TextField(
-                  keyboardType: TextInputType.number,
+                  //keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Objetivo da Aplicação',
@@ -217,7 +261,7 @@ class _inserirAplicacaoPageState extends State<inserirAplicacaoPage> {
                     border: Border.all(
                         color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                 child: TextField(
-                  keyboardType: TextInputType.number,
+                  //keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Responsável pela Aplicação',
@@ -226,28 +270,74 @@ class _inserirAplicacaoPageState extends State<inserirAplicacaoPage> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 18.0),
-              child: Container(
-                width: MediaQuery.of(context).size.width / 1.1,
-                height: 50,
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(50),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(width: 5.5),
+                Padding(
+                  padding: const EdgeInsets.only(top: 18.0),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width / 1.52,
+                    height: 50,
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(50),
+                          bottomLeft: Radius.circular(50),
+                        ),
+                        color: Colors.white,
+                        border: Border.all(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Quantidade do Período de Carência',
+                          hintStyle:
+                              TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
                     ),
-                    color: Colors.white,
-                    border: Border.all(
-                        color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
-                child: TextField(
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Período de Carência',
-                      hintStyle:
-                          TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 18.0),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width / 3.95,
+                    height: 50,
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(50),
+                          bottomRight: Radius.circular(50),
+                        ),
+                        color: Colors.white,
+                        border: Border.all(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
+                    child: DropdownButton(
+                      value: _selectedValue_medidatempo,
+                      isExpanded: true,
+                      hint: const Text(
+                        'Tempo',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 8, 46, 28),
+                        ),
+                      ),
+                      items: _medidas_tempo.map<DropdownMenuItem<String>>(
+                        (String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        },
+                      ).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          _selectedValue_medidatempo = newValue;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.only(top: 18.0),
@@ -263,10 +353,11 @@ class _inserirAplicacaoPageState extends State<inserirAplicacaoPage> {
                     border: Border.all(
                         color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                 child: TextField(
-                  keyboardType: TextInputType.number,
+                  //keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'Observações',
+                      hintText:
+                          'Deixe aqui uma observação sobre esta aplicação',
                       hintStyle:
                           TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
                 ),
