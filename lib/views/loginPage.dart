@@ -241,9 +241,9 @@ class _loginPageState extends State<loginPage> {
 
   metodoLogin() {
     String email = _emailController.text;
-    String senha = _emailController.text;
+    String senha = _senhaController.text;
 
-    _autenServico.logarUsuarios(senha: senha, email: email).then(
+    _autenServico.logarUsuarios(email: email, senha: senha).then(
       (String? erro) {
         //Voltou com erro
         if (erro != null) {

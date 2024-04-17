@@ -79,6 +79,7 @@ class _signinPageState extends State<signinPage> {
                     border: Border.all(
                         color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                 child: TextFormField(
+                  keyboardType: TextInputType.text,
                   controller: _nomeController,
                   validator: (String? value) {
                     if (value == null) {
@@ -260,7 +261,7 @@ class _signinPageState extends State<signinPage> {
   metodoAutenticacao() {
     String nome = _nomeController.text;
     String email = _emailController.text;
-    String senha = _emailController.text;
+    String senha = _senhaController.text;
 
     _autenServico.cadastrarUsuario(nome: nome, senha: senha, email: email).then(
       (String? erro) {

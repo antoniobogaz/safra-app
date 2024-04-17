@@ -18,7 +18,7 @@ class _lavouraPageState extends State<lavouraPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              'Cadastrar Lavoura',
+              'Lavoura',
               style: TextStyle(fontSize: 22),
             ),
           ],

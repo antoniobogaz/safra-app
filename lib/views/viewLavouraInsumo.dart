@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_safraapp/views/inserirAplicacao.dart';
+import 'package:flutter_safraapp/views/lavouraPage.dart';
+import 'package:flutter_safraapp/views/listarAplicacoes.dart';
 
 class viewLavouraInsumoPage extends StatefulWidget {
   const viewLavouraInsumoPage({super.key});
@@ -11,12 +14,16 @@ class viewLavouraInsumoPage extends StatefulWidget {
 class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 2, 89, 47),
+      //backgroundColor: Color.fromARGB(255, 2, 89, 47),
       appBar: AppBar(
-        /*title: Text(
-          'Suas Culturas',
-          style: TextStyle(fontSize: 22),
-        ),*/
+        title: Row(
+          children: [
+            Text(
+              '<Nome da Lavoura>',
+              style: TextStyle(fontSize: 22),
+            ),
+          ],
+        ),
         flexibleSpace: Center(
           child: Padding(
             padding: const EdgeInsets.only(top: 30.0),
@@ -36,122 +43,499 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
         backgroundColor: Color.fromARGB(255, 2, 89, 47),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 8.0),
-        child: Container(
-          width: MediaQuery.of(context).size.width / 1.03,
-          height: 300,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(
-              Radius.circular(20),
-            ),
-          ),
-          child: Column(
-            children: [
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-                  child: Text(
-                    'Identificação',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold),
-                  ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Center(
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 300,
+                decoration: BoxDecoration(
+                    //color: Colors.white,
+                    ),
+                child: Center(
+                  child: Text('Google Maps'),
                 ),
               ),
-              Container(
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              //height: 300,
+              decoration: BoxDecoration(
                 color: Colors.white,
-                height: 1,
               ),
-              Row(
+              child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 18.0, left: 15),
-                    child: Text(
-                      'Nome Técnico do Insumo',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 18.0, left: 15, bottom: 20),
+                        child: Text(
+                          'Nome da Lavoura',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 8, 46, 28),
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const lavouraPage(),
+                                ));
+                              },
+                              icon: Icon(
+                                Icons.edit,
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                size: 25,
+                              )),
+                          IconButton(
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const lavouraPage(),
+                                ));
+                              },
+                              icon: Icon(
+                                Icons.delete,
+                                color: Color.fromARGB(255, 182, 19, 8),
+                                size: 25,
+                              )),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 18.0, left: 15),
+                        child: Text(
+                          'Tipo de Cultura',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 8, 46, 28),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 1, left: 15),
+                        child: Text(
+                          'Tipo de Cultura',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 8, 46, 28),
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 18.0, left: 15),
+                        child: Text(
+                          'Variedade de Cultura',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 8, 46, 28),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 1, left: 15),
+                        child: Text(
+                          'Variedade de Cultura',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 8, 46, 28),
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 18.0, left: 15),
+                        child: Text(
+                          'Data de Plantio',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 8, 46, 28),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 1, left: 15),
+                        child: Text(
+                          '01/01/2024',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 8, 46, 28),
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 18.0, left: 15),
+                        child: Text(
+                          'Sistema de Plantio',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 8, 46, 28),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 1, left: 15),
+                        child: Text(
+                          'Sistema de Plantio',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 8, 46, 28),
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 18.0, left: 15),
+                        child: Text(
+                          'Tipo de Solo',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 8, 46, 28),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 1, left: 15),
+                        child: Text(
+                          'Tipo de Solo',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 8, 46, 28),
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 18.0, left: 15),
+                        child: Text(
+                          'Nível de PH do Solo',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 8, 46, 28),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 1, left: 15),
+                        child: Text(
+                          'Nível de PH do Solo',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 8, 46, 28),
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 18.0, left: 15),
+                        child: Text(
+                          'Histórico de Cultivo',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 8, 46, 28),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 1, left: 15),
+                        child: Text(
+                          'Histórico de Cultivo',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 8, 46, 28),
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 18.0, left: 15),
+                        child: Text(
+                          'Irrigação',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 8, 46, 28),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 1, left: 15),
+                        child: Text(
+                          'Irrigação',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 8, 46, 28),
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 18.0, left: 15),
+                        child: Text(
+                          'Práticas de Manejo',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 8, 46, 28),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 1, left: 15),
+                        child: Text(
+                          'Práticas de Manejo',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 8, 46, 28),
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 18.0, left: 15),
+                        child: Text(
+                          'Estimativa de Produção',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 8, 46, 28),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 1, left: 15),
+                        child: Text(
+                          'Estimativa de Produção',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 8, 46, 28),
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 18.0, left: 15),
+                        child: Text(
+                          'Data Prevista de Colheita',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 8, 46, 28),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 1, left: 15),
+                        child: Text(
+                          'Data Prevista de Colheita',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 8, 46, 28),
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 18.0, left: 15),
+                        child: Text(
+                          'Produção Realizada',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 8, 46, 28),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(top: 1, left: 15, bottom: 15),
+                        child: Text(
+                          'Produção Realizada',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 8, 46, 28),
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(top: 30),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => lavouraPage()));
+                      },
+                      child: Container(
+                        height: 60,
+                        width: MediaQuery.of(context).size.width / 1.1,
+                        decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 2, 89, 47),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(15),
+                          ),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Editar lavoura'.toUpperCase(),
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ],
-              ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 1, left: 15),
-                    child: Text(
-                      'Nome Técnico do Insumo',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
+                  Container(
+                    padding: EdgeInsets.only(top: 10),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => listarAplicacoesPage()));
+                      },
+                      child: Container(
+                        height: 60,
+                        width: MediaQuery.of(context).size.width / 1.1,
+                        decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 2, 89, 47),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(15),
+                          ),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'listar aplicações'.toUpperCase(),
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(top: 10, bottom: 40),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => inserirAplicacaoPage()));
+                      },
+                      child: Container(
+                        height: 60,
+                        width: MediaQuery.of(context).size.width / 1.1,
+                        decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 8, 46, 28),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(15),
+                          ),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Inserir Aplicação'.toUpperCase(),
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
                       ),
                     ),
                   ),
                 ],
               ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 18.0, left: 15),
-                    child: Text(
-                      'Registro',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 1, left: 15),
-                    child: Text(
-                      'Nro registro ANVISA',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 18.0, left: 15),
-                    child: Text(
-                      'Fabricante',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(top: 1, left: 15, bottom: 50),
-                    child: Text(
-                      'Nome da Empresa Fabricante',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
