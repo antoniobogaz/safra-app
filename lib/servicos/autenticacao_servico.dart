@@ -46,6 +46,18 @@ class AutenticacaoServico {
     }
   }
 
+  Future<String?> resetPassword({required email}) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(
+        email: email,
+      );
+      return null;
+    } on FirebaseAuthException catch (e) {
+      //print('Error: $e');
+      return _mensagemErro(e.code);
+    }
+  }
+
   String _mensagemErro(String errorCode) {
     switch (errorCode) {
       case 'invalid-credential':

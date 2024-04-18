@@ -1,21 +1,54 @@
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_safraapp/views/loginPage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class forgotpassword extends StatefulWidget {
-  const forgotpassword({super.key});
+class forgotpassword extends StatelessWidget {
+  final TextEditingController emailController = TextEditingController();
+  forgotpassword({super.key});
 
-  @override
-  State<forgotpassword> createState() => _forgotpassword();
-}
+  void _resetPassword(BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(
+        email: emailController.text,
+      );
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
 
-class _forgotpassword extends State<forgotpassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              'Recuperação de Senha',
+              style: TextStyle(fontSize: 22),
+            ),
+          ],
+        ),
+        flexibleSpace: Center(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 30.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Image.asset(
+                  'images/Logo_SafraApp3.png',
+                  height: 40,
+                ),
+              ],
+            ),
+          ),
+        ),
+        //automaticallyImplyLeading: false,
+        elevation: 0,
         backgroundColor: Color.fromARGB(255, 2, 89, 47),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         reverse: true,
@@ -76,6 +109,7 @@ class _forgotpassword extends State<forgotpassword> {
                       border: Border.all(
                           color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                   child: TextField(
+                    controller: emailController,
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         icon: Icon(Icons.mail,
@@ -89,7 +123,7 @@ class _forgotpassword extends State<forgotpassword> {
               Container(
                 padding: EdgeInsets.only(top: 60),
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () => _resetPassword(context),
                   child: Container(
                     height: 60,
                     width: MediaQuery.of(context).size.width / 1.3,
@@ -101,7 +135,7 @@ class _forgotpassword extends State<forgotpassword> {
                     ),
                     child: Center(
                       child: Text(
-                        'Redefinir Senha'.toUpperCase(),
+                        'Enviar Email para redefinição'.toUpperCase(),
                         style: TextStyle(
                             color: Colors.white, fontWeight: FontWeight.bold),
                       ),
