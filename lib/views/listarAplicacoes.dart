@@ -44,7 +44,7 @@ class _listarAplicacoesPageState extends State<listarAplicacoesPage> {
         centerTitle: true,
       ),
       body: ListView.builder(
-        itemCount: 10,
+        itemCount: 5,
         itemBuilder: (context, index) => InkWell(
           onTap: () {
             Navigator.push(context,

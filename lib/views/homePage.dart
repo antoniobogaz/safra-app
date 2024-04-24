@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_safraapp/views/historicoPage.dart';
 import 'package:flutter_safraapp/views/insumoPage.dart';
-import 'package:flutter_safraapp/views/lavouraPage.dart';
 import 'package:flutter_safraapp/views/profilePage.dart';
 import 'package:flutter_safraapp/widgets/bottom_nav_bar.dart';
 import 'package:flutter_safraapp/views/dashboardPage.dart';

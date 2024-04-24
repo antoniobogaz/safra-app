@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_safraapp/views/inserirAplicacao.dart';
-import 'package:flutter_safraapp/views/lavouraPage.dart';
+import 'package:flutter_safraapp/views/cadernoCampo.dart';
 import 'package:flutter_safraapp/views/listarAplicacoes.dart';
 
 class viewLavouraInsumoPage extends StatefulWidget {
@@ -19,7 +18,7 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
         title: Row(
           children: [
             Text(
-              '<Nome da Lavoura>',
+              'Visão Geral',
               style: TextStyle(fontSize: 22),
             ),
           ],
@@ -73,7 +72,7 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
                         padding: const EdgeInsets.only(
                             top: 18.0, left: 15, bottom: 20),
                         child: Text(
-                          'Nome da Lavoura',
+                          'Nome da Propriedade',
                           style: TextStyle(
                               color: Color.fromARGB(255, 8, 46, 28),
                               fontSize: 30,
@@ -83,22 +82,14 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
                       Row(
                         children: [
                           IconButton(
-                              onPressed: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => const lavouraPage(),
-                                ));
-                              },
+                              onPressed: () {},
                               icon: Icon(
                                 Icons.edit,
                                 color: Color.fromARGB(255, 8, 46, 28),
                                 size: 25,
                               )),
                           IconButton(
-                              onPressed: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => const lavouraPage(),
-                                ));
-                              },
+                              onPressed: () {},
                               icon: Icon(
                                 Icons.delete,
                                 color: Color.fromARGB(255, 182, 19, 8),
@@ -225,7 +216,7 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
                       Padding(
                         padding: const EdgeInsets.only(top: 18.0, left: 15),
                         child: Text(
-                          'Tipo de Solo',
+                          'Tamanho da Área',
                           style: TextStyle(
                               color: Color.fromARGB(255, 8, 46, 28),
                               fontSize: 20,
@@ -239,204 +230,7 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
                       Padding(
                         padding: const EdgeInsets.only(top: 1, left: 15),
                         child: Text(
-                          'Tipo de Solo',
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 8, 46, 28),
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 18.0, left: 15),
-                        child: Text(
-                          'Nível de PH do Solo',
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 1, left: 15),
-                        child: Text(
-                          'Nível de PH do Solo',
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 8, 46, 28),
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 18.0, left: 15),
-                        child: Text(
-                          'Histórico de Cultivo',
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 1, left: 15),
-                        child: Text(
-                          'Histórico de Cultivo',
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 8, 46, 28),
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 18.0, left: 15),
-                        child: Text(
-                          'Irrigação',
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 1, left: 15),
-                        child: Text(
-                          'Irrigação',
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 8, 46, 28),
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 18.0, left: 15),
-                        child: Text(
-                          'Práticas de Manejo',
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 1, left: 15),
-                        child: Text(
-                          'Práticas de Manejo',
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 8, 46, 28),
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 18.0, left: 15),
-                        child: Text(
-                          'Estimativa de Produção',
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 1, left: 15),
-                        child: Text(
-                          'Estimativa de Produção',
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 8, 46, 28),
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 18.0, left: 15),
-                        child: Text(
-                          'Data Prevista de Colheita',
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 1, left: 15),
-                        child: Text(
-                          'Data Prevista de Colheita',
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 8, 46, 28),
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 18.0, left: 15),
-                        child: Text(
-                          'Produção Realizada',
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding:
-                            const EdgeInsets.only(top: 1, left: 15, bottom: 15),
-                        child: Text(
-                          'Produção Realizada',
+                          'Tamanho da Área',
                           style: TextStyle(
                             color: Color.fromARGB(255, 8, 46, 28),
                             fontSize: 18,
@@ -446,7 +240,7 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
                     ],
                   ),
                   Container(
-                    padding: EdgeInsets.only(top: 10),
+                    padding: EdgeInsets.only(top: 30),
                     child: InkWell(
                       onTap: () {
                         Navigator.push(
@@ -475,13 +269,13 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.only(top: 10, bottom: 40),
+                    padding: EdgeInsets.only(top: 10, bottom: 5),
                     child: InkWell(
                       onTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => inserirAplicacaoPage()));
+                                builder: (context) => cadernoCampoPage()));
                       },
                       child: Container(
                         height: 60,

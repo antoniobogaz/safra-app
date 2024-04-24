@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_safraapp/views/addInsumo.dart';
 
 class viewAplicacaoPage extends StatefulWidget {
   const viewAplicacaoPage({super.key});
@@ -28,11 +27,7 @@ class _viewAplicacaoPageState extends State<viewAplicacaoPage> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   IconButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const addInsumoPage(),
-                        ));
-                      },
+                      onPressed: () {},
                       icon: Icon(
                         Icons.edit,
                         color: Colors.white,

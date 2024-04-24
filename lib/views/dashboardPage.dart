@@ -3,6 +3,7 @@ import 'package:flutter_safraapp/views/viewLavouraInsumo.dart';
 import 'package:flutter_safraapp/servicos/autenticacao_servico.dart';
 import 'package:flutter_safraapp/views/loginPage.dart';
 import 'package:flutter_safraapp/widgets/meu_snackbar.dart';
+import 'package:flutter_safraapp/views/cadernoCampo.dart';
 
 class dashboardPage extends StatefulWidget {
   const dashboardPage({super.key});
@@ -22,7 +23,7 @@ class _dashboardPageState extends State<dashboardPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              'Suas Culturas',
+              'Suas Lavouras',
               style: TextStyle(fontSize: 22),
             ),
           ],
@@ -33,10 +34,17 @@ class _dashboardPageState extends State<dashboardPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Image.asset(
-                  'images/Logo_SafraApp3.png', // Substitua pelo caminho da sua imagem
-                  height: 40, // Ajuste a altura conforme necessário
-                ),
+                IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => cadernoCampoPage()));
+                    },
+                    icon: Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ))
               ],
             ),
           ),
@@ -49,7 +57,7 @@ class _dashboardPageState extends State<dashboardPage> {
       body: WillPopScope(
         onWillPop: () => _onBackButtonPressed(context),
         child: ListView.builder(
-          itemCount: 10,
+          itemCount: 5,
           itemBuilder: (context, index) => InkWell(
             onTap: () {
               Navigator.push(
