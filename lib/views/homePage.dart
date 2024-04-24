@@ -25,7 +25,6 @@ class _homePageState extends State<homePage> {
   //pages
   final List<Widget> _pages = [
     dashboardPage(),
-    lavouraPage(),
     insumoPage(),
     historicoPage(),
     profilePage(),
