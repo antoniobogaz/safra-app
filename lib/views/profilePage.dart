@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_safraapp/views/editProfile.dart';
 import 'package:flutter_safraapp/views/loginPage.dart';
 import 'package:flutter_safraapp/servicos/autenticacao_servico.dart';
-import 'package:flutter_safraapp/views/loginPage.dart';
 import 'package:flutter_safraapp/widgets/meu_snackbar.dart';
 //import 'package:google_nav_bar/google_nav_bar.dart';
 

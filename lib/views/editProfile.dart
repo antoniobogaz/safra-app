@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_safraapp/views/homePage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class editProfilePage extends StatefulWidget {
   const editProfilePage({super.key});
@@ -7,6 +8,8 @@ class editProfilePage extends StatefulWidget {
   @override
   State<editProfilePage> createState() => _editProfilePageState();
 }
+
+final firestore = FirebaseFirestore.instance;
 
 @override
 class _editProfilePageState extends State<editProfilePage> {

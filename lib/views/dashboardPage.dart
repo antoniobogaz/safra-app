@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_safraapp/views/viewLavouraInsumo.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_safraapp/servicos/autenticacao_servico.dart';
 import 'package:flutter_safraapp/views/loginPage.dart';
 import 'package:flutter_safraapp/widgets/meu_snackbar.dart';
