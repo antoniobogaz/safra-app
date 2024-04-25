@@ -46,25 +46,30 @@ class _mapsPageState extends State<mapsPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 25.0),
+                  padding: const EdgeInsets.only(top: 18.0),
                   child: Container(
                     width: MediaQuery.of(context).size.width / 1.1,
                     height: 50,
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(50),
-                        ),
-                        color: Colors.white,
-                        border: Border.all(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                     child: TextField(
                       decoration: InputDecoration(
-                          icon: Icon(Icons.search),
+                          prefixIcon: Icon(Icons.search,
+                              color: Color.fromARGB(255, 8, 46, 28)),
                           border: InputBorder.none,
-                          hintText: 'Pesquisar',
-                          hintStyle:
-                              TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
+                          labelText: 'Pesquisar Localização do Talhão',
+                          labelStyle:
+                              TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5),
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5),
+                            borderRadius: BorderRadius.circular(50),
+                          )),
                     ),
                   ),
                 ),

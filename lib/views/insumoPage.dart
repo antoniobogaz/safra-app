@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_safraapp/servicos/autenticacao_servico.dart';
+import 'package:flutter_safraapp/views/editInsumo.dart';
 import 'package:flutter_safraapp/views/loginPage.dart';
 import 'package:flutter_safraapp/widgets/meu_snackbar.dart';
 
@@ -49,7 +50,12 @@ class _insumoPageState extends State<insumoPage> {
                     trailing: Wrap(
                       children: [
                         IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => editInsumoPage()));
+                            },
                             icon: Icon(
                               Icons.edit,
                               color: Color.fromARGB(255, 8, 46, 28),

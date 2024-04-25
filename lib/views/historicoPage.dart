@@ -50,7 +50,7 @@ class _historicoPageState extends State<historicoPage> {
       body: WillPopScope(
         onWillPop: () => _onBackButtonPressed(context),
         child: ListView.builder(
-          itemCount: 10,
+          itemCount: 5,
           itemBuilder: (context, index) => InkWell(
             onTap: () {
               Navigator.push(

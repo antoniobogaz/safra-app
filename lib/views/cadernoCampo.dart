@@ -116,24 +116,24 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 18.0),
-              child: Container(
+              child: SizedBox(
                 width: MediaQuery.of(context).size.width / 1.1,
                 height: 50,
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(50),
-                    ),
-                    color: Colors.white,
-                    border: Border.all(
-                        color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                 child: TextField(
-                  //keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Nome',
-                      hintStyle:
-                          TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
+                      labelText: 'Nome da Propriedade',
+                      labelStyle:
+                          TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      )),
                 ),
               ),
             ),
@@ -143,25 +143,32 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                 SizedBox(width: 5.5),
                 Padding(
                   padding: const EdgeInsets.only(top: 18.0),
-                  child: Container(
+                  child: SizedBox(
                     width: MediaQuery.of(context).size.width / 1.52,
                     height: 50,
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(50),
-                          bottomLeft: Radius.circular(50),
-                        ),
-                        color: Colors.white,
-                        border: Border.all(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                     child: TextField(
-                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Tamanho da Área',
-                          hintStyle:
-                              TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
+                          labelText: 'Tamanho da Área',
+                          labelStyle:
+                              TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(50),
+                              bottomLeft: Radius.circular(50),
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(50),
+                              bottomLeft: Radius.circular(50),
+                            ),
+                          )),
                     ),
                   ),
                 ),
@@ -178,7 +185,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                         ),
                         color: Colors.white,
                         border: Border.all(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5)),
                     child: DropdownButton(
                       value: _selectedValue_medidaterreno,
                       isExpanded: true,
@@ -208,47 +215,47 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 18.0),
-              child: Container(
+              child: SizedBox(
                 width: MediaQuery.of(context).size.width / 1.1,
                 height: 50,
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(50),
-                    ),
-                    color: Colors.white,
-                    border: Border.all(
-                        color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                 child: TextField(
-                  //keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Cultura',
-                      hintStyle:
-                          TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
+                      labelText: 'Cultura',
+                      labelStyle:
+                          TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      )),
                 ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 18.0),
-              child: Container(
+              child: SizedBox(
                 width: MediaQuery.of(context).size.width / 1.1,
                 height: 50,
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(50),
-                    ),
-                    color: Colors.white,
-                    border: Border.all(
-                        color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                 child: TextField(
-                  //keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Variedade',
-                      hintStyle:
-                          TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
+                      labelText: 'Variedade',
+                      labelStyle:
+                          TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      )),
                 ),
               ),
             ),
@@ -257,48 +264,52 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 18.0),
-                  child: Container(
+                  child: SizedBox(
                     width: MediaQuery.of(context).size.width / 2.25,
                     height: 50,
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(50),
-                        ),
-                        color: Colors.white,
-                        border: Border.all(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                     child: TextField(
-                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Data de Plantio',
-                          hintStyle:
-                              TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
+                          labelText: 'Data de Plantio',
+                          labelStyle:
+                              TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5),
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5),
+                            borderRadius: BorderRadius.circular(50),
+                          )),
                     ),
                   ),
                 ),
                 SizedBox(width: 5.5),
                 Padding(
                   padding: const EdgeInsets.only(top: 18.0),
-                  child: Container(
+                  child: SizedBox(
                     width: MediaQuery.of(context).size.width / 2.25,
                     height: 50,
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(50),
-                        ),
-                        color: Colors.white,
-                        border: Border.all(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                     child: TextField(
-                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Sistema de Plantio',
-                          hintStyle:
-                              TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
+                          labelText: 'Sistema de Plantio',
+                          labelStyle:
+                              TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5),
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5),
+                            borderRadius: BorderRadius.circular(50),
+                          )),
                     ),
                   ),
                 ),
@@ -345,50 +356,64 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 18.0),
-                  child: Container(
+                  child: SizedBox(
                     width: MediaQuery.of(context).size.width / 2.25,
                     height: 50,
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(50),
-                          topLeft: Radius.circular(50),
-                        ),
-                        color: Colors.white,
-                        border: Border.all(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                     child: TextField(
-                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Latitude',
-                          hintStyle:
-                              TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
+                          labelText: 'Latitude',
+                          labelStyle:
+                              TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(50),
+                              bottomLeft: Radius.circular(50),
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(50),
+                              bottomLeft: Radius.circular(50),
+                            ),
+                          )),
                     ),
                   ),
                 ),
                 SizedBox(width: 5.5),
                 Padding(
                   padding: const EdgeInsets.only(top: 18.0),
-                  child: Container(
+                  child: SizedBox(
                     width: MediaQuery.of(context).size.width / 2.25,
                     height: 50,
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          bottomRight: Radius.circular(50),
-                          topRight: Radius.circular(50),
-                        ),
-                        color: Colors.white,
-                        border: Border.all(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                     child: TextField(
-                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Longitude',
-                          hintStyle:
-                              TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
+                          labelText: 'Longitude',
+                          labelStyle:
+                              TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5),
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(50),
+                              bottomRight: Radius.circular(50),
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5),
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(50),
+                              bottomRight: Radius.circular(50),
+                            ),
+                          )),
                     ),
                   ),
                 ),
@@ -408,24 +433,24 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 18.0),
-              child: Container(
+              child: SizedBox(
                 width: MediaQuery.of(context).size.width / 1.1,
                 height: 50,
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(50),
-                    ),
-                    color: Colors.white,
-                    border: Border.all(
-                        color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                 child: TextField(
-                  //keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Nome do Produto',
-                      hintStyle:
-                          TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
+                      labelText: 'Nome do Produto',
+                      labelStyle:
+                          TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      )),
                 ),
               ),
             ),
@@ -441,7 +466,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                     ),
                     color: Colors.white,
                     border: Border.all(
-                        color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
+                        color: Color.fromARGB(255, 8, 46, 28), width: 1.5)),
                 child: DropdownButton(
                   value: _selectedValue_classe,
                   isExpanded: true,
@@ -480,7 +505,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                     ),
                     color: Colors.white,
                     border: Border.all(
-                        color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
+                        color: Color.fromARGB(255, 8, 46, 28), width: 1.5)),
                 child: DropdownButton(
                   value: _selectedValue_toxicidade,
                   isExpanded: true,
@@ -510,49 +535,58 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 18.0),
-                  child: Container(
+                  child: SizedBox(
                     width: MediaQuery.of(context).size.width / 2.95,
                     height: 50,
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(50),
-                        ),
-                        color: Colors.white,
-                        border: Border.all(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                     child: TextField(
-                      keyboardType: TextInputType.datetime,
                       decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Data da Aplicação',
-                          hintStyle:
-                              TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
+                          labelText: 'Data da Aplicação',
+                          labelStyle:
+                              TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5),
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5),
+                            borderRadius: BorderRadius.circular(50),
+                          )),
                     ),
                   ),
                 ),
                 SizedBox(width: 5.5),
                 Padding(
                   padding: const EdgeInsets.only(top: 18.0),
-                  child: Container(
+                  child: SizedBox(
                     width: MediaQuery.of(context).size.width / 3.25,
                     height: 50,
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(50),
-                          bottomLeft: Radius.circular(50),
-                        ),
-                        color: Colors.white,
-                        border: Border.all(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                     child: TextField(
-                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Dose Aplicada',
-                          hintStyle:
-                              TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
+                          labelText: 'Dose Aplicada',
+                          labelStyle:
+                              TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(50),
+                              bottomLeft: Radius.circular(50),
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(50),
+                              bottomLeft: Radius.circular(50),
+                            ),
+                          )),
                     ),
                   ),
                 ),
@@ -569,7 +603,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                         ),
                         color: Colors.white,
                         border: Border.all(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5)),
                     child: DropdownButton(
                       value: _selectedValue_opcoesmedidas,
                       isExpanded: true,
@@ -599,47 +633,47 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 18.0),
-              child: Container(
+              child: SizedBox(
                 width: MediaQuery.of(context).size.width / 1.1,
                 height: 50,
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(50),
-                    ),
-                    color: Colors.white,
-                    border: Border.all(
-                        color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                 child: TextField(
-                  //keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Método de Aplicação',
-                      hintStyle:
-                          TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
+                      labelText: 'Método de Aplicação',
+                      labelStyle:
+                          TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      )),
                 ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 18.0),
-              child: Container(
+              child: SizedBox(
                 width: MediaQuery.of(context).size.width / 1.1,
                 height: 50,
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(50),
-                    ),
-                    color: Colors.white,
-                    border: Border.all(
-                        color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                 child: TextField(
-                  //keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Responsável pela Aplicação',
-                      hintStyle:
-                          TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
+                      labelText: 'Responsável pela Aplicação',
+                      labelStyle:
+                          TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      )),
                 ),
               ),
             ),
@@ -649,25 +683,32 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                 SizedBox(width: 5.5),
                 Padding(
                   padding: const EdgeInsets.only(top: 18.0),
-                  child: Container(
+                  child: SizedBox(
                     width: MediaQuery.of(context).size.width / 1.52,
                     height: 50,
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(50),
-                          bottomLeft: Radius.circular(50),
-                        ),
-                        color: Colors.white,
-                        border: Border.all(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                     child: TextField(
-                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Período de Carência',
-                          hintStyle:
-                              TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
+                          labelText: 'Período de Carência',
+                          labelStyle:
+                              TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(50),
+                              bottomLeft: Radius.circular(50),
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(50),
+                              bottomLeft: Radius.circular(50),
+                            ),
+                          )),
                     ),
                   ),
                 ),
@@ -684,7 +725,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                         ),
                         color: Colors.white,
                         border: Border.all(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5)),
                     child: DropdownButton(
                       value: _selectedValue_medidatempo,
                       isExpanded: true,
@@ -714,29 +755,29 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 18.0),
-              child: Container(
+              child: SizedBox(
                 width: MediaQuery.of(context).size.width / 1.1,
-                height: 200,
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(20),
-                    ),
-                    color: Colors.white,
-                    border: Border.all(
-                        color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
+                height: 50,
                 child: TextField(
-                  //keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Observações',
-                      hintStyle:
-                          TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
+                      labelText: 'Observações',
+                      labelStyle:
+                          TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      )),
                 ),
               ),
             ),
             Container(
-              padding: EdgeInsets.only(top: 50, bottom: 10),
+              padding: EdgeInsets.only(top: 30, bottom: 10),
               child: InkWell(
                 onTap: () {},
                 child: Container(

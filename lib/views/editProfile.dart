@@ -92,112 +92,117 @@ class _editProfilePageState extends State<editProfilePage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 15.0),
-              child: Container(
-                width: MediaQuery.of(context).size.width / 1.06,
+              padding: const EdgeInsets.only(top: 18.0),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width / 1.1,
                 height: 50,
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(50),
-                    ),
-                    color: Colors.white,
-                    border: Border.all(
-                        color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                 child: TextField(
                   decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Nome da Empresa',
-                      hintStyle:
-                          TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
+                      labelText: 'Nome da Empresa',
+                      labelStyle:
+                          TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      )),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 15.0),
-              child: Container(
-                width: MediaQuery.of(context).size.width / 1.06,
+              padding: const EdgeInsets.only(top: 18.0),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width / 1.1,
                 height: 50,
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(50),
-                    ),
-                    color: Colors.white,
-                    border: Border.all(
-                        color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                 child: TextField(
                   decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'CNPJ',
-                      hintStyle:
-                          TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
+                      labelText: 'CNPJ',
+                      labelStyle:
+                          TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      )),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 15.0),
-              child: Container(
-                width: MediaQuery.of(context).size.width / 1.06,
+              padding: const EdgeInsets.only(top: 18.0),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width / 1.1,
                 height: 50,
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(50),
-                    ),
-                    color: Colors.white,
-                    border: Border.all(
-                        color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                 child: TextField(
                   decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Razão Social',
-                      hintStyle:
-                          TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
+                      labelText: 'Razão Social',
+                      labelStyle:
+                          TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      )),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 15.0),
-              child: Container(
-                width: MediaQuery.of(context).size.width / 1.06,
+              padding: const EdgeInsets.only(top: 18.0),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width / 1.1,
                 height: 50,
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(50),
-                    ),
-                    color: Colors.white,
-                    border: Border.all(
-                        color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                 child: TextField(
                   decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Nome Fantasia',
-                      hintStyle:
-                          TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
+                      labelText: 'Nome Fantasia',
+                      labelStyle:
+                          TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      )),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 15.0),
-              child: Container(
-                width: MediaQuery.of(context).size.width / 1.06,
+              padding: const EdgeInsets.only(top: 18.0),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width / 1.1,
                 height: 50,
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(50),
-                    ),
-                    color: Colors.white,
-                    border: Border.all(
-                        color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                 child: TextField(
                   decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Responsável Legal',
-                      hintStyle:
-                          TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
+                      labelText: 'Responsável Legal',
+                      labelStyle:
+                          TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      )),
                 ),
               ),
             ),
@@ -214,118 +219,129 @@ class _editProfilePageState extends State<editProfilePage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 12.0),
-              child: Container(
-                width: MediaQuery.of(context).size.width / 1.06,
+              padding: const EdgeInsets.only(top: 18.0),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width / 1.1,
                 height: 50,
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(50),
-                    ),
-                    color: Colors.white,
-                    border: Border.all(
-                        color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                 child: TextField(
                   decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Rua',
-                      hintStyle:
-                          TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
+                      labelText: 'Rua',
+                      labelStyle:
+                          TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      )),
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 15.0, left: 12),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width / 4.0,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 18.0),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width / 4,
                     height: 50,
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(50),
-                        ),
-                        color: Colors.white,
-                        border: Border.all(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                     child: TextField(
                       decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Número',
-                          hintStyle:
-                              TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 12.0),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 1.5,
-                      height: 50,
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(50),
+                          labelText: 'Número',
+                          labelStyle:
+                              TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5),
+                            borderRadius: BorderRadius.circular(50),
                           ),
-                          color: Colors.white,
-                          border: Border.all(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 2.0)),
-                      child: TextField(
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'Bairro',
-                            hintStyle: TextStyle(
-                                color: Color.fromARGB(255, 8, 46, 28))),
-                      ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5),
+                            borderRadius: BorderRadius.circular(50),
+                          )),
                     ),
                   ),
-                ],
-              ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 18.0),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width / 1.57,
+                    height: 50,
+                    child: TextField(
+                      decoration: InputDecoration(
+                          labelText: 'Bairro',
+                          labelStyle:
+                              TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5),
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5),
+                            borderRadius: BorderRadius.circular(50),
+                          )),
+                    ),
+                  ),
+                ),
+              ],
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 12.0),
-              child: Container(
-                width: MediaQuery.of(context).size.width / 1.06,
+              padding: const EdgeInsets.only(top: 18.0),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width / 1.1,
                 height: 50,
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(50),
-                    ),
-                    color: Colors.white,
-                    border: Border.all(
-                        color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                 child: TextField(
                   decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Cidade',
-                      hintStyle:
-                          TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
+                      labelText: 'Cidade',
+                      labelStyle:
+                          TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      )),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 12.0),
-              child: Container(
-                width: MediaQuery.of(context).size.width / 1.06,
+              padding: const EdgeInsets.only(top: 18.0),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width / 1.1,
                 height: 50,
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(50),
-                    ),
-                    color: Colors.white,
-                    border: Border.all(
-                        color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                 child: TextField(
                   decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Estado',
-                      hintStyle:
-                          TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
+                      labelText: 'Estado',
+                      labelStyle:
+                          TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      )),
                 ),
               ),
             ),
@@ -346,45 +362,56 @@ class _editProfilePageState extends State<editProfilePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width / 2.2,
-                    height: 50,
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(50),
-                        ),
-                        color: Colors.white,
-                        border: Border.all(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
-                    child: TextField(
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Nome',
-                          hintStyle:
-                              TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
-                    ),
-                  ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 12.0),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 2.2,
+                    padding: const EdgeInsets.only(top: 18.0),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width / 2.3,
                       height: 50,
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(50),
-                          ),
-                          color: Colors.white,
-                          border: Border.all(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 2.0)),
                       child: TextField(
                         decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'Sobrenome',
-                            hintStyle: TextStyle(
-                                color: Color.fromARGB(255, 8, 46, 28))),
+                            labelText: 'Nome',
+                            labelStyle: TextStyle(
+                                color: Color.fromARGB(255, 8, 46, 28)),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color.fromARGB(255, 8, 46, 28),
+                                  width: 1.5),
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 8, 46, 28),
+                                  width: 1.5),
+                              borderRadius: BorderRadius.circular(50),
+                            )),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 18.0),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width / 2.3,
+                      height: 50,
+                      child: TextField(
+                        decoration: InputDecoration(
+                            labelText: 'Sobrenome',
+                            labelStyle: TextStyle(
+                                color: Color.fromARGB(255, 8, 46, 28)),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color.fromARGB(255, 8, 46, 28),
+                                  width: 1.5),
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 8, 46, 28),
+                                  width: 1.5),
+                              borderRadius: BorderRadius.circular(50),
+                            )),
                       ),
                     ),
                   ),
@@ -392,125 +419,107 @@ class _editProfilePageState extends State<editProfilePage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 15.0),
-              child: Container(
-                width: MediaQuery.of(context).size.width / 1.06,
+              padding: const EdgeInsets.only(top: 18.0),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width / 1.1,
                 height: 50,
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(50),
-                    ),
-                    color: Colors.white,
-                    border: Border.all(
-                        color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                 child: TextField(
                   decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Email',
-                      hintStyle:
-                          TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
+                      labelText: 'Email',
+                      labelStyle:
+                          TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      )),
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 15.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width / 2.2,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 18.0),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width / 2.3,
                     height: 50,
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(50),
-                        ),
-                        color: Colors.white,
-                        border: Border.all(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                     child: TextField(
                       decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'CPF',
-                          hintStyle:
-                              TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 12.0),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 2.2,
-                      height: 50,
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(50),
+                          labelText: 'CPF',
+                          labelStyle:
+                              TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5),
+                            borderRadius: BorderRadius.circular(50),
                           ),
-                          color: Colors.white,
-                          border: Border.all(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 2.0)),
-                      child: TextField(
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'RG',
-                            hintStyle: TextStyle(
-                                color: Color.fromARGB(255, 8, 46, 28))),
-                      ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5),
+                            borderRadius: BorderRadius.circular(50),
+                          )),
                     ),
                   ),
-                ],
-              ),
+                ),
+                SizedBox(
+                  width: 15,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 18.0),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width / 2.3,
+                    height: 50,
+                    child: TextField(
+                      decoration: InputDecoration(
+                          labelText: 'RG',
+                          labelStyle:
+                              TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5),
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5),
+                            borderRadius: BorderRadius.circular(50),
+                          )),
+                    ),
+                  ),
+                ),
+              ],
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 15.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width / 2.2,
-                    height: 50,
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(50),
-                        ),
-                        color: Colors.white,
-                        border: Border.all(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
-                    child: TextField(
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Data de Nascimento',
-                          hintStyle:
-                              TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 12.0),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 2.2,
-                      height: 50,
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(50),
-                          ),
-                          color: Colors.white,
-                          border: Border.all(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 2.0)),
-                      child: TextField(
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'Gênero',
-                            hintStyle: TextStyle(
-                                color: Color.fromARGB(255, 8, 46, 28))),
+              padding: const EdgeInsets.only(top: 18.0),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width / 1.1,
+                height: 50,
+                child: TextField(
+                  decoration: InputDecoration(
+                      labelText: 'Data de Nascimento',
+                      labelStyle:
+                          TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
                       ),
-                    ),
-                  ),
-                ],
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderRadius: BorderRadius.circular(50),
+                      )),
+                ),
               ),
             ),
             Padding(
@@ -525,55 +534,63 @@ class _editProfilePageState extends State<editProfilePage> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 15.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width / 2.2,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 18.0),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width / 2.3,
                     height: 50,
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(50),
-                        ),
-                        color: Colors.white,
-                        border: Border.all(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                     child: TextField(
                       decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Telefone',
-                          hintStyle:
-                              TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 12.0),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 2.2,
-                      height: 50,
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(50),
+                          labelText: 'CPF',
+                          labelStyle:
+                              TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5),
+                            borderRadius: BorderRadius.circular(50),
                           ),
-                          color: Colors.white,
-                          border: Border.all(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 2.0)),
-                      child: TextField(
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'Celular',
-                            hintStyle: TextStyle(
-                                color: Color.fromARGB(255, 8, 46, 28))),
-                      ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5),
+                            borderRadius: BorderRadius.circular(50),
+                          )),
                     ),
                   ),
-                ],
-              ),
+                ),
+                SizedBox(
+                  width: 15,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 18.0),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width / 2.3,
+                    height: 50,
+                    child: TextField(
+                      decoration: InputDecoration(
+                          labelText: 'RG',
+                          labelStyle:
+                              TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5),
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5),
+                            borderRadius: BorderRadius.circular(50),
+                          )),
+                    ),
+                  ),
+                ),
+              ],
             ),
             Container(
               padding: EdgeInsets.only(top: 70, bottom: 40),

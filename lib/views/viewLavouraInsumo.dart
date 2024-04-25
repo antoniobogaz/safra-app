@@ -82,7 +82,13 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
                       Row(
                         children: [
                           IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            cadernoCampoPage()));
+                              },
                               icon: Icon(
                                 Icons.edit,
                                 color: Color.fromARGB(255, 8, 46, 28),
