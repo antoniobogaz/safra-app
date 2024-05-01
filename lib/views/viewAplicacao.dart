@@ -115,6 +115,64 @@ class _viewAplicacaoPageState extends State<viewAplicacaoPage> {
                               padding:
                                   const EdgeInsets.only(top: 18.0, left: 15),
                               child: Text(
+                                'Alvo Biológico do Defensivo',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 1, left: 15),
+                              child: Text(
+                                'Alvo Biológico do Defensivo',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 18.0, left: 15),
+                              child: Text(
+                                'Nível de Toxicidade do Desfensivo',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 1, left: 15),
+                              child: Text(
+                                'Nível de Toxicidade do Desfensivo',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 18.0, left: 15),
+                              child: Text(
                                 'Data da Aplicação',
                                 style: TextStyle(
                                     color: Colors.white,

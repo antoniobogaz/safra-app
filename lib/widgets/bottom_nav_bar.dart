@@ -29,10 +29,6 @@ class MyBottomNavBar extends StatelessWidget {
               text: 'Início',
             ),
             GButton(
-              icon: Icons.water_drop,
-              text: 'Insumo',
-            ),
-            GButton(
               icon: Icons.history_outlined,
               text: 'Histórico',
             ),

@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_safraapp/views/viewLavouraInsumo.dart';
 import 'package:flutter_safraapp/servicos/autenticacao_servico.dart';
@@ -15,6 +17,35 @@ class dashboardPage extends StatefulWidget {
 class _dashboardPageState extends State<dashboardPage> {
   var height, width;
   AutenticacaoServico _autenServico = AutenticacaoServico();
+
+  List<DocumentSnapshot> lavouras = [];
+
+  void iniciarEscutaLavouras() {
+    var colecao = firestore
+        .collection('lavouras')
+        .where('uid', isEqualTo: user.uid)
+        .orderBy('nomePropriedade');
+    colecao.snapshots().listen((snapshot) {
+      setState(() {
+        lavouras = snapshot.docs;
+      });
+    }, onError: (error) {
+      mostrarSnackBar(
+          context: context,
+          texto: "Erro ao escutar lavouras: $error",
+          isErro: true);
+    });
+  }
+
+  final user = FirebaseAuth.instance.currentUser!;
+  final firestore = FirebaseFirestore.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    iniciarEscutaLavouras();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +54,7 @@ class _dashboardPageState extends State<dashboardPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              'Suas Lavouras',
+              "Olá, ${user.displayName}",
               style: TextStyle(fontSize: 22),
             ),
           ],
@@ -57,31 +88,36 @@ class _dashboardPageState extends State<dashboardPage> {
       body: WillPopScope(
         onWillPop: () => _onBackButtonPressed(context),
         child: ListView.builder(
-          itemCount: 5,
-          itemBuilder: (context, index) => InkWell(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => viewLavouraInsumoPage()));
-            },
-            child: Card(
-              margin: EdgeInsets.only(top: 1),
-              child: ListTile(
-                  tileColor: Colors.white,
-                  //visualDensity: VisualDensity(vertical: 4),
-                  title: Text('Nome da Lavoura'),
-                  subtitle: Text('Descrição'),
-                  trailing: const Icon(
-                    Icons.arrow_forward,
-                    color: Color.fromARGB(255, 2, 89, 47),
-                  ),
-                  leading: Icon(
-                    Icons.eco_outlined,
-                    color: Color.fromARGB(255, 2, 89, 47),
-                  )),
-            ),
-          ),
+          itemCount: lavouras.length,
+          itemBuilder: (context, index) {
+            var lavoura = lavouras[index].data()
+                as Map<String, dynamic>; // Acessa os dados da lavoura
+            return InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => viewLavouraInsumoPage()));
+              },
+              child: Card(
+                margin: EdgeInsets.only(top: 1),
+                child: ListTile(
+                    tileColor: Colors.white,
+                    title: Text(lavoura[
+                        'nomePropriedade']), // Mostra o nome da propriedade
+                    subtitle: Text(
+                        "Área: ${lavoura['tamanhoArea']} ${lavoura['medidaArea']}"),
+                    trailing: const Icon(
+                      Icons.arrow_forward,
+                      color: Color.fromARGB(255, 2, 89, 47),
+                    ),
+                    leading: Icon(
+                      Icons.eco_outlined,
+                      color: Color.fromARGB(255, 2, 89, 47),
+                    )),
+              ),
+            );
+          },
         ),
       ),
     );

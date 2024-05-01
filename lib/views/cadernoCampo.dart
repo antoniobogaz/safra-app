@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_safraapp/views/mapsPage.dart';
+import 'package:flutter_safraapp/servicos/lista_de_valores.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_safraapp/widgets/meu_snackbar.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 
 class cadernoCampoPage extends StatefulWidget {
   const cadernoCampoPage({super.key});
@@ -15,56 +20,13 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
   String? _selectedValue_opcoesmedidas;
   String? _selectedValue_medidatempo;
   String? _selectedValue_medidaterreno;
+  String? _selectedValue_sistemaPlantio;
 
-  final List<String> _opcoes_medidas = [
-    '',
-    'L/ha',
-    'Kg/ha',
-    'mL/ha',
-    'g/ha',
-    'mL/L',
-    'g/L',
-    'UI/ha',
-    'gotas/m2',
-  ];
-
-  final List<String> _medidas_tempo = [
-    '',
-    'Hora(s)',
-    'Dia(s)',
-    'Semana(s)',
-    'Mes(es)',
-    'Bimestre(s)',
-    'Trimestre(s)',
-    'Semestre(s)',
-    'Ano(s)',
-  ];
-
-  final List<String> _opcoes_classe_agronomica = [
-    '',
-    'Acaricida',
-    'Fungicida',
-    'Herbicida',
-    'Inseticida',
-    'Nematicida',
-  ];
-
-  final List<String> _opcoes_nivel_toxicologico = [
-    '',
-    'Categoria 1 - Extremamente Tóxico',
-    'Categoria 2 - Altamente Tóxico',
-    'Categoria 3 - Moderadamente Tóxico',
-    'Categoria 4 - Pouco Tóxico',
-    'Categoria 5 - Improvável de Causar Dano Agudo',
-    'Não Classificado',
-  ];
-
-  final List<String> _medidas_terreno = [
-    '',
-    'Hectare(s)',
-    'Alqueire(s) Paulista',
-    'Alqueire(s) Mineiro',
-  ];
+  final _nomePropriedade = TextEditingController();
+  final _tamanhoPropriedade = TextEditingController();
+  final _cultura = TextEditingController();
+  final _variedade = TextEditingController();
+  final _dataPlantio = MaskedTextController(mask: '00/00/0000');
 
   @override
   Widget build(BuildContext context) {
@@ -120,6 +82,8 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                 width: MediaQuery.of(context).size.width / 1.1,
                 height: 50,
                 child: TextField(
+                  controller: _nomePropriedade,
+                  keyboardType: TextInputType.name,
                   decoration: InputDecoration(
                       labelText: 'Nome da Propriedade',
                       labelStyle:
@@ -147,6 +111,8 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                     width: MediaQuery.of(context).size.width / 1.52,
                     height: 50,
                     child: TextField(
+                      controller: _tamanhoPropriedade,
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           labelText: 'Tamanho da Área',
                           labelStyle:
@@ -195,7 +161,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                           color: Color.fromARGB(255, 8, 46, 28),
                         ),
                       ),
-                      items: _medidas_terreno.map<DropdownMenuItem<String>>(
+                      items: medidas_terreno.map<DropdownMenuItem<String>>(
                         (String value) {
                           return DropdownMenuItem<String>(
                             value: value,
@@ -219,6 +185,8 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                 width: MediaQuery.of(context).size.width / 1.1,
                 height: 50,
                 child: TextField(
+                  controller: _cultura,
+                  keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                       labelText: 'Cultura',
                       labelStyle:
@@ -242,6 +210,8 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                 width: MediaQuery.of(context).size.width / 1.1,
                 height: 50,
                 child: TextField(
+                  controller: _variedade,
+                  keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                       labelText: 'Variedade',
                       labelStyle:
@@ -268,6 +238,8 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                     width: MediaQuery.of(context).size.width / 2.25,
                     height: 50,
                     child: TextField(
+                      controller: _dataPlantio,
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           labelText: 'Data de Plantio',
                           labelStyle:
@@ -290,26 +262,38 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                 SizedBox(width: 5.5),
                 Padding(
                   padding: const EdgeInsets.only(top: 18.0),
-                  child: SizedBox(
+                  child: Container(
                     width: MediaQuery.of(context).size.width / 2.25,
                     height: 50,
-                    child: TextField(
-                      decoration: InputDecoration(
-                          labelText: 'Sistema de Plantio',
-                          labelStyle:
-                              TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                color: Color.fromARGB(255, 8, 46, 28),
-                                width: 1.5),
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Color.fromARGB(255, 8, 46, 28),
-                                width: 1.5),
-                            borderRadius: BorderRadius.circular(50),
-                          )),
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(50),
+                        ),
+                        color: Colors.white,
+                        border: Border.all(
+                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5)),
+                    child: DropdownButton(
+                      value: _selectedValue_sistemaPlantio,
+                      isExpanded: true,
+                      hint: const Text(
+                        'Sistema de Plantio',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 8, 46, 28),
+                        ),
+                      ),
+                      items: sistema_plantio
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          _selectedValue_sistemaPlantio = newValue;
+                        });
+                      },
                     ),
                   ),
                 ),
@@ -476,8 +460,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                       color: Color.fromARGB(255, 8, 46, 28),
                     ),
                   ),
-                  items:
-                      _opcoes_classe_agronomica.map<DropdownMenuItem<String>>(
+                  items: opcoes_classe_agronomica.map<DropdownMenuItem<String>>(
                     (String value) {
                       return DropdownMenuItem<String>(
                         value: value,
@@ -515,7 +498,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                       color: Color.fromARGB(255, 8, 46, 28),
                     ),
                   ),
-                  items: _opcoes_nivel_toxicologico
+                  items: opcoes_nivel_toxicologico
                       .map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
@@ -613,7 +596,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                           color: Color.fromARGB(255, 8, 46, 28),
                         ),
                       ),
-                      items: _opcoes_medidas.map<DropdownMenuItem<String>>(
+                      items: opcoes_medidas.map<DropdownMenuItem<String>>(
                         (String value) {
                           return DropdownMenuItem<String>(
                             value: value,
@@ -735,7 +718,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                           color: Color.fromARGB(255, 8, 46, 28),
                         ),
                       ),
-                      items: _medidas_tempo.map<DropdownMenuItem<String>>(
+                      items: medidas_tempo.map<DropdownMenuItem<String>>(
                         (String value) {
                           return DropdownMenuItem<String>(
                             value: value,
@@ -779,7 +762,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
             Container(
               padding: EdgeInsets.only(top: 30, bottom: 10),
               child: InkWell(
-                onTap: () {},
+                onTap: () => _aoSalvarLavoura(context),
                 child: Container(
                   height: 60,
                   width: MediaQuery.of(context).size.width / 1.1,
@@ -803,5 +786,30 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
         ),
       ),
     );
+  }
+
+  void _aoSalvarLavoura(BuildContext context) {
+    var colecao = FirebaseFirestore.instance.collection('lavouras');
+    var uid = FirebaseAuth.instance.currentUser!.uid;
+    var novoDocumento = colecao.doc();
+    colecao
+        .doc()
+        .set({
+          'nomePropriedade': _nomePropriedade.text,
+          'tamanhoArea': _tamanhoPropriedade.text,
+          'medidaArea': _selectedValue_medidaterreno,
+          'cultura': _cultura.text,
+          'variedade': _variedade.text,
+          'dataPlantio': _dataPlantio.text,
+          'sistemaPlantio': _selectedValue_sistemaPlantio,
+          'uid': uid,
+          'idLavoura': novoDocumento.id
+        })
+        .then((value) => mostrarSnackBar(
+            context: context, texto: "Dados Salvos com Sucesso", isErro: false))
+        .catchError((error) => mostrarSnackBar(
+            context: context,
+            texto: "Algo deu errado. Tente Novamente. Erro: $error",
+            isErro: true));
   }
 }

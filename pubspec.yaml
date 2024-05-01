@@ -40,6 +40,7 @@ dependencies:
   firebase_auth:
   shared_preferences: ^2.2.2
   cloud_firestore:
+  flutter_masked_text2:
 
 dev_dependencies:
   flutter_test:
