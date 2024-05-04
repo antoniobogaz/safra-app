@@ -285,8 +285,8 @@ class _signinPageState extends State<signinPage> {
               context: context,
               texto: "Conta criada com sucesso",
               isErro: false);
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => editProfilePage()));
+          /*Navigator.push(context,
+              MaterialPageRoute(builder: (context) => editProfilePage()));*/
         }
       },
     );

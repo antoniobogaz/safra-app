@@ -53,10 +53,10 @@ class _historicoPageState extends State<historicoPage> {
           itemCount: 5,
           itemBuilder: (context, index) => InkWell(
             onTap: () {
-              Navigator.push(
+              /*Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => viewLavouraInsumoPage()));
+                      builder: (context) => viewLavouraInsumoPage()));*/
             },
             child: Card(
               margin: EdgeInsets.only(top: 1),

@@ -6,7 +6,43 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_safraapp/servicos/lista_de_valores.dart';
 
 class editProfilePage extends StatefulWidget {
-  const editProfilePage({super.key});
+  //const editProfilePage({super.key});
+  final String nomeEmpresa;
+  final String cnpj;
+  final String razaoSocial;
+  final String nomeFantasia;
+  final String logradouro;
+  final String cep;
+  final String complemento;
+  final String cidade;
+  final String nome;
+  final String sobrenome;
+  final String cpf;
+  final String rg;
+  final String email;
+  final String celular;
+  final String estado;
+  final String setor;
+
+  editProfilePage({
+    Key? key,
+    required this.nomeEmpresa,
+    required this.cnpj,
+    required this.razaoSocial,
+    required this.nomeFantasia,
+    required this.logradouro,
+    required this.cep,
+    required this.complemento,
+    required this.cidade,
+    required this.nome,
+    required this.sobrenome,
+    required this.cpf,
+    required this.rg,
+    required this.email,
+    required this.celular,
+    required this.estado,
+    required this.setor,
+  }) : super(key: key);
 
   @override
   State<editProfilePage> createState() => _editProfilePageState();
@@ -15,24 +51,49 @@ class editProfilePage extends StatefulWidget {
 String? _selectedValue_estados;
 String? _selectedValue_area;
 
-final _nomeEmpresa = TextEditingController();
-final _CNPJ = MaskedTextController(mask: '00.000.000/0000-00');
-final _razaoSocial = TextEditingController();
-final _nomeFantasia = TextEditingController();
-final _logradouro = TextEditingController();
-final _CEP = MaskedTextController(mask: '00000-000');
-final _complemento = TextEditingController();
-final _setor = TextEditingController();
-final _cidade = TextEditingController();
-final _nome = TextEditingController();
-final _sobrenome = TextEditingController();
-final _CPF = MaskedTextController(mask: '000.000.000-00');
-final _RG = MaskedTextController(mask: '00.000.000-0');
-final _email = TextEditingController();
-final _celular = MaskedTextController(mask: '(00)00000-0000');
-
 @override
 class _editProfilePageState extends State<editProfilePage> {
+  late TextEditingController nomeEmpresaController;
+  late TextEditingController cnpjController;
+  late TextEditingController razaoSocialController;
+  late TextEditingController nomeFantasiaController;
+  late TextEditingController logradouroController;
+  late TextEditingController cepController;
+  late TextEditingController complementoController;
+  late TextEditingController cidadeController;
+  late TextEditingController nomeController;
+  late TextEditingController sobrenomeController;
+  late TextEditingController cpfController;
+  late TextEditingController rgController;
+  late TextEditingController emailController;
+  late TextEditingController celularController;
+
+  @override
+  void initState() {
+    super.initState();
+    nomeEmpresaController = TextEditingController(text: widget.nomeEmpresa);
+    cnpjController =
+        MaskedTextController(mask: '00.000.000/0000-00', text: widget.cnpj);
+    razaoSocialController = TextEditingController(text: widget.razaoSocial);
+    nomeFantasiaController = TextEditingController(text: widget.nomeFantasia);
+    logradouroController = TextEditingController(text: widget.logradouro);
+    cepController = MaskedTextController(mask: '00000-000', text: widget.cep);
+    complementoController = TextEditingController(text: widget.complemento);
+    cidadeController = TextEditingController(text: widget.cidade);
+    nomeController = TextEditingController(text: widget.nome);
+    sobrenomeController = TextEditingController(text: widget.sobrenome);
+    cpfController =
+        MaskedTextController(mask: '000.000.000-00', text: widget.cpf);
+    rgController = MaskedTextController(mask: '00.000.000-0', text: widget.rg);
+    emailController = TextEditingController(text: widget.email);
+    celularController =
+        MaskedTextController(mask: '(00)00000-0000', text: widget.celular);
+
+    _selectedValue_estados = widget.estado.isEmpty ? null : widget.estado;
+    _selectedValue_area = widget.setor.isEmpty ? null : widget.setor;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -117,7 +178,7 @@ class _editProfilePageState extends State<editProfilePage> {
                 width: MediaQuery.of(context).size.width / 1.1,
                 height: 50,
                 child: TextField(
-                  controller: _nomeEmpresa,
+                  controller: nomeEmpresaController,
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
                       labelText: 'Nome da Empresa',
@@ -142,7 +203,7 @@ class _editProfilePageState extends State<editProfilePage> {
                 width: MediaQuery.of(context).size.width / 1.1,
                 height: 50,
                 child: TextField(
-                  controller: _CNPJ,
+                  controller: cnpjController,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       labelText: 'CNPJ',
@@ -168,7 +229,7 @@ class _editProfilePageState extends State<editProfilePage> {
                 height: 50,
                 child: TextField(
                   keyboardType: TextInputType.name,
-                  controller: _razaoSocial,
+                  controller: razaoSocialController,
                   decoration: InputDecoration(
                       labelText: 'Razão Social',
                       labelStyle:
@@ -192,7 +253,7 @@ class _editProfilePageState extends State<editProfilePage> {
                 width: MediaQuery.of(context).size.width / 1.1,
                 height: 50,
                 child: TextField(
-                  controller: _nomeFantasia,
+                  controller: nomeFantasiaController,
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
                       labelText: 'Nome Fantasia',
@@ -229,7 +290,7 @@ class _editProfilePageState extends State<editProfilePage> {
                 width: MediaQuery.of(context).size.width / 1.1,
                 height: 50,
                 child: TextField(
-                  controller: _logradouro,
+                  controller: logradouroController,
                   keyboardType: TextInputType.streetAddress,
                   decoration: InputDecoration(
                       labelText: 'Logradouro',
@@ -257,7 +318,7 @@ class _editProfilePageState extends State<editProfilePage> {
                     width: MediaQuery.of(context).size.width / 4,
                     height: 50,
                     child: TextField(
-                      controller: _CEP,
+                      controller: cepController,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           labelText: 'CEP',
@@ -287,7 +348,7 @@ class _editProfilePageState extends State<editProfilePage> {
                     width: MediaQuery.of(context).size.width / 1.57,
                     height: 50,
                     child: TextField(
-                      controller: _complemento,
+                      controller: complementoController,
                       keyboardType: TextInputType.streetAddress,
                       decoration: InputDecoration(
                           labelText: 'Complemento',
@@ -353,7 +414,7 @@ class _editProfilePageState extends State<editProfilePage> {
                 width: MediaQuery.of(context).size.width / 1.1,
                 height: 50,
                 child: TextField(
-                  controller: _cidade,
+                  controller: cidadeController,
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
                       labelText: 'Cidade',
@@ -432,7 +493,7 @@ class _editProfilePageState extends State<editProfilePage> {
                       width: MediaQuery.of(context).size.width / 2.3,
                       height: 50,
                       child: TextField(
-                        controller: _nome,
+                        controller: nomeController,
                         keyboardType: TextInputType.name,
                         decoration: InputDecoration(
                             labelText: 'Nome',
@@ -462,7 +523,7 @@ class _editProfilePageState extends State<editProfilePage> {
                       width: MediaQuery.of(context).size.width / 2.3,
                       height: 50,
                       child: TextField(
-                        controller: _sobrenome,
+                        controller: sobrenomeController,
                         keyboardType: TextInputType.name,
                         decoration: InputDecoration(
                             labelText: 'Sobrenome',
@@ -495,7 +556,7 @@ class _editProfilePageState extends State<editProfilePage> {
                     width: MediaQuery.of(context).size.width / 2.3,
                     height: 50,
                     child: TextField(
-                      controller: _CPF,
+                      controller: cpfController,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           labelText: 'CPF',
@@ -525,7 +586,7 @@ class _editProfilePageState extends State<editProfilePage> {
                     width: MediaQuery.of(context).size.width / 2.3,
                     height: 50,
                     child: TextField(
-                      controller: _RG,
+                      controller: rgController,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           labelText: 'RG',
@@ -566,7 +627,7 @@ class _editProfilePageState extends State<editProfilePage> {
                 width: MediaQuery.of(context).size.width / 1.1,
                 height: 50,
                 child: TextField(
-                  controller: _email,
+                  controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                       labelText: 'Email',
@@ -591,7 +652,7 @@ class _editProfilePageState extends State<editProfilePage> {
                 width: MediaQuery.of(context).size.width / 1.1,
                 height: 50,
                 child: TextField(
-                  controller: _celular,
+                  controller: celularController,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       labelText: 'Celular',
@@ -645,22 +706,22 @@ class _editProfilePageState extends State<editProfilePage> {
     colecao
         .doc(uid)
         .set({
-          'nomeEmpresa': _nomeEmpresa.text,
-          'CNPJ': _CNPJ.text,
-          'razaoSocial': _razaoSocial.text,
-          'nomeFantasia': _nomeFantasia.text,
-          'logradouro': _logradouro.text,
-          'CEP': _CEP.text,
-          'Complemento': _complemento.text,
+          'nomeEmpresa': nomeEmpresaController.text,
+          'CNPJ': cnpjController.text,
+          'razaoSocial': razaoSocialController.text,
+          'nomeFantasia': nomeFantasiaController.text,
+          'logradouro': logradouroController.text,
+          'CEP': cepController.text,
+          'Complemento': complementoController.text,
           'setor': _selectedValue_area,
-          'cidade': _cidade.text,
+          'cidade': cidadeController.text,
           'estado': _selectedValue_estados,
-          'nomeUsuario': _nome.text,
-          'sobrenome': _sobrenome.text,
-          'CPF': _CPF.text,
-          'RG': _RG.text,
-          'email': _email.text,
-          'celular': _celular.text,
+          'nomeUsuario': nomeController.text,
+          'sobrenome': sobrenomeController.text,
+          'CPF': cpfController.text,
+          'RG': rgController.text,
+          'email': emailController.text,
+          'celular': celularController.text,
           'uid': uid,
         })
         .then((value) => mostrarSnackBar(

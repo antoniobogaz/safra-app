@@ -1,16 +1,29 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_safraapp/views/cadernoCampo.dart';
 import 'package:flutter_safraapp/views/listarAplicacoes.dart';
 
 class viewLavouraInsumoPage extends StatefulWidget {
-  const viewLavouraInsumoPage({super.key});
+  //const viewLavouraInsumoPage({super.key});
+  final DocumentSnapshot lavoura;
 
+  viewLavouraInsumoPage({Key? key, required this.lavoura}) : super(key: key);
   @override
   State<viewLavouraInsumoPage> createState() => _viewLavouraInsumoPageState();
 }
 
 @override
 class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
+  late Map<String, dynamic> data; // Definindo a variável data
+
+  @override
+  void initState() {
+    super.initState();
+    data = widget.lavoura.data()
+        as Map<String, dynamic>; // Acessando os dados na inicialização
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       //backgroundColor: Color.fromARGB(255, 2, 89, 47),
@@ -72,7 +85,7 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
                         padding: const EdgeInsets.only(
                             top: 18.0, left: 15, bottom: 20),
                         child: Text(
-                          'Nome da Propriedade',
+                          data['nomePropriedade'],
                           style: TextStyle(
                               color: Color.fromARGB(255, 8, 46, 28),
                               fontSize: 30,
@@ -83,11 +96,11 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
                         children: [
                           IconButton(
                               onPressed: () {
-                                Navigator.push(
+                                /*Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            cadernoCampoPage()));
+                                            cadernoCampoPage()));*/
                               },
                               icon: Icon(
                                 Icons.edit,
@@ -124,7 +137,7 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
                       Padding(
                         padding: const EdgeInsets.only(top: 1, left: 15),
                         child: Text(
-                          'Tipo de Cultura',
+                          data['cultura'],
                           style: TextStyle(
                             color: Color.fromARGB(255, 8, 46, 28),
                             fontSize: 18,
@@ -152,7 +165,7 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
                       Padding(
                         padding: const EdgeInsets.only(top: 1, left: 15),
                         child: Text(
-                          'Variedade de Cultura',
+                          data['variedade'],
                           style: TextStyle(
                             color: Color.fromARGB(255, 8, 46, 28),
                             fontSize: 18,
@@ -180,7 +193,7 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
                       Padding(
                         padding: const EdgeInsets.only(top: 1, left: 15),
                         child: Text(
-                          '01/01/2024',
+                          data['dataPlantio'],
                           style: TextStyle(
                             color: Color.fromARGB(255, 8, 46, 28),
                             fontSize: 18,
@@ -208,7 +221,7 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
                       Padding(
                         padding: const EdgeInsets.only(top: 1, left: 15),
                         child: Text(
-                          'Sistema de Plantio',
+                          data['sistemaPlantio'],
                           style: TextStyle(
                             color: Color.fromARGB(255, 8, 46, 28),
                             fontSize: 18,
@@ -236,7 +249,7 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
                       Padding(
                         padding: const EdgeInsets.only(top: 1, left: 15),
                         child: Text(
-                          'Tamanho da Área',
+                          "${data['tamanhoArea']} ${data['medidaArea']}",
                           style: TextStyle(
                             color: Color.fromARGB(255, 8, 46, 28),
                             fontSize: 18,

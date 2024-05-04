@@ -98,3 +98,17 @@ final List<String> sistema_plantio = [
   'Plantio a lanço',
   'Plantio em linha',
 ];
+
+final List<String> metodo_aplicacao = [
+  '',
+  'Pulverização Terrestre',
+  'Pulverização Aérea',
+  'Aplicação de Granulados',
+  'Irrigação',
+  'Injeção no Solo',
+  'Drench (Encharcamento)',
+  'Aplicação Foliar',
+  'Tratamento de Sementes',
+  'Aplicação Manual',
+  'Aplicação por Meio de Dispositivos de Liberação Controlada',
+];

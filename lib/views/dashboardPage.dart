@@ -16,23 +16,33 @@ class dashboardPage extends StatefulWidget {
 @override
 class _dashboardPageState extends State<dashboardPage> {
   var height, width;
+  bool isLoading = true;
   AutenticacaoServico _autenServico = AutenticacaoServico();
 
   List<DocumentSnapshot> lavouras = [];
 
   void iniciarEscutaLavouras() {
+    setState(() {
+      isLoading = true;
+    });
+
     var colecao = firestore
         .collection('lavouras')
         .where('uid', isEqualTo: user.uid)
         .orderBy('nomePropriedade');
+
     colecao.snapshots().listen((snapshot) {
       setState(() {
         lavouras = snapshot.docs;
+        isLoading = false;
       });
     }, onError: (error) {
+      setState(() {
+        isLoading = false;
+      });
       mostrarSnackBar(
           context: context,
-          texto: "Erro ao escutar lavouras: $error",
+          texto: "Erro ao consultar lavouras: $error",
           isErro: true);
     });
   }
@@ -87,38 +97,68 @@ class _dashboardPageState extends State<dashboardPage> {
       ),
       body: WillPopScope(
         onWillPop: () => _onBackButtonPressed(context),
-        child: ListView.builder(
-          itemCount: lavouras.length,
-          itemBuilder: (context, index) {
-            var lavoura = lavouras[index].data()
-                as Map<String, dynamic>; // Acessa os dados da lavoura
-            return InkWell(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => viewLavouraInsumoPage()));
-              },
-              child: Card(
-                margin: EdgeInsets.only(top: 1),
-                child: ListTile(
-                    tileColor: Colors.white,
-                    title: Text(lavoura[
-                        'nomePropriedade']), // Mostra o nome da propriedade
-                    subtitle: Text(
-                        "Área: ${lavoura['tamanhoArea']} ${lavoura['medidaArea']}"),
-                    trailing: const Icon(
-                      Icons.arrow_forward,
-                      color: Color.fromARGB(255, 2, 89, 47),
+        child: isLoading
+            ? Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                      Color.fromARGB(255, 2, 89, 47)),
+                ),
+              )
+            : lavouras.isEmpty
+                ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text("Nenhuma lavoura cadastrada!",
+                            style: TextStyle(fontSize: 18, color: Colors.grey)),
+                        SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => cadernoCampoPage()));
+                          },
+                          child: Text("Cadastrar Lavoura"),
+                          style: ElevatedButton.styleFrom(
+                            primary:
+                                Color.fromARGB(255, 2, 89, 47), // Cor do botão
+                          ),
+                        )
+                      ],
                     ),
-                    leading: Icon(
-                      Icons.eco_outlined,
-                      color: Color.fromARGB(255, 2, 89, 47),
-                    )),
-              ),
-            );
-          },
-        ),
+                  )
+                : ListView.builder(
+                    itemCount: lavouras.length,
+                    itemBuilder: (context, index) {
+                      DocumentSnapshot lavoura = lavouras[index];
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      viewLavouraInsumoPage(lavoura: lavoura)));
+                        },
+                        child: Card(
+                          margin: EdgeInsets.only(top: 1),
+                          child: ListTile(
+                              tileColor: Colors.white,
+                              title: Text(lavoura['nomePropriedade']),
+                              subtitle: Text(
+                                  "Área: ${lavoura['tamanhoArea']} ${lavoura['medidaArea']}"),
+                              trailing: const Icon(
+                                Icons.arrow_forward,
+                                color: Color.fromARGB(255, 2, 89, 47),
+                              ),
+                              leading: Icon(
+                                Icons.eco_outlined,
+                                color: Color.fromARGB(255, 2, 89, 47),
+                              )),
+                        ),
+                      );
+                    },
+                  ),
       ),
     );
   }

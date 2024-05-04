@@ -21,12 +21,21 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
   String? _selectedValue_medidatempo;
   String? _selectedValue_medidaterreno;
   String? _selectedValue_sistemaPlantio;
+  String? _selectedValue_metodoAplicacao;
 
   final _nomePropriedade = TextEditingController();
   final _tamanhoPropriedade = TextEditingController();
   final _cultura = TextEditingController();
   final _variedade = TextEditingController();
   final _dataPlantio = MaskedTextController(mask: '00/00/0000');
+
+  final _nomeProduto = TextEditingController();
+  final _dataAplicacao = MaskedTextController(mask: '00/00/0000');
+  final _doseAplicada = TextEditingController();
+  final _responsavelAplicacao = TextEditingController();
+  final _periodoCarencia = TextEditingController();
+  final _medidaCarencia = TextEditingController();
+  final _observacaoAplicacao = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -421,6 +430,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                 width: MediaQuery.of(context).size.width / 1.1,
                 height: 50,
                 child: TextField(
+                  controller: _nomeProduto,
                   decoration: InputDecoration(
                       labelText: 'Nome do Produto',
                       labelStyle:
@@ -522,6 +532,8 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                     width: MediaQuery.of(context).size.width / 2.95,
                     height: 50,
                     child: TextField(
+                      controller: _dataAplicacao,
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           labelText: 'Data da Aplicação',
                           labelStyle:
@@ -548,6 +560,8 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                     width: MediaQuery.of(context).size.width / 3.25,
                     height: 50,
                     child: TextField(
+                      controller: _doseAplicada,
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           labelText: 'Dose Aplicada',
                           labelStyle:
@@ -616,24 +630,38 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 18.0),
-              child: SizedBox(
+              child: Container(
                 width: MediaQuery.of(context).size.width / 1.1,
                 height: 50,
-                child: TextField(
-                  decoration: InputDecoration(
-                      labelText: 'Método de Aplicação',
-                      labelStyle:
-                          TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
-                        borderRadius: BorderRadius.circular(50),
-                      )),
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(50),
+                    ),
+                    color: Colors.white,
+                    border: Border.all(
+                        color: Color.fromARGB(255, 8, 46, 28), width: 1.5)),
+                child: DropdownButton(
+                  value: _selectedValue_metodoAplicacao,
+                  isExpanded: true,
+                  hint: const Text(
+                    'Método de Aplicação',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 8, 46, 28),
+                    ),
+                  ),
+                  items: metodo_aplicacao
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      _selectedValue_metodoAplicacao = newValue;
+                    });
+                  },
                 ),
               ),
             ),
@@ -643,6 +671,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                 width: MediaQuery.of(context).size.width / 1.1,
                 height: 50,
                 child: TextField(
+                  controller: _responsavelAplicacao,
                   decoration: InputDecoration(
                       labelText: 'Responsável pela Aplicação',
                       labelStyle:
@@ -670,6 +699,8 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                     width: MediaQuery.of(context).size.width / 1.52,
                     height: 50,
                     child: TextField(
+                      controller: _periodoCarencia,
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           labelText: 'Período de Carência',
                           labelStyle:
@@ -742,6 +773,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                 width: MediaQuery.of(context).size.width / 1.1,
                 height: 50,
                 child: TextField(
+                  controller: _observacaoAplicacao,
                   decoration: InputDecoration(
                       labelText: 'Observações',
                       labelStyle:
@@ -788,28 +820,99 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
     );
   }
 
+  void limparFormulario() {
+    setState(() {
+      // Definindo como null para limpar a seleção
+      _selectedValue_classe = null;
+      _selectedValue_toxicidade = null;
+      _selectedValue_opcoesmedidas = null;
+      _selectedValue_metodoAplicacao = null;
+      _selectedValue_medidatempo = null;
+    });
+  }
+
   void _aoSalvarLavoura(BuildContext context) {
     var colecao = FirebaseFirestore.instance.collection('lavouras');
     var uid = FirebaseAuth.instance.currentUser!.uid;
     var novoDocumento = colecao.doc();
-    colecao
-        .doc()
-        .set({
-          'nomePropriedade': _nomePropriedade.text,
-          'tamanhoArea': _tamanhoPropriedade.text,
-          'medidaArea': _selectedValue_medidaterreno,
-          'cultura': _cultura.text,
-          'variedade': _variedade.text,
-          'dataPlantio': _dataPlantio.text,
-          'sistemaPlantio': _selectedValue_sistemaPlantio,
-          'uid': uid,
-          'idLavoura': novoDocumento.id
-        })
-        .then((value) => mostrarSnackBar(
-            context: context, texto: "Dados Salvos com Sucesso", isErro: false))
-        .catchError((error) => mostrarSnackBar(
-            context: context,
-            texto: "Algo deu errado. Tente Novamente. Erro: $error",
-            isErro: true));
+
+    FirebaseFirestore.instance.runTransaction((transaction) async {
+      transaction.set(novoDocumento, {
+        'nomePropriedade': _nomePropriedade.text,
+        'tamanhoArea': _tamanhoPropriedade.text,
+        'medidaArea': _selectedValue_medidaterreno,
+        'cultura': _cultura.text,
+        'variedade': _variedade.text,
+        'dataPlantio': _dataPlantio.text,
+        'sistemaPlantio': _selectedValue_sistemaPlantio,
+        'uid': uid,
+        'idLavoura': novoDocumento.id
+      });
+
+      // Criação da subcoleção "aplicacoes" para a lavoura
+      var aplicacaoDoc = novoDocumento.collection('aplicacoes').doc();
+      transaction.set(aplicacaoDoc, {
+        'nomeProduto': _nomeProduto.text,
+        'alvoBiologico': _selectedValue_classe,
+        'nivelToxicidade': _selectedValue_toxicidade,
+        'dataAplicacao': _dataAplicacao.text,
+        'doseAplicada': _doseAplicada.text,
+        'medidaDose': _selectedValue_opcoesmedidas,
+        'metodoAplicacao': _selectedValue_metodoAplicacao,
+        'responsavelAplicacao': _responsavelAplicacao.text,
+        'periodoCarencia': _periodoCarencia.text,
+        'medidaCarencia': _selectedValue_medidatempo,
+        'observacaoAplicacao': _observacaoAplicacao.text,
+      });
+    }).then((value) {
+      mostrarSnackBar(
+          context: context, texto: "Dados Salvos com Sucesso", isErro: false);
+      // Limpar os controllers após o uso
+      _nomeProduto.clear();
+      _dataAplicacao.clear();
+      _doseAplicada.clear();
+      _responsavelAplicacao.clear();
+      _periodoCarencia.clear();
+      _observacaoAplicacao.clear();
+      limparFormulario();
+    }).catchError((error) {
+      mostrarSnackBar(
+          context: context, texto: "Erro ao salvar: $error", isErro: true);
+    });
+  }
+
+  void adicionarAplicacao(String idLavoura) {
+    var aplicacoesRef = FirebaseFirestore.instance
+        .collection('lavouras')
+        .doc(idLavoura)
+        .collection('aplicacoes');
+
+    // Cria um novo documento na subcollection "aplicacoes"
+    var novaAplicacao = aplicacoesRef.doc();
+
+    novaAplicacao.set({
+      'nomeProduto': _nomeProduto.text,
+      'alvoBiologico': _selectedValue_classe,
+      'nivelToxicidade': _selectedValue_toxicidade,
+      'dataAplicacao': _dataAplicacao.text,
+      'doseAplicada': _doseAplicada.text,
+      'medidaDose': _selectedValue_opcoesmedidas,
+      'metodoAplicacao': _selectedValue_metodoAplicacao,
+      'responsavelAplicacao': _responsavelAplicacao.text,
+      'periodoCarencia': _periodoCarencia.text,
+      'medidaCarencia': _selectedValue_medidatempo,
+      'observacaoAplicacao': _observacaoAplicacao.text,
+      // outros campos conforme necessário
+    }).then((value) {
+      mostrarSnackBar(
+          context: context,
+          texto: "Aplicação adicionada com sucesso!",
+          isErro: false);
+    }).catchError((error) {
+      mostrarSnackBar(
+          context: context,
+          texto: "Erro ao adicionar aplicação: $error",
+          isErro: true);
+    });
   }
 }

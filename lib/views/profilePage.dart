@@ -123,25 +123,10 @@ class _profilePageState extends State<profilePage> {
                   Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(top: 18.0, left: 25),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            /*Text(
-                          'Opções',
-                          style: TextStyle(
-                              fontSize: 22, fontWeight: FontWeight.bold),
-                        ),*/
-                          ],
-                        ),
-                      ),
-                      Padding(
                         padding: const EdgeInsets.only(top: 25.0),
                         child: InkWell(
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const editProfilePage(),
-                            ));
+                            _navegarparaEditProfile();
                           },
                           child: Container(
                             width: 380,
@@ -269,4 +254,43 @@ class _profilePageState extends State<profilePage> {
       }
     });
   }
+
+  void _navegarparaEditProfile() {
+    var user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      FirebaseFirestore.instance
+          .collection('usuarios')
+          .doc(user.uid)
+          .get()
+          .then((snapshot) {
+        if (snapshot.exists) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => editProfilePage(
+                nomeEmpresa: snapshot.data()?['nomeEmpresa'] ?? '',
+                cnpj: snapshot.data()?['CNPJ'] ?? '',
+                razaoSocial: snapshot.data()?['razaoSocial'] ?? '',
+                nomeFantasia: snapshot.data()?['nomeFantasia'] ?? '',
+                logradouro: snapshot.data()?['logradouro'] ?? '',
+                cep: snapshot.data()?['CEP'] ?? '',
+                complemento: snapshot.data()?['Complemento'] ?? '',
+                cidade: snapshot.data()?['cidade'] ?? '',
+                nome: snapshot.data()?['nomeUsuario'] ?? '',
+                sobrenome: snapshot.data()?['sobrenome'] ?? '',
+                cpf: snapshot.data()?['CPF'] ?? '',
+                rg: snapshot.data()?['RG'] ?? '',
+                email: snapshot.data()?['email'] ?? '',
+                celular: snapshot.data()?['celular'] ?? '',
+                estado: snapshot.data()?['estado'] ?? '',
+                setor: snapshot.data()?['setor'] ?? '',
+              ),
+            ),
+          );
+        }
+      });
+    }
+  }
+
+// Suponha que esse método seja chamado quando o botão 'Editar Perfil' é pressionado.
 }
