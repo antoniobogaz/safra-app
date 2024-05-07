@@ -59,7 +59,7 @@ class _profilePageState extends State<profilePage> {
 
             Map<String, dynamic> dados =
                 snapshot.data!.data() as Map<String, dynamic>;
-            String fullName = '${dados['nomeUsuario']}${dados['sobrenome']}';
+            String fullName = '${dados['nomeUsuario']} ${dados['sobrenome']}';
             String localidade = '${dados['cidade']}, ${dados['estado']}';
             return SingleChildScrollView(
               reverse: false,
@@ -291,6 +291,4 @@ class _profilePageState extends State<profilePage> {
       });
     }
   }
-
-// Suponha que esse método seja chamado quando o botão 'Editar Perfil' é pressionado.
 }

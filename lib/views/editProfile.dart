@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_safraapp/views/homePage.dart';
 import 'package:flutter_safraapp/widgets/meu_snackbar.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_safraapp/servicos/lista_de_valores.dart';
@@ -703,32 +704,34 @@ class _editProfilePageState extends State<editProfilePage> {
   void _aoSalvarUsuario(BuildContext context) {
     var colecao = FirebaseFirestore.instance.collection('usuarios');
     var uid = FirebaseAuth.instance.currentUser!.uid;
-    colecao
-        .doc(uid)
-        .set({
-          'nomeEmpresa': nomeEmpresaController.text,
-          'CNPJ': cnpjController.text,
-          'razaoSocial': razaoSocialController.text,
-          'nomeFantasia': nomeFantasiaController.text,
-          'logradouro': logradouroController.text,
-          'CEP': cepController.text,
-          'Complemento': complementoController.text,
-          'setor': _selectedValue_area,
-          'cidade': cidadeController.text,
-          'estado': _selectedValue_estados,
-          'nomeUsuario': nomeController.text,
-          'sobrenome': sobrenomeController.text,
-          'CPF': cpfController.text,
-          'RG': rgController.text,
-          'email': emailController.text,
-          'celular': celularController.text,
-          'uid': uid,
-        })
-        .then((value) => mostrarSnackBar(
-            context: context, texto: "Dados Salvos com Sucesso", isErro: false))
-        .catchError((error) => mostrarSnackBar(
-            context: context,
-            texto: "Algo deu errado. Tente Novamente. Erro: $error",
-            isErro: true));
+    colecao.doc(uid).set({
+      'nomeEmpresa': nomeEmpresaController.text,
+      'CNPJ': cnpjController.text,
+      'razaoSocial': razaoSocialController.text,
+      'nomeFantasia': nomeFantasiaController.text,
+      'logradouro': logradouroController.text,
+      'CEP': cepController.text,
+      'Complemento': complementoController.text,
+      'setor': _selectedValue_area,
+      'cidade': cidadeController.text,
+      'estado': _selectedValue_estados,
+      'nomeUsuario': nomeController.text,
+      'sobrenome': sobrenomeController.text,
+      'CPF': cpfController.text,
+      'RG': rgController.text,
+      'email': emailController.text,
+      'celular': celularController.text,
+      'uid': uid,
+    }).then(
+      (value) {
+        (value) => mostrarSnackBar(
+            context: context, texto: "Dados Salvos com Sucesso", isErro: false);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => homePage()));
+      },
+    ).catchError((error) => mostrarSnackBar(
+        context: context,
+        texto: "Algo deu errado. Tente Novamente. Erro: $error",
+        isErro: true));
   }
 }

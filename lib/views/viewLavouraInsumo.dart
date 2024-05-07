@@ -15,12 +15,13 @@ class viewLavouraInsumoPage extends StatefulWidget {
 @override
 class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
   late Map<String, dynamic> data; // Definindo a variável data
+  String? idLavoura = '';
 
   @override
   void initState() {
     super.initState();
-    data = widget.lavoura.data()
-        as Map<String, dynamic>; // Acessando os dados na inicialização
+    data = widget.lavoura.data() as Map<String, dynamic>;
+    idLavoura = widget.lavoura.id;
   }
 
   @override
@@ -294,7 +295,9 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => cadernoCampoPage()));
+                                builder: (context) => cadernoCampoPage(
+                                      idLavoura_Parametro: idLavoura,
+                                    )));
                       },
                       child: Container(
                         height: 60,

@@ -80,7 +80,9 @@ class _dashboardPageState extends State<dashboardPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => cadernoCampoPage()));
+                              builder: (context) => cadernoCampoPage(
+                                    idLavoura_Parametro: null,
+                                  )));
                     },
                     icon: Icon(
                       Icons.add,
@@ -117,7 +119,9 @@ class _dashboardPageState extends State<dashboardPage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => cadernoCampoPage()));
+                                    builder: (context) => cadernoCampoPage(
+                                          idLavoura_Parametro: null,
+                                        )));
                           },
                           child: Text("Cadastrar Lavoura"),
                           style: ElevatedButton.styleFrom(

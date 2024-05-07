@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_safraapp/views/homePage.dart';
 import 'package:flutter_safraapp/views/mapsPage.dart';
 import 'package:flutter_safraapp/servicos/lista_de_valores.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -7,7 +8,13 @@ import 'package:flutter_safraapp/widgets/meu_snackbar.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 
 class cadernoCampoPage extends StatefulWidget {
-  const cadernoCampoPage({super.key});
+  //const cadernoCampoPage({super.key});
+  final String? idLavoura_Parametro;
+
+  cadernoCampoPage({
+    Key? key,
+    required this.idLavoura_Parametro,
+  }) : super(key: key);
 
   @override
   State<cadernoCampoPage> createState() => _cadernoCampoPageState();
@@ -34,7 +41,6 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
   final _doseAplicada = TextEditingController();
   final _responsavelAplicacao = TextEditingController();
   final _periodoCarencia = TextEditingController();
-  final _medidaCarencia = TextEditingController();
   final _observacaoAplicacao = TextEditingController();
 
   @override
@@ -834,22 +840,33 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
   void _aoSalvarLavoura(BuildContext context) {
     var colecao = FirebaseFirestore.instance.collection('lavouras');
     var uid = FirebaseAuth.instance.currentUser!.uid;
-    var novoDocumento = colecao.doc();
+    DocumentReference novoDocumento;
+
+    bool novaLavoura = widget.idLavoura_Parametro == null;
+    if (novaLavoura) {
+      // Criar nova lavoura
+      novoDocumento = colecao.doc();
+    } else {
+      // Usar lavoura existente
+      novoDocumento = colecao.doc(widget.idLavoura_Parametro);
+    }
 
     FirebaseFirestore.instance.runTransaction((transaction) async {
-      transaction.set(novoDocumento, {
-        'nomePropriedade': _nomePropriedade.text,
-        'tamanhoArea': _tamanhoPropriedade.text,
-        'medidaArea': _selectedValue_medidaterreno,
-        'cultura': _cultura.text,
-        'variedade': _variedade.text,
-        'dataPlantio': _dataPlantio.text,
-        'sistemaPlantio': _selectedValue_sistemaPlantio,
-        'uid': uid,
-        'idLavoura': novoDocumento.id
-      });
+      if (novaLavoura) {
+        transaction.set(novoDocumento, {
+          'nomePropriedade': _nomePropriedade.text,
+          'tamanhoArea': _tamanhoPropriedade.text,
+          'medidaArea': _selectedValue_medidaterreno,
+          'cultura': _cultura.text,
+          'variedade': _variedade.text,
+          'dataPlantio': _dataPlantio.text,
+          'sistemaPlantio': _selectedValue_sistemaPlantio,
+          'uid': uid,
+          'idLavoura': novoDocumento.id
+        });
+      }
 
-      // Criação da subcoleção "aplicacoes" para a lavoura
+      // Adicionando aplicação na subcoleção "aplicacoes"
       var aplicacaoDoc = novoDocumento.collection('aplicacoes').doc();
       transaction.set(aplicacaoDoc, {
         'nomeProduto': _nomeProduto.text,
@@ -875,44 +892,16 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
       _periodoCarencia.clear();
       _observacaoAplicacao.clear();
       limparFormulario();
+
+      if (novaLavoura) {
+        // Se foi uma nova lavoura, redirecionar para HomePage
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => homePage()));
+      }
+      // Se não for nova lavoura, permanece na página atual
     }).catchError((error) {
       mostrarSnackBar(
           context: context, texto: "Erro ao salvar: $error", isErro: true);
-    });
-  }
-
-  void adicionarAplicacao(String idLavoura) {
-    var aplicacoesRef = FirebaseFirestore.instance
-        .collection('lavouras')
-        .doc(idLavoura)
-        .collection('aplicacoes');
-
-    // Cria um novo documento na subcollection "aplicacoes"
-    var novaAplicacao = aplicacoesRef.doc();
-
-    novaAplicacao.set({
-      'nomeProduto': _nomeProduto.text,
-      'alvoBiologico': _selectedValue_classe,
-      'nivelToxicidade': _selectedValue_toxicidade,
-      'dataAplicacao': _dataAplicacao.text,
-      'doseAplicada': _doseAplicada.text,
-      'medidaDose': _selectedValue_opcoesmedidas,
-      'metodoAplicacao': _selectedValue_metodoAplicacao,
-      'responsavelAplicacao': _responsavelAplicacao.text,
-      'periodoCarencia': _periodoCarencia.text,
-      'medidaCarencia': _selectedValue_medidatempo,
-      'observacaoAplicacao': _observacaoAplicacao.text,
-      // outros campos conforme necessário
-    }).then((value) {
-      mostrarSnackBar(
-          context: context,
-          texto: "Aplicação adicionada com sucesso!",
-          isErro: false);
-    }).catchError((error) {
-      mostrarSnackBar(
-          context: context,
-          texto: "Erro ao adicionar aplicação: $error",
-          isErro: true);
     });
   }
 }

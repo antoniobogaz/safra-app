@@ -4,6 +4,8 @@ import 'package:flutter_safraapp/servicos/autenticacao_servico.dart';
 import 'package:flutter_safraapp/views/loginPage.dart';
 import 'package:flutter_safraapp/views/editProfile.dart';
 import 'package:flutter_safraapp/widgets/meu_snackbar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class signinPage extends StatefulWidget {
   const signinPage({super.key});
@@ -285,10 +287,44 @@ class _signinPageState extends State<signinPage> {
               context: context,
               texto: "Conta criada com sucesso",
               isErro: false);
-          /*Navigator.push(context,
-              MaterialPageRoute(builder: (context) => editProfilePage()));*/
+          _navegarparaEditProfile();
         }
       },
     );
+  }
+
+  void _navegarparaEditProfile() {
+    var user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      FirebaseFirestore.instance
+          .collection('usuarios')
+          .doc(user.uid)
+          .get()
+          .then((snapshot) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => editProfilePage(
+              nomeEmpresa: snapshot.data()?['nomeEmpresa'] ?? '',
+              cnpj: snapshot.data()?['CNPJ'] ?? '',
+              razaoSocial: snapshot.data()?['razaoSocial'] ?? '',
+              nomeFantasia: snapshot.data()?['nomeFantasia'] ?? '',
+              logradouro: snapshot.data()?['logradouro'] ?? '',
+              cep: snapshot.data()?['CEP'] ?? '',
+              complemento: snapshot.data()?['Complemento'] ?? '',
+              cidade: snapshot.data()?['cidade'] ?? '',
+              nome: snapshot.data()?['nomeUsuario'] ?? '',
+              sobrenome: snapshot.data()?['sobrenome'] ?? '',
+              cpf: snapshot.data()?['CPF'] ?? '',
+              rg: snapshot.data()?['RG'] ?? '',
+              email: snapshot.data()?['email'] ?? '',
+              celular: snapshot.data()?['celular'] ?? '',
+              estado: snapshot.data()?['estado'] ?? '',
+              setor: snapshot.data()?['setor'] ?? '',
+            ),
+          ),
+        );
+      });
+    }
   }
 }
