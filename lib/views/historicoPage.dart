@@ -3,6 +3,7 @@ import 'package:flutter_safraapp/servicos/autenticacao_servico.dart';
 import 'package:flutter_safraapp/views/loginPage.dart';
 import 'package:flutter_safraapp/widgets/meu_snackbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_safraapp/views/viewAplicacao.dart';
 
 class historicoPage extends StatefulWidget {
   const historicoPage({Key? key}) : super(key: key);
@@ -191,17 +192,17 @@ class Aplicacao {
 
   factory Aplicacao.fromSnapshot(DocumentSnapshot doc) {
     return Aplicacao(
-      alvoBiologico: doc['alvoBiologico'],
-      dataAplicacao: (doc['dataAplicacao']),
-      doseAplicada: (doc['doseAplicada']),
-      medidaCarencia: (doc['medidaCarencia']),
-      medidaDose: (doc['medidaDose']),
-      metodoAplicacao: (doc['metodoAplicacao']),
-      nivelToxicidade: (doc['nivelToxicidade']),
-      nomeProduto: (doc['nomeProduto']),
-      observacaoAplicacao: (doc['observacaoAplicacao']),
-      periodoCarencia: (doc['periodoCarencia']),
-      responsavelAplicacao: (doc['responsavelAplicacao']),
+      alvoBiologico: doc['alvoBiologico'] ?? '',
+      dataAplicacao: doc['dataAplicacao'] ?? '',
+      doseAplicada: doc['doseAplicada'] ?? '',
+      medidaCarencia: doc['medidaCarencia'] ?? '',
+      medidaDose: doc['medidaDose'] ?? '',
+      metodoAplicacao: doc['metodoAplicacao'] ?? '',
+      nivelToxicidade: doc['nivelToxicidade'] ?? '',
+      nomeProduto: doc['nomeProduto'] ?? '',
+      observacaoAplicacao: doc['observacaoAplicacao'] ?? '',
+      periodoCarencia: doc['periodoCarencia'] ?? '',
+      responsavelAplicacao: doc['responsavelAplicacao'] ?? '',
     );
   }
 }

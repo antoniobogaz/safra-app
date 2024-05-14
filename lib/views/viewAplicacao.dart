@@ -149,7 +149,7 @@ class _viewAplicacaoPageState extends State<viewAplicacaoPage> {
                               padding:
                                   const EdgeInsets.only(top: 18.0, left: 15),
                               child: Text(
-                                'Nível de Toxicidade do Desfensivo',
+                                'Nível de Toxicidade do Defensivo',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 20,

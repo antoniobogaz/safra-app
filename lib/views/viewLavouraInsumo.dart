@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_safraapp/views/cadernoCampo.dart';
 import 'package:flutter_safraapp/views/listarAplicacoes.dart';
+import 'package:flutter_safraapp/views/dashboardPage.dart';
 
 class viewLavouraInsumoPage extends StatefulWidget {
   //const viewLavouraInsumoPage({super.key});
@@ -109,7 +110,15 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
                                 size: 25,
                               )),
                           IconButton(
-                              onPressed: () {},
+                              onPressed: () async {
+                                await deleteLavoura(idLavoura);
+                                Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => dashboardPage()),
+                                  (Route<dynamic> route) => false,
+                                );
+                              },
                               icon: Icon(
                                 Icons.delete,
                                 color: Color.fromARGB(255, 182, 19, 8),
@@ -327,5 +336,17 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
         ),
       ),
     );
+  }
+
+  Future<void> deleteLavoura(String lavouraId) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('lavouras')
+          .doc(lavouraId)
+          .delete();
+      print('Lavoura deletada com sucesso');
+    } catch (e) {
+      print('Erro ao deletar lavoura: $e');
+    }
   }
 }
