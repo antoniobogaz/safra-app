@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_safraapp/views/listarAplicacoes.dart';
 
 class viewAplicacaoPage extends StatefulWidget {
-  const viewAplicacaoPage({super.key});
+  //const viewAplicacaoPage({super.key});
+  final Aplicacao aplicacao;
+
+  const viewAplicacaoPage({Key? key, required this.aplicacao})
+      : super(key: key);
 
   @override
   State<viewAplicacaoPage> createState() => _viewAplicacaoPageState();
@@ -15,7 +20,7 @@ class _viewAplicacaoPageState extends State<viewAplicacaoPage> {
           title: Row(
             children: [
               Text(
-                '<Nome da Lavoura>',
+                'Visualizar Aplicação',
                 style: TextStyle(fontSize: 22),
               ),
             ],
@@ -68,7 +73,7 @@ class _viewAplicacaoPageState extends State<viewAplicacaoPage> {
                           child: Padding(
                             padding: const EdgeInsets.only(top: 8.0, bottom: 8),
                             child: Text(
-                              'Visualizar Aplicação',
+                              'Informações Registradas',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 25,
@@ -100,7 +105,7 @@ class _viewAplicacaoPageState extends State<viewAplicacaoPage> {
                             Padding(
                               padding: const EdgeInsets.only(top: 1, left: 15),
                               child: Text(
-                                'Nome do Insumo Aplicado',
+                                '${widget.aplicacao.nomeProduto}',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -129,7 +134,7 @@ class _viewAplicacaoPageState extends State<viewAplicacaoPage> {
                             Padding(
                               padding: const EdgeInsets.only(top: 1, left: 15),
                               child: Text(
-                                'Alvo Biológico do Defensivo',
+                                '${widget.aplicacao.alvoBiologico}',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -158,7 +163,7 @@ class _viewAplicacaoPageState extends State<viewAplicacaoPage> {
                             Padding(
                               padding: const EdgeInsets.only(top: 1, left: 15),
                               child: Text(
-                                'Nível de Toxicidade do Desfensivo',
+                                '${widget.aplicacao.nivelToxicidade}',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -187,7 +192,7 @@ class _viewAplicacaoPageState extends State<viewAplicacaoPage> {
                             Padding(
                               padding: const EdgeInsets.only(top: 1, left: 15),
                               child: Text(
-                                'Data da Aplicação',
+                                '${widget.aplicacao.dataAplicacao}',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -216,7 +221,7 @@ class _viewAplicacaoPageState extends State<viewAplicacaoPage> {
                             Padding(
                               padding: const EdgeInsets.only(top: 1, left: 15),
                               child: Text(
-                                'Dose Aplicada',
+                                '${widget.aplicacao.doseAplicada} ${widget.aplicacao.medidaDose}',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -245,36 +250,7 @@ class _viewAplicacaoPageState extends State<viewAplicacaoPage> {
                             Padding(
                               padding: const EdgeInsets.only(top: 1, left: 15),
                               child: Text(
-                                'Método de Aplicação',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 18.0, left: 15),
-                              child: Text(
-                                'Objetivo da Aplicação',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 1, left: 15),
-                              child: Text(
-                                'Objetivo da Aplicação',
+                                '${widget.aplicacao.metodoAplicacao}',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -303,7 +279,7 @@ class _viewAplicacaoPageState extends State<viewAplicacaoPage> {
                             Padding(
                               padding: const EdgeInsets.only(top: 1, left: 15),
                               child: Text(
-                                'Responsável pela Aplicação',
+                                '${widget.aplicacao.responsavelAplicacao}',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -332,7 +308,7 @@ class _viewAplicacaoPageState extends State<viewAplicacaoPage> {
                             Padding(
                               padding: const EdgeInsets.only(top: 1, left: 15),
                               child: Text(
-                                'Período de Carência',
+                                '${widget.aplicacao.periodoCarencia} ${widget.aplicacao.medidaCarencia}',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -362,7 +338,7 @@ class _viewAplicacaoPageState extends State<viewAplicacaoPage> {
                               padding: const EdgeInsets.only(
                                   top: 1, left: 15, bottom: 50),
                               child: Text(
-                                'Observações',
+                                '${widget.aplicacao.observacaoAplicacao}',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,

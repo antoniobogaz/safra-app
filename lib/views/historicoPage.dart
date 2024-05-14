@@ -1,19 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_safraapp/views/viewLavouraInsumo.dart';
 import 'package:flutter_safraapp/servicos/autenticacao_servico.dart';
 import 'package:flutter_safraapp/views/loginPage.dart';
 import 'package:flutter_safraapp/widgets/meu_snackbar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class historicoPage extends StatefulWidget {
-  const historicoPage({super.key});
+  const historicoPage({Key? key}) : super(key: key);
 
   @override
-  State<historicoPage> createState() => _historicoPageState();
+  _historicoPageState createState() => _historicoPageState();
 }
 
-@override
 class _historicoPageState extends State<historicoPage> {
   AutenticacaoServico _autenServico = AutenticacaoServico();
+
+  Future<List<Aplicacao>> fetchAplicacoes() async {
+    var querySnapshot =
+        await FirebaseFirestore.instance.collectionGroup('aplicacoes').get();
+    return querySnapshot.docs
+        .map((doc) => Aplicacao.fromSnapshot(doc))
+        .toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,43 +56,61 @@ class _historicoPageState extends State<historicoPage> {
         centerTitle: true,
       ),
       body: WillPopScope(
-        onWillPop: () => _onBackButtonPressed(context),
-        child: ListView.builder(
-          itemCount: 5,
-          itemBuilder: (context, index) => InkWell(
-            onTap: () {
-              /*Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => viewLavouraInsumoPage()));*/
-            },
-            child: Card(
-              margin: EdgeInsets.only(top: 1),
-              child: Container(
-                //height: 130,
-                child: ListTile(
-                    tileColor: Colors.white,
-                    visualDensity: VisualDensity(vertical: 4),
-                    title: Text('Nome do insumo aplicado'),
-                    subtitle: Text('Nome da Lavoura\nNome do Insumo Aplicado'),
-                    trailing: const Icon(
-                      Icons.arrow_forward,
-                      color: Color.fromARGB(255, 2, 89, 47),
+        onWillPop: () => onBackButtonPressed(context),
+        child: FutureBuilder<List<Aplicacao>>(
+          future: fetchAplicacoes(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            }
+            if (snapshot.hasError) {
+              return Center(
+                  child: Text("Erro ao carregar dados: ${snapshot.error}"));
+            }
+            if (snapshot.data!.isEmpty) {
+              return Center(child: Text('Não há aplicações registradas'));
+            }
+            return ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                var aplicacao = snapshot.data![index];
+                return InkWell(
+                  onTap: () {
+                    /*Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => viewAplicacaoPage(aplicacao: aplicacao),
+                    ));*/
+                  },
+                  child: Card(
+                    margin: EdgeInsets.only(top: 1),
+                    child: Container(
+                      //height: 130,
+                      child: ListTile(
+                          tileColor: Colors.white,
+                          visualDensity: VisualDensity(vertical: 4),
+                          title: Text(aplicacao.nomeProduto),
+                          subtitle: Text(
+                              'Aplicado por: ${aplicacao.responsavelAplicacao}\nAplicado em: ${aplicacao.dataAplicacao}'),
+                          trailing: const Icon(
+                            Icons.arrow_forward,
+                            color: Color.fromARGB(255, 2, 89, 47),
+                          ),
+                          leading: Icon(
+                            Icons.history_outlined,
+                            color: Color.fromARGB(255, 2, 89, 47),
+                            size: 35,
+                          )),
                     ),
-                    leading: Icon(
-                      Icons.history_outlined,
-                      color: Color.fromARGB(255, 2, 89, 47),
-                      size: 35,
-                    )),
-              ),
-            ),
-          ),
+                  ),
+                );
+              },
+            );
+          },
         ),
       ),
     );
   }
 
-  Future<bool> _onBackButtonPressed(BuildContext context) async {
+  Future<bool> onBackButtonPressed(BuildContext context) async {
     bool? exitApp = await showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -133,5 +159,49 @@ class _historicoPageState extends State<historicoPage> {
             context, MaterialPageRoute(builder: (context) => loginPage()));
       }
     });
+  }
+}
+
+class Aplicacao {
+  final String alvoBiologico;
+  final String dataAplicacao;
+  final String doseAplicada;
+  final String medidaCarencia;
+  final String medidaDose;
+  final String metodoAplicacao;
+  final String nivelToxicidade;
+  final String nomeProduto;
+  final String observacaoAplicacao;
+  final String periodoCarencia;
+  final String responsavelAplicacao;
+
+  Aplicacao({
+    required this.alvoBiologico,
+    required this.dataAplicacao,
+    required this.doseAplicada,
+    required this.medidaCarencia,
+    required this.medidaDose,
+    required this.metodoAplicacao,
+    required this.nivelToxicidade,
+    required this.nomeProduto,
+    required this.observacaoAplicacao,
+    required this.periodoCarencia,
+    required this.responsavelAplicacao,
+  });
+
+  factory Aplicacao.fromSnapshot(DocumentSnapshot doc) {
+    return Aplicacao(
+      alvoBiologico: doc['alvoBiologico'],
+      dataAplicacao: (doc['dataAplicacao']),
+      doseAplicada: (doc['doseAplicada']),
+      medidaCarencia: (doc['medidaCarencia']),
+      medidaDose: (doc['medidaDose']),
+      metodoAplicacao: (doc['metodoAplicacao']),
+      nivelToxicidade: (doc['nivelToxicidade']),
+      nomeProduto: (doc['nomeProduto']),
+      observacaoAplicacao: (doc['observacaoAplicacao']),
+      periodoCarencia: (doc['periodoCarencia']),
+      responsavelAplicacao: (doc['responsavelAplicacao']),
+    );
   }
 }

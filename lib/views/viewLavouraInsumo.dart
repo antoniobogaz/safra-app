@@ -14,8 +14,8 @@ class viewLavouraInsumoPage extends StatefulWidget {
 
 @override
 class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
-  late Map<String, dynamic> data; // Definindo a variável data
-  String? idLavoura = '';
+  late Map<String, dynamic> data;
+  String idLavoura = '';
 
   @override
   void initState() {
@@ -266,7 +266,8 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => listarAplicacoesPage()));
+                                builder: (context) => listarAplicacoesPage(
+                                    lavouraId: idLavoura)));
                       },
                       child: Container(
                         height: 60,
