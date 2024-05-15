@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_safraapp/views/homePage.dart';
 import 'package:flutter_safraapp/views/mapsPage.dart';
 import 'package:flutter_safraapp/servicos/lista_de_valores.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -970,6 +971,10 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
         _periodoCarencia.clear();
         _observacaoAplicacao.clear();
         limparFormulario();
+
+        if (novaLavoura) {
+          Navigator.of(context).pop(true);
+        }
       }).catchError((error) {
         mostrarSnackBar(
             context: context, texto: "Erro ao salvar: $error", isErro: true);

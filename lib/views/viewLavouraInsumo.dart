@@ -1,8 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_safraapp/views/cadernoCampo.dart';
+import 'package:flutter_safraapp/views/homePage.dart';
 import 'package:flutter_safraapp/views/listarAplicacoes.dart';
 import 'package:flutter_safraapp/views/dashboardPage.dart';
+import 'package:flutter_safraapp/widgets/meu_snackbar.dart';
 
 class viewLavouraInsumoPage extends StatefulWidget {
   //const viewLavouraInsumoPage({super.key});
@@ -111,13 +115,7 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
                               )),
                           IconButton(
                               onPressed: () async {
-                                await deleteLavoura(idLavoura);
-                                Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => dashboardPage()),
-                                  (Route<dynamic> route) => false,
-                                );
+                                await _confirmaExclusao(context);
                               },
                               icon: Icon(
                                 Icons.delete,
@@ -338,15 +336,47 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
     );
   }
 
+  Future<bool> _confirmaExclusao(BuildContext context) async {
+    bool? excluirLavoura = await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Tem certeza?"),
+            content: Text("Você Deseja mesmo EXCLUIR esta lavoura?"),
+            actions: <Widget>[
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(false);
+                  },
+                  child: Text("Não")),
+              TextButton(
+                  onPressed: () {
+                    deleteLavoura(idLavoura);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => homePage()));
+                  },
+                  child: Text("Sim"))
+            ],
+          );
+        });
+
+    return excluirLavoura ?? false;
+  }
+
   Future<void> deleteLavoura(String lavouraId) async {
     try {
       await FirebaseFirestore.instance
           .collection('lavouras')
           .doc(lavouraId)
           .delete();
-      print('Lavoura deletada com sucesso');
+      mostrarSnackBar(
+          context: context,
+          texto: 'Lavoura Excluida com sucesso!',
+          isErro: false);
     } catch (e) {
-      print('Erro ao deletar lavoura: $e');
+      mostrarSnackBar2(
+          context: context, texto: 'Erro ao deletar lavoura: $e', isErro: true);
+      //print('Erro ao deletar lavoura: $e');
     }
   }
 }
