@@ -51,7 +51,6 @@ class _historicoPageState extends State<historicoPage> {
             ),
           ),
         ),
-        //automaticallyImplyLeading: false,
         elevation: 0,
         backgroundColor: Color.fromARGB(255, 2, 89, 47),
         centerTitle: true,
@@ -69,7 +68,10 @@ class _historicoPageState extends State<historicoPage> {
                   child: Text("Erro ao carregar dados: ${snapshot.error}"));
             }
             if (snapshot.data!.isEmpty) {
-              return Center(child: Text('Não há aplicações registradas'));
+              return Center(
+                child: Text("Não há aplicações registradas",
+                    style: TextStyle(fontSize: 22, color: Colors.grey)),
+              );
             }
             return ListView.builder(
               itemCount: snapshot.data!.length,

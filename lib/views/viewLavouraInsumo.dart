@@ -1,11 +1,9 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_safraapp/views/cadernoCampo.dart';
+import 'package:flutter_safraapp/views/editLavoura.dart';
 import 'package:flutter_safraapp/views/homePage.dart';
 import 'package:flutter_safraapp/views/listarAplicacoes.dart';
-import 'package:flutter_safraapp/views/dashboardPage.dart';
 import 'package:flutter_safraapp/widgets/meu_snackbar.dart';
 
 class viewLavouraInsumoPage extends StatefulWidget {
@@ -102,11 +100,11 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
                         children: [
                           IconButton(
                               onPressed: () {
-                                /*Navigator.push(
+                                Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            cadernoCampoPage()));*/
+                                        builder: (context) => editLavouraPage(
+                                            idLavoura: idLavoura)));
                               },
                               icon: Icon(
                                 Icons.edit,
@@ -352,8 +350,6 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
               TextButton(
                   onPressed: () {
                     deleteLavoura(idLavoura);
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => homePage()));
                   },
                   child: Text("Sim"))
             ],
@@ -365,18 +361,35 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
 
   Future<void> deleteLavoura(String lavouraId) async {
     try {
-      await FirebaseFirestore.instance
-          .collection('lavouras')
-          .doc(lavouraId)
-          .delete();
+      // Referência ao documento da lavoura
+      var lavouraDocRef =
+          FirebaseFirestore.instance.collection('lavouras').doc(lavouraId);
+
+      // Referência à subcoleção 'aplicacoes'
+      var aplicacoesCollectionRef = lavouraDocRef.collection('aplicacoes');
+
+      // Obter todos os documentos na subcoleção 'aplicacoes'
+      var aplicacoesSnapshot = await aplicacoesCollectionRef.get();
+
+      // Excluir cada documento na subcoleção 'aplicacoes'
+      for (var doc in aplicacoesSnapshot.docs) {
+        await doc.reference.delete();
+      }
+
+      // Agora exclua o documento principal da lavoura
+      await lavouraDocRef.delete();
+
+      // Navegar para a página inicial após a exclusão bem-sucedida
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => homePage()));
+
       mostrarSnackBar(
           context: context,
-          texto: 'Lavoura Excluida com sucesso!',
+          texto: 'Lavoura excluída com sucesso!',
           isErro: false);
     } catch (e) {
       mostrarSnackBar2(
           context: context, texto: 'Erro ao deletar lavoura: $e', isErro: true);
-      //print('Erro ao deletar lavoura: $e');
     }
   }
 }

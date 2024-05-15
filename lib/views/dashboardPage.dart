@@ -112,7 +112,7 @@ class _dashboardPageState extends State<dashboardPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text("Nenhuma lavoura cadastrada!",
-                            style: TextStyle(fontSize: 18, color: Colors.grey)),
+                            style: TextStyle(fontSize: 22, color: Colors.grey)),
                         SizedBox(height: 20),
                         ElevatedButton(
                           onPressed: () {
