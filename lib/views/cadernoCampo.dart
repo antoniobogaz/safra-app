@@ -22,6 +22,7 @@ class cadernoCampoPage extends StatefulWidget {
 @override
 class _cadernoCampoPageState extends State<cadernoCampoPage> {
   var formKey = GlobalKey<FormState>();
+  bool _isLoading = false;
 
   String? _selectedValue_classe = 'Acaricida';
   String? _selectedValue_toxicidade = 'Categoria 1 - Extremamente Tóxico';
@@ -77,830 +78,843 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
         backgroundColor: Color.fromARGB(255, 2, 89, 47),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Form(
-          key: formKey,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 28.0, left: 12),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+      body: _isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : SingleChildScrollView(
+              child: Form(
+                key: formKey,
+                child: Column(
                   children: [
-                    Text(
-                      'Identificação do Talhão',
-                      style:
-                          TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 18.0),
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width / 1.1,
-                  height: 50,
-                  child: TextFormField(
-                    controller: _nomePropriedade,
-                    keyboardType: TextInputType.name,
-                    decoration: InputDecoration(
-                        labelText: 'Nome da Propriedade',
-                        labelStyle:
-                            TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5),
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5),
-                          borderRadius: BorderRadius.circular(50),
-                        )),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Campo Obrigatório';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(width: 5.5),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 18.0),
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width / 1.52,
-                      height: 50,
-                      child: TextFormField(
-                        controller: _tamanhoPropriedade,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                            labelText: 'Tamanho da Área',
-                            labelStyle: TextStyle(
-                                color: Color.fromARGB(255, 8, 46, 28)),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(50),
-                                bottomLeft: Radius.circular(50),
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(50),
-                                bottomLeft: Radius.circular(50),
-                              ),
-                            )),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Por favor, informe o tamanho da área';
-                          }
-                          return null;
-                        },
+                    Padding(
+                      padding: const EdgeInsets.only(top: 28.0, left: 12),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Identificação do Talhão',
+                            style: TextStyle(
+                                fontSize: 32, fontWeight: FontWeight.bold),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 18.0),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 3.95,
-                      height: 50,
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(50),
-                            bottomRight: Radius.circular(50),
-                          ),
-                          color: Colors.white,
-                          border: Border.all(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5)),
-                      child: DropdownButton(
-                        value: _selectedValue_medidaterreno,
-                        isExpanded: true,
-                        hint: const Text(
-                          'Medida',
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 8, 46, 28),
-                          ),
-                        ),
-                        items: medidas_terreno.map<DropdownMenuItem<String>>(
-                          (String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
+                    Padding(
+                      padding: const EdgeInsets.only(top: 18.0),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width / 1.1,
+                        height: 50,
+                        child: TextFormField(
+                          controller: _nomePropriedade,
+                          keyboardType: TextInputType.name,
+                          decoration: InputDecoration(
+                              labelText: 'Nome da Propriedade',
+                              labelStyle: TextStyle(
+                                  color: Color.fromARGB(255, 8, 46, 28)),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 8, 46, 28),
+                                    width: 1.5),
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 8, 46, 28),
+                                    width: 1.5),
+                                borderRadius: BorderRadius.circular(50),
+                              )),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Campo Obrigatório';
+                            }
+                            return null;
                           },
-                        ).toList(),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            _selectedValue_medidaterreno = newValue;
-                          });
-                        },
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 18.0),
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width / 1.1,
-                  height: 50,
-                  child: TextFormField(
-                    controller: _cultura,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                        labelText: 'Cultura',
-                        labelStyle:
-                            TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5),
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5),
-                          borderRadius: BorderRadius.circular(50),
-                        )),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Por favor, insira a cultura cultivada neste talhão';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 18.0),
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width / 1.1,
-                  height: 50,
-                  child: TextField(
-                    controller: _variedade,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                        labelText: 'Variedade',
-                        labelStyle:
-                            TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5),
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5),
-                          borderRadius: BorderRadius.circular(50),
-                        )),
-                  ),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 18.0),
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width / 2.25,
-                      height: 50,
-                      child: TextFormField(
-                        controller: _dataPlantio,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                            labelText: 'Data de Plantio',
-                            labelStyle: TextStyle(
-                                color: Color.fromARGB(255, 8, 46, 28)),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
-                              borderRadius: BorderRadius.circular(50),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(width: 5.5),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 18.0),
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width / 1.52,
+                            height: 50,
+                            child: TextFormField(
+                              controller: _tamanhoPropriedade,
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                  labelText: 'Tamanho da Área',
+                                  labelStyle: TextStyle(
+                                      color: Color.fromARGB(255, 8, 46, 28)),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        color: Color.fromARGB(255, 8, 46, 28),
+                                        width: 1.5),
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(50),
+                                      bottomLeft: Radius.circular(50),
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Color.fromARGB(255, 8, 46, 28),
+                                        width: 1.5),
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(50),
+                                      bottomLeft: Radius.circular(50),
+                                    ),
+                                  )),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Por favor, informe o tamanho da área';
+                                }
+                                return null;
+                              },
                             ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
-                              borderRadius: BorderRadius.circular(50),
-                            )),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Por favor, insira a data de plantio';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 5.5),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 18.0),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 2.25,
-                      height: 50,
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(50),
-                          ),
-                          color: Colors.white,
-                          border: Border.all(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5)),
-                      child: DropdownButton(
-                        value: _selectedValue_sistemaPlantio,
-                        isExpanded: true,
-                        hint: const Text(
-                          'Sistema de Plantio',
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 8, 46, 28),
                           ),
                         ),
-                        items: sistema_plantio
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            _selectedValue_sistemaPlantio = newValue;
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 28.0, left: 12),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Mapeamento Geográfico',
-                      style:
-                          TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => mapsPage()),
-                  );
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 18.0),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width / 1.1,
-                    height: 300,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(20),
-                        ),
-                        border: Border.all(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
-                    child: Center(
-                      child: Text('Google Maps'),
-                    ),
-                  ),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 18.0),
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width / 2.25,
-                      height: 50,
-                      child: TextField(
-                        decoration: InputDecoration(
-                            labelText: 'Latitude',
-                            labelStyle: TextStyle(
-                                color: Color.fromARGB(255, 8, 46, 28)),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
+                        Padding(
+                          padding: const EdgeInsets.only(top: 18.0),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width / 3.95,
+                            height: 50,
+                            padding: EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(50),
+                                  bottomRight: Radius.circular(50),
+                                ),
+                                color: Colors.white,
+                                border: Border.all(
+                                    color: Color.fromARGB(255, 8, 46, 28),
+                                    width: 1.5)),
+                            child: DropdownButton(
+                              value: _selectedValue_medidaterreno,
+                              isExpanded: true,
+                              hint: const Text(
+                                'Medida',
+                                style: TextStyle(
                                   color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(50),
-                                bottomLeft: Radius.circular(50),
+                                ),
                               ),
+                              items:
+                                  medidas_terreno.map<DropdownMenuItem<String>>(
+                                (String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                },
+                              ).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  _selectedValue_medidaterreno = newValue;
+                                });
+                              },
                             ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(50),
-                                bottomLeft: Radius.circular(50),
-                              ),
-                            )),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 5.5),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 18.0),
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width / 2.25,
-                      height: 50,
-                      child: TextField(
-                        decoration: InputDecoration(
-                            labelText: 'Longitude',
-                            labelStyle: TextStyle(
-                                color: Color.fromARGB(255, 8, 46, 28)),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(50),
-                                bottomRight: Radius.circular(50),
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(50),
-                                bottomRight: Radius.circular(50),
-                              ),
-                            )),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 28.0, left: 12),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Aplicação',
-                      style:
-                          TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 18.0),
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width / 1.1,
-                  height: 50,
-                  child: TextFormField(
-                    controller: _nomeProduto,
-                    decoration: InputDecoration(
-                        labelText: 'Nome do Produto',
-                        labelStyle:
-                            TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5),
-                          borderRadius: BorderRadius.circular(50),
+                          ),
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5),
-                          borderRadius: BorderRadius.circular(50),
-                        )),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Por favor, informe o nome do produto a ser aplicado';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 18.0),
-                child: Container(
-                  width: MediaQuery.of(context).size.width / 1.1,
-                  height: 50,
-                  padding: EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(50),
-                      ),
-                      color: Colors.white,
-                      border: Border.all(
-                          color: Color.fromARGB(255, 8, 46, 28), width: 1.5)),
-                  child: DropdownButton(
-                    value: _selectedValue_classe,
-                    isExpanded: true,
-                    hint: const Text(
-                      'Alvo Biológico',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 8, 46, 28),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 18.0),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width / 1.1,
+                        height: 50,
+                        child: TextFormField(
+                          controller: _cultura,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                              labelText: 'Cultura',
+                              labelStyle: TextStyle(
+                                  color: Color.fromARGB(255, 8, 46, 28)),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Color.fromARGB(255, 8, 46, 28),
+                                    width: 1.5),
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 8, 46, 28),
+                                    width: 1.5),
+                                borderRadius: BorderRadius.circular(50),
+                              )),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Por favor, insira a cultura cultivada neste talhão';
+                            }
+                            return null;
+                          },
+                        ),
                       ),
                     ),
-                    items:
-                        opcoes_classe_agronomica.map<DropdownMenuItem<String>>(
-                      (String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 18.0),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width / 1.1,
+                        height: 50,
+                        child: TextField(
+                          controller: _variedade,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                              labelText: 'Variedade',
+                              labelStyle: TextStyle(
+                                  color: Color.fromARGB(255, 8, 46, 28)),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Color.fromARGB(255, 8, 46, 28),
+                                    width: 1.5),
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 8, 46, 28),
+                                    width: 1.5),
+                                borderRadius: BorderRadius.circular(50),
+                              )),
+                        ),
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 18.0),
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width / 2.25,
+                            height: 50,
+                            child: TextFormField(
+                              controller: _dataPlantio,
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                  labelText: 'Data de Plantio',
+                                  labelStyle: TextStyle(
+                                      color: Color.fromARGB(255, 8, 46, 28)),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        color: Color.fromARGB(255, 8, 46, 28),
+                                        width: 1.5),
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Color.fromARGB(255, 8, 46, 28),
+                                        width: 1.5),
+                                    borderRadius: BorderRadius.circular(50),
+                                  )),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Por favor, insira a data de plantio';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 5.5),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 18.0),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width / 2.25,
+                            height: 50,
+                            padding: EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(50),
+                                ),
+                                color: Colors.white,
+                                border: Border.all(
+                                    color: Color.fromARGB(255, 8, 46, 28),
+                                    width: 1.5)),
+                            child: DropdownButton(
+                              value: _selectedValue_sistemaPlantio,
+                              isExpanded: true,
+                              hint: const Text(
+                                'Sistema de Plantio',
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 8, 46, 28),
+                                ),
+                              ),
+                              items: sistema_plantio
+                                  .map<DropdownMenuItem<String>>(
+                                      (String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  _selectedValue_sistemaPlantio = newValue;
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 28.0, left: 12),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Mapeamento Geográfico',
+                            style: TextStyle(
+                                fontSize: 32, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => mapsPage()),
                         );
                       },
-                    ).toList(),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        _selectedValue_classe = newValue;
-                      });
-                    },
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 18.0),
-                child: Container(
-                  width: MediaQuery.of(context).size.width / 1.1,
-                  height: 50,
-                  padding: EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(50),
-                      ),
-                      color: Colors.white,
-                      border: Border.all(
-                          color: Color.fromARGB(255, 8, 46, 28), width: 1.5)),
-                  child: DropdownButton(
-                    value: _selectedValue_toxicidade,
-                    isExpanded: true,
-                    hint: const Text(
-                      'Nível de Toxicidade',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 8, 46, 28),
-                      ),
-                    ),
-                    items: opcoes_nivel_toxicologico
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        _selectedValue_toxicidade = newValue;
-                      });
-                    },
-                  ),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 18.0),
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width / 2.95,
-                      height: 50,
-                      child: TextFormField(
-                        controller: _dataAplicacao,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                            labelText: 'Data da Aplicação',
-                            labelStyle: TextStyle(
-                                color: Color.fromARGB(255, 8, 46, 28)),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
-                              borderRadius: BorderRadius.circular(50),
-                            )),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Por favor, informe a data da Aplicação';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 5.5),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 18.0),
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width / 3.25,
-                      height: 50,
-                      child: TextFormField(
-                        controller: _doseAplicada,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                            labelText: 'Dose Aplicada',
-                            labelStyle: TextStyle(
-                                color: Color.fromARGB(255, 8, 46, 28)),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(50),
-                                bottomLeft: Radius.circular(50),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 18.0),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width / 1.1,
+                          height: 300,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(20),
                               ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              border: Border.all(
                                   color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(50),
-                                bottomLeft: Radius.circular(50),
-                              ),
-                            )),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Por favor, insira a dose aplicada';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 18.0),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 3.95,
-                      height: 50,
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(50),
-                            bottomRight: Radius.circular(50),
-                          ),
-                          color: Colors.white,
-                          border: Border.all(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5)),
-                      child: DropdownButton(
-                        value: _selectedValue_opcoesmedidas,
-                        isExpanded: true,
-                        hint: const Text(
-                          'Medida',
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 8, 46, 28),
+                                  width: 2.0)),
+                          child: Center(
+                            child: Text('Google Maps'),
                           ),
                         ),
-                        items: opcoes_medidas.map<DropdownMenuItem<String>>(
-                          (String value) {
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 18.0),
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width / 2.25,
+                            height: 50,
+                            child: TextField(
+                              decoration: InputDecoration(
+                                  labelText: 'Latitude',
+                                  labelStyle: TextStyle(
+                                      color: Color.fromARGB(255, 8, 46, 28)),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        color: Color.fromARGB(255, 8, 46, 28),
+                                        width: 1.5),
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(50),
+                                      bottomLeft: Radius.circular(50),
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Color.fromARGB(255, 8, 46, 28),
+                                        width: 1.5),
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(50),
+                                      bottomLeft: Radius.circular(50),
+                                    ),
+                                  )),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 5.5),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 18.0),
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width / 2.25,
+                            height: 50,
+                            child: TextField(
+                              decoration: InputDecoration(
+                                  labelText: 'Longitude',
+                                  labelStyle: TextStyle(
+                                      color: Color.fromARGB(255, 8, 46, 28)),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        color: Color.fromARGB(255, 8, 46, 28),
+                                        width: 1.5),
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(50),
+                                      bottomRight: Radius.circular(50),
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Color.fromARGB(255, 8, 46, 28),
+                                        width: 1.5),
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(50),
+                                      bottomRight: Radius.circular(50),
+                                    ),
+                                  )),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 28.0, left: 12),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Aplicação',
+                            style: TextStyle(
+                                fontSize: 32, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 18.0),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width / 1.1,
+                        height: 50,
+                        child: TextFormField(
+                          controller: _nomeProduto,
+                          decoration: InputDecoration(
+                              labelText: 'Nome do Produto',
+                              labelStyle: TextStyle(
+                                  color: Color.fromARGB(255, 8, 46, 28)),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Color.fromARGB(255, 8, 46, 28),
+                                    width: 1.5),
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 8, 46, 28),
+                                    width: 1.5),
+                                borderRadius: BorderRadius.circular(50),
+                              )),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Por favor, informe o nome do produto a ser aplicado';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 18.0),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 1.1,
+                        height: 50,
+                        padding: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(50),
+                            ),
+                            color: Colors.white,
+                            border: Border.all(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5)),
+                        child: DropdownButton(
+                          value: _selectedValue_classe,
+                          isExpanded: true,
+                          hint: const Text(
+                            'Alvo Biológico',
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 8, 46, 28),
+                            ),
+                          ),
+                          items: opcoes_classe_agronomica
+                              .map<DropdownMenuItem<String>>(
+                            (String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            },
+                          ).toList(),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              _selectedValue_classe = newValue;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 18.0),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 1.1,
+                        height: 50,
+                        padding: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(50),
+                            ),
+                            color: Colors.white,
+                            border: Border.all(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5)),
+                        child: DropdownButton(
+                          value: _selectedValue_toxicidade,
+                          isExpanded: true,
+                          hint: const Text(
+                            'Nível de Toxicidade',
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 8, 46, 28),
+                            ),
+                          ),
+                          items: opcoes_nivel_toxicologico
+                              .map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
                               child: Text(value),
                             );
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              _selectedValue_toxicidade = newValue;
+                            });
                           },
-                        ).toList(),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            _selectedValue_opcoesmedidas = newValue;
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 18.0),
-                child: Container(
-                  width: MediaQuery.of(context).size.width / 1.1,
-                  height: 50,
-                  padding: EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(50),
-                      ),
-                      color: Colors.white,
-                      border: Border.all(
-                          color: Color.fromARGB(255, 8, 46, 28), width: 1.5)),
-                  child: DropdownButton(
-                    value: _selectedValue_metodoAplicacao,
-                    isExpanded: true,
-                    hint: const Text(
-                      'Método de Aplicação',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 8, 46, 28),
-                      ),
-                    ),
-                    items: metodo_aplicacao
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        _selectedValue_metodoAplicacao = newValue;
-                      });
-                    },
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 18.0),
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width / 1.1,
-                  height: 50,
-                  child: TextFormField(
-                    controller: _responsavelAplicacao,
-                    decoration: InputDecoration(
-                        labelText: 'Responsável pela Aplicação',
-                        labelStyle:
-                            TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5),
-                          borderRadius: BorderRadius.circular(50),
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5),
-                          borderRadius: BorderRadius.circular(50),
-                        )),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Por favor, insira o responsável por esta aplicação';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(width: 5.5),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 18.0),
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width / 1.52,
-                      height: 50,
-                      child: TextFormField(
-                        controller: _periodoCarencia,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                            labelText: 'Período de Carência',
-                            labelStyle: TextStyle(
-                                color: Color.fromARGB(255, 8, 46, 28)),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(50),
-                                bottomLeft: Radius.circular(50),
-                              ),
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 18.0),
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width / 2.95,
+                            height: 50,
+                            child: TextFormField(
+                              controller: _dataAplicacao,
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                  labelText: 'Data da Aplicação',
+                                  labelStyle: TextStyle(
+                                      color: Color.fromARGB(255, 8, 46, 28)),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        color: Color.fromARGB(255, 8, 46, 28),
+                                        width: 1.5),
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Color.fromARGB(255, 8, 46, 28),
+                                        width: 1.5),
+                                    borderRadius: BorderRadius.circular(50),
+                                  )),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Por favor, informe a data da Aplicação';
+                                }
+                                return null;
+                              },
                             ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(50),
-                                bottomLeft: Radius.circular(50),
-                              ),
-                            )),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Por favor, insira o período de carência";
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 18.0),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 3.95,
-                      height: 50,
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(50),
-                            bottomRight: Radius.circular(50),
-                          ),
-                          color: Colors.white,
-                          border: Border.all(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5)),
-                      child: DropdownButton(
-                        value: _selectedValue_medidatempo,
-                        isExpanded: true,
-                        hint: const Text(
-                          'Medida',
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 8, 46, 28),
                           ),
                         ),
-                        items: medidas_tempo.map<DropdownMenuItem<String>>(
-                          (String value) {
+                        SizedBox(width: 5.5),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 18.0),
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width / 3.25,
+                            height: 50,
+                            child: TextFormField(
+                              controller: _doseAplicada,
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                  labelText: 'Dose Aplicada',
+                                  labelStyle: TextStyle(
+                                      color: Color.fromARGB(255, 8, 46, 28)),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        color: Color.fromARGB(255, 8, 46, 28),
+                                        width: 1.5),
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(50),
+                                      bottomLeft: Radius.circular(50),
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Color.fromARGB(255, 8, 46, 28),
+                                        width: 1.5),
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(50),
+                                      bottomLeft: Radius.circular(50),
+                                    ),
+                                  )),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Por favor, insira a dose aplicada';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 18.0),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width / 3.95,
+                            height: 50,
+                            padding: EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(50),
+                                  bottomRight: Radius.circular(50),
+                                ),
+                                color: Colors.white,
+                                border: Border.all(
+                                    color: Color.fromARGB(255, 8, 46, 28),
+                                    width: 1.5)),
+                            child: DropdownButton(
+                              value: _selectedValue_opcoesmedidas,
+                              isExpanded: true,
+                              hint: const Text(
+                                'Medida',
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 8, 46, 28),
+                                ),
+                              ),
+                              items:
+                                  opcoes_medidas.map<DropdownMenuItem<String>>(
+                                (String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                },
+                              ).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  _selectedValue_opcoesmedidas = newValue;
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 18.0),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width / 1.1,
+                        height: 50,
+                        padding: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(50),
+                            ),
+                            color: Colors.white,
+                            border: Border.all(
+                                color: Color.fromARGB(255, 8, 46, 28),
+                                width: 1.5)),
+                        child: DropdownButton(
+                          value: _selectedValue_metodoAplicacao,
+                          isExpanded: true,
+                          hint: const Text(
+                            'Método de Aplicação',
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 8, 46, 28),
+                            ),
+                          ),
+                          items: metodo_aplicacao
+                              .map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
                               child: Text(value),
                             );
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              _selectedValue_metodoAplicacao = newValue;
+                            });
                           },
-                        ).toList(),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            _selectedValue_medidatempo = newValue;
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 18.0),
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width / 1.1,
-                  height: 50,
-                  child: TextField(
-                    controller: _observacaoAplicacao,
-                    decoration: InputDecoration(
-                        labelText: 'Observações',
-                        labelStyle:
-                            TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5),
-                          borderRadius: BorderRadius.circular(50),
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5),
-                          borderRadius: BorderRadius.circular(50),
-                        )),
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.only(top: 30, bottom: 10),
-                child: InkWell(
-                  onTap: () => _aoSalvarLavoura(context),
-                  child: Container(
-                    height: 60,
-                    width: MediaQuery.of(context).size.width / 1.1,
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 8, 46, 28),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(15),
                       ),
                     ),
-                    child: Center(
-                      child: Text(
-                        'salvar'.toUpperCase(),
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 18.0),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width / 1.1,
+                        height: 50,
+                        child: TextFormField(
+                          controller: _responsavelAplicacao,
+                          decoration: InputDecoration(
+                              labelText: 'Responsável pela Aplicação',
+                              labelStyle: TextStyle(
+                                  color: Color.fromARGB(255, 8, 46, 28)),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Color.fromARGB(255, 8, 46, 28),
+                                    width: 1.5),
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 8, 46, 28),
+                                    width: 1.5),
+                                borderRadius: BorderRadius.circular(50),
+                              )),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Por favor, insira o responsável por esta aplicação';
+                            }
+                            return null;
+                          },
+                        ),
                       ),
                     ),
-                  ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(width: 5.5),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 18.0),
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width / 1.52,
+                            height: 50,
+                            child: TextFormField(
+                              controller: _periodoCarencia,
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                  labelText: 'Período de Carência',
+                                  labelStyle: TextStyle(
+                                      color: Color.fromARGB(255, 8, 46, 28)),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        color: Color.fromARGB(255, 8, 46, 28),
+                                        width: 1.5),
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(50),
+                                      bottomLeft: Radius.circular(50),
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Color.fromARGB(255, 8, 46, 28),
+                                        width: 1.5),
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(50),
+                                      bottomLeft: Radius.circular(50),
+                                    ),
+                                  )),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return "Por favor, insira o período de carência";
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 18.0),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width / 3.95,
+                            height: 50,
+                            padding: EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(50),
+                                  bottomRight: Radius.circular(50),
+                                ),
+                                color: Colors.white,
+                                border: Border.all(
+                                    color: Color.fromARGB(255, 8, 46, 28),
+                                    width: 1.5)),
+                            child: DropdownButton(
+                              value: _selectedValue_medidatempo,
+                              isExpanded: true,
+                              hint: const Text(
+                                'Medida',
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 8, 46, 28),
+                                ),
+                              ),
+                              items:
+                                  medidas_tempo.map<DropdownMenuItem<String>>(
+                                (String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                },
+                              ).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  _selectedValue_medidatempo = newValue;
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 18.0),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width / 1.1,
+                        height: 50,
+                        child: TextField(
+                          controller: _observacaoAplicacao,
+                          decoration: InputDecoration(
+                              labelText: 'Observações',
+                              labelStyle: TextStyle(
+                                  color: Color.fromARGB(255, 8, 46, 28)),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color: Color.fromARGB(255, 8, 46, 28),
+                                    width: 1.5),
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 8, 46, 28),
+                                    width: 1.5),
+                                borderRadius: BorderRadius.circular(50),
+                              )),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(top: 30, bottom: 10),
+                      child: InkWell(
+                        onTap: () => _aoSalvarLavoura(context),
+                        child: Container(
+                          height: 60,
+                          width: MediaQuery.of(context).size.width / 1.1,
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 8, 46, 28),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(15),
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'salvar'.toUpperCase(),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 
@@ -916,6 +930,10 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
 
   void _aoSalvarLavoura(BuildContext context) {
     if (formKey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true;
+      });
+
       var colecao = FirebaseFirestore.instance.collection('lavouras');
       var uid = FirebaseAuth.instance.currentUser!.uid;
       DocumentReference novoDocumento;
@@ -960,6 +978,10 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
           'observacaoAplicacao': _observacaoAplicacao.text,
         });
       }).then((value) {
+        setState(() {
+          _isLoading = false;
+        });
+
         mostrarSnackBar(
             context: context, texto: "Dados Salvos com Sucesso", isErro: false);
         // Limpar os controllers após o uso
@@ -975,6 +997,9 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
           Navigator.of(context).pop(true);
         }
       }).catchError((error) {
+        setState(() {
+          _isLoading = false;
+        });
         mostrarSnackBar(
             context: context, texto: "Erro ao salvar: $error", isErro: true);
       });

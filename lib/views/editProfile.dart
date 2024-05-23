@@ -5,6 +5,9 @@ import 'package:flutter_safraapp/views/homePage.dart';
 import 'package:flutter_safraapp/widgets/meu_snackbar.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_safraapp/servicos/lista_de_valores.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class editProfilePage extends StatefulWidget {
   //const editProfilePage({super.key});
@@ -54,6 +57,74 @@ String? _selectedValue_area;
 
 @override
 class _editProfilePageState extends State<editProfilePage> {
+  File? _image;
+  String? _downloadUrl;
+
+  Future<void> _loadProfilePicture() async {
+    try {
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('usuarios')
+          .doc(uid)
+          .get();
+      if (userDoc.exists) {
+        setState(() {
+          _downloadUrl = userDoc['profilePicture'];
+        });
+      }
+    } catch (e) {
+      print('Erro ao carregar a foto de perfil: $e');
+    }
+  }
+
+  Future<File?> _pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? pickedFile =
+        await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      return File(pickedFile.path);
+    }
+    return null;
+  }
+
+  Future<String?> _uploadProfilePicture(File image) async {
+    try {
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+      Reference storageReference =
+          FirebaseStorage.instance.ref().child('profile_pictures/$uid.jpg');
+      UploadTask uploadTask = storageReference.putFile(image);
+      TaskSnapshot taskSnapshot = await uploadTask;
+
+      return await taskSnapshot.ref.getDownloadURL();
+    } catch (e) {
+      print('Erro ao fazer upload da imagem: $e');
+      return null;
+    }
+  }
+
+  Future<void> _selectAndUploadImage() async {
+    File? pickedImage = await _pickImage();
+    if (pickedImage != null) {
+      setState(() {
+        _image = pickedImage;
+      });
+
+      String? downloadUrl = await _uploadProfilePicture(pickedImage);
+      if (downloadUrl != null) {
+        setState(() {
+          _downloadUrl = downloadUrl;
+        });
+
+        // Atualize o Firestore com a nova URL da foto de perfil
+        await FirebaseFirestore.instance
+            .collection('usuarios')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .update({'profilePicture': downloadUrl});
+      }
+    }
+  }
+
   late TextEditingController nomeEmpresaController;
   late TextEditingController cnpjController;
   late TextEditingController razaoSocialController;
@@ -72,6 +143,7 @@ class _editProfilePageState extends State<editProfilePage> {
   @override
   void initState() {
     super.initState();
+    _loadProfilePicture();
     nomeEmpresaController = TextEditingController(text: widget.nomeEmpresa);
     cnpjController =
         MaskedTextController(mask: '00.000.000/0000-00', text: widget.cnpj);
@@ -137,10 +209,9 @@ class _editProfilePageState extends State<editProfilePage> {
               padding: const EdgeInsets.only(top: 22.0),
               child: CircleAvatar(
                 radius: 80,
-                backgroundColor: Colors.red,
-                backgroundImage: const NetworkImage(
-                  'https://images.pexels.com/photos/41008/cowboy-ronald-reagan-cowboy-hat-hat-41008.jpeg?auto=compress&cs=tinysrgb&w=400',
-                ),
+                //backgroundColor: Colors.green,
+                backgroundImage:
+                    _downloadUrl != null ? NetworkImage(_downloadUrl!) : null,
                 child: Container(
                   width: double.infinity,
                   height: double.infinity,
@@ -151,14 +222,20 @@ class _editProfilePageState extends State<editProfilePage> {
                       width: 5.0,
                     ),
                   ),
+                  child: _image == null && _downloadUrl == null
+                      ? Icon(Icons.person, size: 80, color: Colors.white)
+                      : null,
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10.0),
-              child: Text(
-                'Alterar foto',
-                style: TextStyle(fontSize: 16, color: Colors.blue),
+            TextButton(
+              onPressed: _selectAndUploadImage,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: Text(
+                  'Alterar foto',
+                  style: TextStyle(fontSize: 16, color: Colors.blue),
+                ),
               ),
             ),
             Padding(
@@ -722,6 +799,7 @@ class _editProfilePageState extends State<editProfilePage> {
       'email': emailController.text,
       'celular': celularController.text,
       'uid': uid,
+      'profilePicture': _downloadUrl,
     }).then(
       (value) {
         (value) => mostrarSnackBar(

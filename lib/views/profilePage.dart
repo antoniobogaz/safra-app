@@ -18,6 +18,31 @@ class _profilePageState extends State<profilePage> {
   AutenticacaoServico _autenServico = AutenticacaoServico();
   var uid = FirebaseAuth.instance.currentUser!.uid;
 
+  String? _downloadUrl;
+
+  Future<void> _loadProfilePicture() async {
+    try {
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('usuarios')
+          .doc(uid)
+          .get();
+      if (userDoc.exists) {
+        setState(() {
+          _downloadUrl = userDoc['profilePicture'];
+        });
+      }
+    } catch (e) {
+      print('Erro ao carregar a foto de perfil: $e');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProfilePicture();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,9 +106,9 @@ class _profilePageState extends State<profilePage> {
                           child: CircleAvatar(
                             radius: 80,
                             backgroundColor: Colors.red,
-                            backgroundImage: const NetworkImage(
-                              'https://images.pexels.com/photos/41008/cowboy-ronald-reagan-cowboy-hat-hat-41008.jpeg?auto=compress&cs=tinysrgb&w=400',
-                            ),
+                            backgroundImage: _downloadUrl != null
+                                ? NetworkImage(_downloadUrl!)
+                                : null,
                             child: Container(
                               width: double.infinity,
                               height: double.infinity,
