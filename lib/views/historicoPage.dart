@@ -32,7 +32,7 @@ class _historicoPageState extends State<historicoPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              'Histórico de Aplicações',
+              'Visão Geral das Aplicações',
               style: TextStyle(fontSize: 22),
             ),
           ],
@@ -77,32 +77,21 @@ class _historicoPageState extends State<historicoPage> {
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 var aplicacao = snapshot.data![index];
-                return InkWell(
-                  onTap: () {
-                    /*Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => viewAplicacaoPage(aplicacao: aplicacao),
-                    ));*/
-                  },
-                  child: Card(
-                    margin: EdgeInsets.only(top: 1),
-                    child: Container(
-                      //height: 130,
-                      child: ListTile(
-                          tileColor: Colors.white,
-                          visualDensity: VisualDensity(vertical: 4),
-                          title: Text(aplicacao.nomeProduto),
-                          subtitle: Text(
-                              'Aplicado por: ${aplicacao.responsavelAplicacao}\nAplicado em: ${aplicacao.dataAplicacao}'),
-                          trailing: const Icon(
-                            Icons.arrow_forward,
-                            color: Color.fromARGB(255, 2, 89, 47),
-                          ),
-                          leading: Icon(
-                            Icons.history_outlined,
-                            color: Color.fromARGB(255, 2, 89, 47),
-                            size: 35,
-                          )),
-                    ),
+                return Card(
+                  margin: EdgeInsets.only(top: 1),
+                  child: Container(
+                    //height: 130,
+                    child: ListTile(
+                        tileColor: Colors.white,
+                        visualDensity: VisualDensity(vertical: 4),
+                        title: Text(aplicacao.nomeProduto),
+                        subtitle: Text(
+                            'Aplicado por: ${aplicacao.responsavelAplicacao}\nAplicado em: ${aplicacao.dataAplicacao}'),
+                        leading: Icon(
+                          Icons.history_outlined,
+                          color: Color.fromARGB(255, 2, 89, 47),
+                          size: 35,
+                        )),
                   ),
                 );
               },
