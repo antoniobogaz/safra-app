@@ -976,6 +976,8 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
           'periodoCarencia': _periodoCarencia.text,
           'medidaCarencia': _selectedValue_medidatempo,
           'observacaoAplicacao': _observacaoAplicacao.text,
+          'idLavoura': novoDocumento.id,
+          'aplicacaoId': aplicacaoDoc.id,
         });
       }).then((value) {
         setState(() {

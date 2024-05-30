@@ -12,6 +12,8 @@ class listarAplicacoesPage extends StatefulWidget {
 }
 
 class _listarAplicacoesPageState extends State<listarAplicacoesPage> {
+  Future<List<Aplicacao>>? _futureAplicacoes;
+
   Future<List<Aplicacao>> fetchAplicacoes() async {
     var collection = FirebaseFirestore.instance
         .collection('lavouras')
@@ -20,6 +22,18 @@ class _listarAplicacoesPageState extends State<listarAplicacoesPage> {
     var snapshot = await collection.get();
     if (snapshot.docs.isEmpty) return [];
     return snapshot.docs.map((doc) => Aplicacao.fromFirestore(doc)).toList();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _futureAplicacoes = fetchAplicacoes();
+  }
+
+  Future<void> _refreshAplicacoes() async {
+    setState(() {
+      _futureAplicacoes = fetchAplicacoes();
+    });
   }
 
   @override
@@ -55,29 +69,38 @@ class _listarAplicacoesPageState extends State<listarAplicacoesPage> {
         centerTitle: true,
       ),
       body: FutureBuilder<List<Aplicacao>>(
-        future: fetchAplicacoes(),
+        future: _futureAplicacoes,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasError) {
-            return Center(child: Text('Erro ao carregar dados'));
+            return Center(
+                child: Text('Erro ao carregar dados: ${snapshot.error}',
+                    style: TextStyle(fontSize: 22, color: Colors.grey)));
           }
           if (snapshot.data!.isEmpty) {
-            return Center(child: Text('Não há aplicações'));
+            return Center(
+              child: Text("Não há aplicações registradas neste talhão",
+                  style: TextStyle(fontSize: 22, color: Colors.grey)),
+            );
           }
           return ListView.builder(
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
               var aplicacao = snapshot.data![index];
               return InkWell(
-                onTap: () {
-                  Navigator.push(
+                onTap: () async {
+                  bool? result = await Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            viewAplicacaoPage(aplicacao: aplicacao)),
+                      builder: (context) =>
+                          viewAplicacaoPage(aplicacao: aplicacao),
+                    ),
                   );
+                  if (result == true) {
+                    _refreshAplicacoes();
+                  }
                 },
                 child: Card(
                   child: ListTile(
@@ -111,6 +134,8 @@ class Aplicacao {
   final String observacaoAplicacao;
   final String periodoCarencia;
   final String responsavelAplicacao;
+  final String lavouraId;
+  final String aplicacaoId;
 
   Aplicacao({
     required this.alvoBiologico,
@@ -124,6 +149,8 @@ class Aplicacao {
     required this.observacaoAplicacao,
     required this.periodoCarencia,
     required this.responsavelAplicacao,
+    required this.lavouraId,
+    required this.aplicacaoId,
   });
 
   factory Aplicacao.fromFirestore(DocumentSnapshot doc) {
@@ -139,6 +166,8 @@ class Aplicacao {
       observacaoAplicacao: (doc['observacaoAplicacao']),
       periodoCarencia: (doc['periodoCarencia']),
       responsavelAplicacao: (doc['responsavelAplicacao']),
+      lavouraId: (doc['idLavoura']),
+      aplicacaoId: (doc['aplicacaoId']),
     );
   }
 }

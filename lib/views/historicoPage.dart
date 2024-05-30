@@ -3,7 +3,7 @@ import 'package:flutter_safraapp/servicos/autenticacao_servico.dart';
 import 'package:flutter_safraapp/views/loginPage.dart';
 import 'package:flutter_safraapp/widgets/meu_snackbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_safraapp/views/viewAplicacao.dart';
+import 'package:intl/intl.dart';
 
 class historicoPage extends StatefulWidget {
   const historicoPage({Key? key}) : super(key: key);
@@ -18,9 +18,31 @@ class _historicoPageState extends State<historicoPage> {
   Future<List<Aplicacao>> fetchAplicacoes() async {
     var querySnapshot =
         await FirebaseFirestore.instance.collectionGroup('aplicacoes').get();
-    return querySnapshot.docs
-        .map((doc) => Aplicacao.fromSnapshot(doc))
-        .toList();
+    List<Aplicacao> aplicacoes = querySnapshot.docs.map((doc) {
+      var data = doc.data() as Map<String, dynamic>;
+      return Aplicacao(
+        alvoBiologico: data['alvoBiologico'],
+        dataAplicacao: data['dataAplicacao'],
+        doseAplicada: data['doseAplicada'],
+        medidaCarencia: data['medidaCarencia'],
+        medidaDose: data['medidaDose'],
+        metodoAplicacao: data['metodoAplicacao'],
+        nivelToxicidade: data['nivelToxicidade'],
+        nomeProduto: data['nomeProduto'],
+        observacaoAplicacao: data['observacaoAplicacao'],
+        periodoCarencia: data['periodoCarencia'],
+        responsavelAplicacao: data['responsavelAplicacao'],
+      );
+    }).toList();
+
+    // Ordenar a lista pela data de aplicação
+    aplicacoes.sort((a, b) {
+      DateTime dataA = DateFormat('dd/MM/yyyy').parse(a.dataAplicacao);
+      DateTime dataB = DateFormat('dd/MM/yyyy').parse(b.dataAplicacao);
+      return dataB.compareTo(dataA);
+    });
+
+    return aplicacoes;
   }
 
   @override
@@ -80,7 +102,6 @@ class _historicoPageState extends State<historicoPage> {
                 return Card(
                   margin: EdgeInsets.only(top: 1),
                   child: Container(
-                    //height: 130,
                     child: ListTile(
                         tileColor: Colors.white,
                         visualDensity: VisualDensity(vertical: 4),

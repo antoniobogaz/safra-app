@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_safraapp/views/listarAplicacoes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_safraapp/widgets/meu_snackbar.dart';
 
 class viewAplicacaoPage extends StatefulWidget {
   //const viewAplicacaoPage({super.key});
@@ -39,7 +40,10 @@ class _viewAplicacaoPageState extends State<viewAplicacaoPage> {
                         color: Colors.white,
                       )),
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () => _confirmarExclusao(
+                          context,
+                          widget.aplicacao.lavouraId,
+                          widget.aplicacao.aplicacaoId),
                       icon: Icon(
                         Icons.delete,
                         color: Color.fromARGB(255, 182, 19, 8),
@@ -356,5 +360,52 @@ class _viewAplicacaoPageState extends State<viewAplicacaoPage> {
             ],
           ),
         ));
+  }
+
+  void _confirmarExclusao(
+      BuildContext context, String lavouraId, String aplicacaoId) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Confirmar Exclusão"),
+          content: Text("Tem certeza de que deseja excluir esta aplicação?"),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text("Cancelar"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                _excluirAplicacao(lavouraId, aplicacaoId);
+              },
+              child: Text("Excluir", style: TextStyle(color: Colors.red)),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _excluirAplicacao(String lavouraId, String aplicacaoId) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('lavouras')
+          .doc(lavouraId)
+          .collection('aplicacoes')
+          .doc(aplicacaoId)
+          .delete();
+      Navigator.of(context).pop(true);
+      mostrarSnackBar(
+          context: context,
+          texto: 'Aplicação excluída com sucesso',
+          isErro: false);
+    } catch (e) {
+      mostrarSnackBar(
+          context: context,
+          texto: 'Erro ao excluir aplicação: $e',
+          isErro: true);
+    }
   }
 }
