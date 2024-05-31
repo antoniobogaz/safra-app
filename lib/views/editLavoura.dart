@@ -3,10 +3,8 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_safraapp/servicos/lista_de_valores.dart';
 import 'package:flutter_safraapp/views/mapsPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class editLavouraPage extends StatefulWidget {
-  //const cadernoCampoPage({super.key});
   final String idLavoura;
 
   editLavouraPage({
@@ -515,7 +513,7 @@ class _editLavouraPageState extends State<editLavouraPage> {
                     ),
                     child: Center(
                       child: Text(
-                        'salvar'.toUpperCase(),
+                        'editar'.toUpperCase(),
                         style: TextStyle(
                             color: Colors.white, fontWeight: FontWeight.bold),
                       ),

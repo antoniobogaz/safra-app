@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_safraapp/views/editAplicacao.dart';
 import 'package:flutter_safraapp/views/listarAplicacoes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_safraapp/widgets/meu_snackbar.dart';
@@ -16,6 +17,8 @@ class viewAplicacaoPage extends StatefulWidget {
 
 @override
 class _viewAplicacaoPageState extends State<viewAplicacaoPage> {
+  late Aplicacao aplicacao;
+
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -34,7 +37,15 @@ class _viewAplicacaoPageState extends State<viewAplicacaoPage> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => editAplicacaoPage(
+                                      idLavoura: widget.aplicacao.lavouraId,
+                                      idAplicacao: widget.aplicacao.aplicacaoId,
+                                    )));
+                      },
                       icon: Icon(
                         Icons.edit,
                         color: Colors.white,
