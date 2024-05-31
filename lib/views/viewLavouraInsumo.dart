@@ -47,8 +47,8 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Image.asset(
-                  'images/Logo_SafraApp3.png', // Substitua pelo caminho da sua imagem
-                  height: 40, // Ajuste a altura conforme necessário
+                  'images/Logo_SafraApp3.png',
+                  height: 40,
                 ),
               ],
             ),
@@ -303,6 +303,13 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
                             MaterialPageRoute(
                                 builder: (context) => cadernoCampoPage(
                                       idLavoura_Parametro: idLavoura,
+                                      nomePropriedade: data['nomePropriedade'],
+                                      tamanhoArea: data['tamanhoArea'],
+                                      medidaArea: data['medidaArea'],
+                                      cultura: data['cultura'],
+                                      variedade: data['variedade'],
+                                      dataPlantio: data['dataPlantio'],
+                                      sistemaPlantio: data['sistemaPlantio'],
                                     )));
                       },
                       child: Container(

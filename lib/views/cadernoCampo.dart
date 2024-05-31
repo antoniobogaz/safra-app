@@ -9,10 +9,24 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 class cadernoCampoPage extends StatefulWidget {
   //const cadernoCampoPage({super.key});
   final String? idLavoura_Parametro;
+  final String? nomePropriedade;
+  final String? tamanhoArea;
+  final String? medidaArea;
+  final String? cultura;
+  final String? variedade;
+  final String? dataPlantio;
+  final String? sistemaPlantio;
 
   cadernoCampoPage({
     Key? key,
     required this.idLavoura_Parametro,
+    this.nomePropriedade,
+    this.tamanhoArea,
+    this.medidaArea,
+    this.cultura,
+    this.variedade,
+    this.dataPlantio,
+    this.sistemaPlantio,
   }) : super(key: key);
 
   @override
@@ -44,6 +58,20 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
   final _responsavelAplicacao = TextEditingController();
   final _periodoCarencia = TextEditingController();
   final _observacaoAplicacao = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.idLavoura_Parametro != null) {
+      _nomePropriedade.text = widget.nomePropriedade ?? '';
+      _tamanhoPropriedade.text = widget.tamanhoArea ?? '';
+      _cultura.text = widget.cultura ?? '';
+      _variedade.text = widget.variedade ?? '';
+      _dataPlantio.text = widget.dataPlantio ?? '';
+      _selectedValue_medidaterreno = widget.medidaArea;
+      _selectedValue_sistemaPlantio = widget.sistemaPlantio;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
