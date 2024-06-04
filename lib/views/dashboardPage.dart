@@ -40,10 +40,7 @@ class _dashboardPageState extends State<dashboardPage> {
       setState(() {
         isLoading = false;
       });
-      mostrarSnackBar(
-          context: context,
-          texto: "Erro ao consultar lavouras: $error",
-          isErro: true);
+      mostrarSnackBar(context: context, texto: "Erro ao consultar lavouras: $error", isErro: true);
     });
   }
 
@@ -102,8 +99,7 @@ class _dashboardPageState extends State<dashboardPage> {
         child: isLoading
             ? Center(
                 child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                      Color.fromARGB(255, 2, 89, 47)),
+                  valueColor: AlwaysStoppedAnimation<Color>(Color.fromARGB(255, 2, 89, 47)),
                 ),
               )
             : lavouras.isEmpty
@@ -125,8 +121,7 @@ class _dashboardPageState extends State<dashboardPage> {
                           },
                           child: Text("Cadastrar Lavoura"),
                           style: ElevatedButton.styleFrom(
-                            primary:
-                                Color.fromARGB(255, 2, 89, 47), // Cor do botão
+                            primary: Color.fromARGB(255, 2, 89, 47), // Cor do botão
                           ),
                         )
                       ],
@@ -141,16 +136,15 @@ class _dashboardPageState extends State<dashboardPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      viewLavouraInsumoPage(lavoura: lavoura)));
+                                  builder: (context) => viewLavouraInsumoPage(lavoura: lavoura)));
                         },
                         child: Card(
                           margin: EdgeInsets.only(top: 1),
                           child: ListTile(
                               tileColor: Colors.white,
                               title: Text(lavoura['nomePropriedade']),
-                              subtitle: Text(
-                                  "Área: ${lavoura['tamanhoArea']} ${lavoura['medidaArea']}"),
+                              subtitle:
+                                  Text("Área: ${lavoura['tamanhoArea']} ${lavoura['medidaArea']}"),
                               trailing: const Icon(
                                 Icons.arrow_forward,
                                 color: Color.fromARGB(255, 2, 89, 47),
@@ -210,10 +204,8 @@ class _dashboardPageState extends State<dashboardPage> {
       } else {
         //Deu certo
         Navigator.of(context).pop();
-        mostrarSnackBar2(
-            context: context, texto: "Deslogado com sucesso", isErro: false);
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => loginPage()));
+        mostrarSnackBar2(context: context, texto: "Deslogado com sucesso", isErro: false);
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => loginPage()));
       }
     });
   }
