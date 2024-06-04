@@ -3,6 +3,7 @@ import 'package:flutter_safraapp/servicos/autenticacao_servico.dart';
 import 'package:flutter_safraapp/views/loginPage.dart';
 import 'package:flutter_safraapp/widgets/meu_snackbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
 
 class historicoPage extends StatefulWidget {
@@ -14,10 +15,14 @@ class historicoPage extends StatefulWidget {
 
 class _historicoPageState extends State<historicoPage> {
   AutenticacaoServico _autenServico = AutenticacaoServico();
+  final user = FirebaseAuth.instance.currentUser!;
 
   Future<List<Aplicacao>> fetchAplicacoes() async {
-    var querySnapshot =
-        await FirebaseFirestore.instance.collectionGroup('aplicacoes').get();
+    var querySnapshot = await FirebaseFirestore.instance
+        .collectionGroup('aplicacoes')
+        .where('uid', isEqualTo: user.uid)
+        .orderBy('dataAplicacao')
+        .get();
     List<Aplicacao> aplicacoes = querySnapshot.docs.map((doc) {
       var data = doc.data() as Map<String, dynamic>;
       return Aplicacao(

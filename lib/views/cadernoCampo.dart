@@ -1006,6 +1006,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
           'observacaoAplicacao': _observacaoAplicacao.text,
           'idLavoura': novoDocumento.id,
           'aplicacaoId': aplicacaoDoc.id,
+          'uid': uid,
         });
       }).then((value) {
         setState(() {
