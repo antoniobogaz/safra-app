@@ -36,14 +36,10 @@ class _editLavouraPageState extends State<editLavouraPage> {
 
   Future<void> _loadLavouraData() async {
     try {
-      DocumentSnapshot lavouraDoc = await FirebaseFirestore.instance
-          .collection('lavouras')
-          .doc(widget.idLavoura)
-          .get();
+      DocumentSnapshot lavouraDoc = await FirebaseFirestore.instance.collection('lavouras').doc(widget.idLavoura).get();
 
       if (lavouraDoc.exists) {
-        Map<String, dynamic> lavouraData =
-            lavouraDoc.data() as Map<String, dynamic>;
+        Map<String, dynamic> lavouraData = lavouraDoc.data() as Map<String, dynamic>;
 
         setState(() {
           _nomePropriedade.text = lavouraData['nomePropriedade'];
@@ -63,10 +59,7 @@ class _editLavouraPageState extends State<editLavouraPage> {
   Future<void> _updateLavoura() async {
     if (_formKey.currentState!.validate()) {
       try {
-        await FirebaseFirestore.instance
-            .collection('lavouras')
-            .doc(widget.idLavoura)
-            .update({
+        await FirebaseFirestore.instance.collection('lavouras').doc(widget.idLavoura).update({
           'nomePropriedade': _nomePropriedade.text,
           'tamanhoArea': _tamanhoPropriedade.text,
           'cultura': _cultura.text,
@@ -132,8 +125,7 @@ class _editLavouraPageState extends State<editLavouraPage> {
                   children: [
                     Text(
                       'Identificação',
-                      style:
-                          TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -148,18 +140,13 @@ class _editLavouraPageState extends State<editLavouraPage> {
                     keyboardType: TextInputType.name,
                     decoration: InputDecoration(
                         labelText: 'Nome da Propriedade',
-                        labelStyle:
-                            TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                        labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5),
+                          borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                           borderRadius: BorderRadius.circular(50),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5),
+                          borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                           borderRadius: BorderRadius.circular(50),
                         )),
                     validator: (value) {
@@ -185,21 +172,16 @@ class _editLavouraPageState extends State<editLavouraPage> {
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                             labelText: 'Tamanho da Área',
-                            labelStyle: TextStyle(
-                                color: Color.fromARGB(255, 8, 46, 28)),
+                            labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
+                              borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(50),
                                 bottomLeft: Radius.circular(50),
                               ),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
+                              borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(50),
                                 bottomLeft: Radius.circular(50),
@@ -226,9 +208,7 @@ class _editLavouraPageState extends State<editLavouraPage> {
                             bottomRight: Radius.circular(50),
                           ),
                           color: Colors.white,
-                          border: Border.all(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5)),
+                          border: Border.all(color: Color.fromARGB(255, 8, 46, 28), width: 1.5)),
                       child: DropdownButton(
                         value: _selectedValue_medidaterreno,
                         isExpanded: true,
@@ -266,18 +246,13 @@ class _editLavouraPageState extends State<editLavouraPage> {
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                         labelText: 'Cultura',
-                        labelStyle:
-                            TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                        labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5),
+                          borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                           borderRadius: BorderRadius.circular(50),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5),
+                          borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                           borderRadius: BorderRadius.circular(50),
                         )),
                     validator: (value) {
@@ -299,18 +274,13 @@ class _editLavouraPageState extends State<editLavouraPage> {
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                         labelText: 'Variedade',
-                        labelStyle:
-                            TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                        labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5),
+                          borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                           borderRadius: BorderRadius.circular(50),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5),
+                          borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                           borderRadius: BorderRadius.circular(50),
                         )),
                   ),
@@ -329,18 +299,13 @@ class _editLavouraPageState extends State<editLavouraPage> {
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                             labelText: 'Data de Plantio',
-                            labelStyle: TextStyle(
-                                color: Color.fromARGB(255, 8, 46, 28)),
+                            labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
+                              borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                               borderRadius: BorderRadius.circular(50),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
+                              borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                               borderRadius: BorderRadius.circular(50),
                             )),
                         validator: (value) {
@@ -364,9 +329,7 @@ class _editLavouraPageState extends State<editLavouraPage> {
                             Radius.circular(50),
                           ),
                           color: Colors.white,
-                          border: Border.all(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5)),
+                          border: Border.all(color: Color.fromARGB(255, 8, 46, 28), width: 1.5)),
                       child: DropdownButton(
                         value: _selectedValue_sistemaPlantio,
                         isExpanded: true,
@@ -376,8 +339,7 @@ class _editLavouraPageState extends State<editLavouraPage> {
                             color: Color.fromARGB(255, 8, 46, 28),
                           ),
                         ),
-                        items: sistema_plantio
-                            .map<DropdownMenuItem<String>>((String value) {
+                        items: sistema_plantio.map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
@@ -400,18 +362,17 @@ class _editLavouraPageState extends State<editLavouraPage> {
                   children: [
                     Text(
                       'Mapeamento Geográfico',
-                      style:
-                          TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
               ),
               InkWell(
                 onTap: () {
-                  Navigator.push(
+                  /*Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => mapsPage()),
-                  );
+                  );*/
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(top: 18.0),
@@ -422,8 +383,7 @@ class _editLavouraPageState extends State<editLavouraPage> {
                         borderRadius: BorderRadius.all(
                           Radius.circular(20),
                         ),
-                        border: Border.all(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
+                        border: Border.all(color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                     child: Center(
                       child: Text('Google Maps'),
                     ),
@@ -441,21 +401,16 @@ class _editLavouraPageState extends State<editLavouraPage> {
                       child: TextField(
                         decoration: InputDecoration(
                             labelText: 'Latitude',
-                            labelStyle: TextStyle(
-                                color: Color.fromARGB(255, 8, 46, 28)),
+                            labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
+                              borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(50),
                                 bottomLeft: Radius.circular(50),
                               ),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
+                              borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(50),
                                 bottomLeft: Radius.circular(50),
@@ -473,21 +428,16 @@ class _editLavouraPageState extends State<editLavouraPage> {
                       child: TextField(
                         decoration: InputDecoration(
                             labelText: 'Longitude',
-                            labelStyle: TextStyle(
-                                color: Color.fromARGB(255, 8, 46, 28)),
+                            labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
+                              borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                               borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(50),
                                 bottomRight: Radius.circular(50),
                               ),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
+                              borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                               borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(50),
                                 bottomRight: Radius.circular(50),
@@ -514,8 +464,7 @@ class _editLavouraPageState extends State<editLavouraPage> {
                     child: Center(
                       child: Text(
                         'editar'.toUpperCase(),
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),

@@ -18,11 +18,7 @@ class _historicoPageState extends State<historicoPage> {
   final user = FirebaseAuth.instance.currentUser!;
 
   Future<List<Aplicacao>> fetchAplicacoes() async {
-    var querySnapshot = await FirebaseFirestore.instance
-        .collectionGroup('aplicacoes')
-        .where('uid', isEqualTo: user.uid)
-        .orderBy('dataAplicacao')
-        .get();
+    var querySnapshot = await FirebaseFirestore.instance.collectionGroup('aplicacoes').where('uid', isEqualTo: user.uid).orderBy('nomeProduto').get();
     List<Aplicacao> aplicacoes = querySnapshot.docs.map((doc) {
       var data = doc.data() as Map<String, dynamic>;
       return Aplicacao(
@@ -39,13 +35,6 @@ class _historicoPageState extends State<historicoPage> {
         responsavelAplicacao: data['responsavelAplicacao'],
       );
     }).toList();
-
-    // Ordenar a lista pela data de aplicação
-    aplicacoes.sort((a, b) {
-      DateTime dataA = DateFormat('dd/MM/yyyy').parse(a.dataAplicacao);
-      DateTime dataB = DateFormat('dd/MM/yyyy').parse(b.dataAplicacao);
-      return dataB.compareTo(dataA);
-    });
 
     return aplicacoes;
   }
@@ -91,13 +80,11 @@ class _historicoPageState extends State<historicoPage> {
               return Center(child: CircularProgressIndicator());
             }
             if (snapshot.hasError) {
-              return Center(
-                  child: Text("Erro ao carregar dados: ${snapshot.error}"));
+              return Center(child: Text("Erro ao carregar dados: ${snapshot.error}"));
             }
             if (snapshot.data!.isEmpty) {
               return Center(
-                child: Text("Não há aplicações registradas",
-                    style: TextStyle(fontSize: 22, color: Colors.grey)),
+                child: Text("Não há aplicações registradas", style: TextStyle(fontSize: 22, color: Colors.grey)),
               );
             }
             return ListView.builder(
@@ -111,8 +98,7 @@ class _historicoPageState extends State<historicoPage> {
                         tileColor: Colors.white,
                         visualDensity: VisualDensity(vertical: 4),
                         title: Text(aplicacao.nomeProduto),
-                        subtitle: Text(
-                            'Aplicado por: ${aplicacao.responsavelAplicacao}\nAplicado em: ${aplicacao.dataAplicacao}'),
+                        subtitle: Text('Aplicado por: ${aplicacao.responsavelAplicacao}\nAplicado em: ${aplicacao.dataAplicacao}'),
                         leading: Icon(
                           Icons.history_outlined,
                           color: Color.fromARGB(255, 2, 89, 47),
@@ -171,10 +157,8 @@ class _historicoPageState extends State<historicoPage> {
       } else {
         //Deu certo
         Navigator.of(context).pop();
-        mostrarSnackBar2(
-            context: context, texto: "Deslogado com sucesso", isErro: false);
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => loginPage()));
+        mostrarSnackBar2(context: context, texto: "Deslogado com sucesso", isErro: false);
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => loginPage()));
       }
     });
   }

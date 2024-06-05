@@ -5,6 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_safraapp/widgets/meu_snackbar.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 
 class cadernoCampoPage extends StatefulWidget {
   //const cadernoCampoPage({super.key});
@@ -37,6 +39,23 @@ class cadernoCampoPage extends StatefulWidget {
 class _cadernoCampoPageState extends State<cadernoCampoPage> {
   var formKey = GlobalKey<FormState>();
   bool _isLoading = false;
+
+  List<LatLng> polygonPoints = [];
+  String? polygonMessage;
+
+  void _abrirMapa() async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => mapsPage(onPolygonDrawn: (points) {
+          setState(() {
+            polygonPoints = points;
+            polygonMessage = 'Mapeamento do Talhão cadastrado com sucesso!';
+          });
+        }),
+      ),
+    );
+  }
 
   String? _selectedValue_classe = 'Acaricida';
   String? _selectedValue_toxicidade = 'Categoria 1 - Extremamente Tóxico';
@@ -122,8 +141,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                         children: [
                           Text(
                             'Identificação do Talhão',
-                            style: TextStyle(
-                                fontSize: 32, fontWeight: FontWeight.bold),
+                            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -138,18 +156,13 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                           keyboardType: TextInputType.name,
                           decoration: InputDecoration(
                               labelText: 'Nome da Propriedade',
-                              labelStyle: TextStyle(
-                                  color: Color.fromARGB(255, 8, 46, 28)),
+                              labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                               enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 8, 46, 28),
-                                    width: 1.5),
+                                borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                                 borderRadius: BorderRadius.circular(50),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 8, 46, 28),
-                                    width: 1.5),
+                                borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                                 borderRadius: BorderRadius.circular(50),
                               )),
                           validator: (value) {
@@ -175,21 +188,16 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                               keyboardType: TextInputType.number,
                               decoration: InputDecoration(
                                   labelText: 'Tamanho da Área',
-                                  labelStyle: TextStyle(
-                                      color: Color.fromARGB(255, 8, 46, 28)),
+                                  labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                                   enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Color.fromARGB(255, 8, 46, 28),
-                                        width: 1.5),
+                                    borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                                     borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(50),
                                       bottomLeft: Radius.circular(50),
                                     ),
                                   ),
                                   focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Color.fromARGB(255, 8, 46, 28),
-                                        width: 1.5),
+                                    borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                                     borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(50),
                                       bottomLeft: Radius.circular(50),
@@ -216,9 +224,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                                   bottomRight: Radius.circular(50),
                                 ),
                                 color: Colors.white,
-                                border: Border.all(
-                                    color: Color.fromARGB(255, 8, 46, 28),
-                                    width: 1.5)),
+                                border: Border.all(color: Color.fromARGB(255, 8, 46, 28), width: 1.5)),
                             child: DropdownButton(
                               value: _selectedValue_medidaterreno,
                               isExpanded: true,
@@ -228,8 +234,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                                   color: Color.fromARGB(255, 8, 46, 28),
                                 ),
                               ),
-                              items:
-                                  medidas_terreno.map<DropdownMenuItem<String>>(
+                              items: medidas_terreno.map<DropdownMenuItem<String>>(
                                 (String value) {
                                   return DropdownMenuItem<String>(
                                     value: value,
@@ -257,18 +262,13 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
                               labelText: 'Cultura',
-                              labelStyle: TextStyle(
-                                  color: Color.fromARGB(255, 8, 46, 28)),
+                              labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                               enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: Color.fromARGB(255, 8, 46, 28),
-                                    width: 1.5),
+                                borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                                 borderRadius: BorderRadius.circular(50),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 8, 46, 28),
-                                    width: 1.5),
+                                borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                                 borderRadius: BorderRadius.circular(50),
                               )),
                           validator: (value) {
@@ -290,18 +290,13 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
                               labelText: 'Variedade',
-                              labelStyle: TextStyle(
-                                  color: Color.fromARGB(255, 8, 46, 28)),
+                              labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                               enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: Color.fromARGB(255, 8, 46, 28),
-                                    width: 1.5),
+                                borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                                 borderRadius: BorderRadius.circular(50),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 8, 46, 28),
-                                    width: 1.5),
+                                borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                                 borderRadius: BorderRadius.circular(50),
                               )),
                         ),
@@ -320,18 +315,13 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                               keyboardType: TextInputType.number,
                               decoration: InputDecoration(
                                   labelText: 'Data de Plantio',
-                                  labelStyle: TextStyle(
-                                      color: Color.fromARGB(255, 8, 46, 28)),
+                                  labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                                   enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Color.fromARGB(255, 8, 46, 28),
-                                        width: 1.5),
+                                    borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                                     borderRadius: BorderRadius.circular(50),
                                   ),
                                   focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Color.fromARGB(255, 8, 46, 28),
-                                        width: 1.5),
+                                    borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                                     borderRadius: BorderRadius.circular(50),
                                   )),
                               validator: (value) {
@@ -355,9 +345,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                                   Radius.circular(50),
                                 ),
                                 color: Colors.white,
-                                border: Border.all(
-                                    color: Color.fromARGB(255, 8, 46, 28),
-                                    width: 1.5)),
+                                border: Border.all(color: Color.fromARGB(255, 8, 46, 28), width: 1.5)),
                             child: DropdownButton(
                               value: _selectedValue_sistemaPlantio,
                               isExpanded: true,
@@ -367,9 +355,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                                   color: Color.fromARGB(255, 8, 46, 28),
                                 ),
                               ),
-                              items: sistema_plantio
-                                  .map<DropdownMenuItem<String>>(
-                                      (String value) {
+                              items: sistema_plantio.map<DropdownMenuItem<String>>((String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
                                   child: Text(value),
@@ -392,105 +378,43 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                         children: [
                           Text(
                             'Mapeamento Geográfico',
-                            style: TextStyle(
-                                fontSize: 32, fontWeight: FontWeight.bold),
+                            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
                     ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => mapsPage()),
-                        );
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 18.0),
+                    Container(
+                      padding: EdgeInsets.only(top: 30, bottom: 10),
+                      child: InkWell(
+                        onTap: () {
+                          _abrirMapa();
+                        },
                         child: Container(
+                          height: 60,
                           width: MediaQuery.of(context).size.width / 1.1,
-                          height: 300,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(20),
-                              ),
-                              border: Border.all(
-                                  color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 2.0)),
+                            color: Color.fromARGB(255, 2, 89, 47),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(30),
+                            ),
+                          ),
                           child: Center(
-                            child: Text('Google Maps'),
+                            child: Text(
+                              'Demarcar Talhão'.toUpperCase(),
+                              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 18.0),
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width / 2.25,
-                            height: 50,
-                            child: TextField(
-                              decoration: InputDecoration(
-                                  labelText: 'Latitude',
-                                  labelStyle: TextStyle(
-                                      color: Color.fromARGB(255, 8, 46, 28)),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Color.fromARGB(255, 8, 46, 28),
-                                        width: 1.5),
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(50),
-                                      bottomLeft: Radius.circular(50),
-                                    ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Color.fromARGB(255, 8, 46, 28),
-                                        width: 1.5),
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(50),
-                                      bottomLeft: Radius.circular(50),
-                                    ),
-                                  )),
-                            ),
-                          ),
+                    if (polygonMessage != null)
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          polygonMessage!,
+                          style: TextStyle(color: Colors.green, fontSize: 16),
                         ),
-                        SizedBox(width: 5.5),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 18.0),
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width / 2.25,
-                            height: 50,
-                            child: TextField(
-                              decoration: InputDecoration(
-                                  labelText: 'Longitude',
-                                  labelStyle: TextStyle(
-                                      color: Color.fromARGB(255, 8, 46, 28)),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Color.fromARGB(255, 8, 46, 28),
-                                        width: 1.5),
-                                    borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(50),
-                                      bottomRight: Radius.circular(50),
-                                    ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Color.fromARGB(255, 8, 46, 28),
-                                        width: 1.5),
-                                    borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(50),
-                                      bottomRight: Radius.circular(50),
-                                    ),
-                                  )),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
                     Padding(
                       padding: const EdgeInsets.only(top: 28.0, left: 12),
                       child: Row(
@@ -498,8 +422,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                         children: [
                           Text(
                             'Aplicação',
-                            style: TextStyle(
-                                fontSize: 32, fontWeight: FontWeight.bold),
+                            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -513,18 +436,13 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                           controller: _nomeProduto,
                           decoration: InputDecoration(
                               labelText: 'Nome do Produto',
-                              labelStyle: TextStyle(
-                                  color: Color.fromARGB(255, 8, 46, 28)),
+                              labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                               enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: Color.fromARGB(255, 8, 46, 28),
-                                    width: 1.5),
+                                borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                                 borderRadius: BorderRadius.circular(50),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 8, 46, 28),
-                                    width: 1.5),
+                                borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                                 borderRadius: BorderRadius.circular(50),
                               )),
                           validator: (value) {
@@ -547,9 +465,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                               Radius.circular(50),
                             ),
                             color: Colors.white,
-                            border: Border.all(
-                                color: Color.fromARGB(255, 8, 46, 28),
-                                width: 1.5)),
+                            border: Border.all(color: Color.fromARGB(255, 8, 46, 28), width: 1.5)),
                         child: DropdownButton(
                           value: _selectedValue_classe,
                           isExpanded: true,
@@ -559,8 +475,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                               color: Color.fromARGB(255, 8, 46, 28),
                             ),
                           ),
-                          items: opcoes_classe_agronomica
-                              .map<DropdownMenuItem<String>>(
+                          items: opcoes_classe_agronomica.map<DropdownMenuItem<String>>(
                             (String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
@@ -587,9 +502,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                               Radius.circular(50),
                             ),
                             color: Colors.white,
-                            border: Border.all(
-                                color: Color.fromARGB(255, 8, 46, 28),
-                                width: 1.5)),
+                            border: Border.all(color: Color.fromARGB(255, 8, 46, 28), width: 1.5)),
                         child: DropdownButton(
                           value: _selectedValue_toxicidade,
                           isExpanded: true,
@@ -599,8 +512,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                               color: Color.fromARGB(255, 8, 46, 28),
                             ),
                           ),
-                          items: opcoes_nivel_toxicologico
-                              .map<DropdownMenuItem<String>>((String value) {
+                          items: opcoes_nivel_toxicologico.map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
                               child: Text(value),
@@ -627,18 +539,13 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                               keyboardType: TextInputType.number,
                               decoration: InputDecoration(
                                   labelText: 'Data da Aplicação',
-                                  labelStyle: TextStyle(
-                                      color: Color.fromARGB(255, 8, 46, 28)),
+                                  labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                                   enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Color.fromARGB(255, 8, 46, 28),
-                                        width: 1.5),
+                                    borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                                     borderRadius: BorderRadius.circular(50),
                                   ),
                                   focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Color.fromARGB(255, 8, 46, 28),
-                                        width: 1.5),
+                                    borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                                     borderRadius: BorderRadius.circular(50),
                                   )),
                               validator: (value) {
@@ -661,21 +568,16 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                               keyboardType: TextInputType.number,
                               decoration: InputDecoration(
                                   labelText: 'Dose Aplicada',
-                                  labelStyle: TextStyle(
-                                      color: Color.fromARGB(255, 8, 46, 28)),
+                                  labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                                   enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Color.fromARGB(255, 8, 46, 28),
-                                        width: 1.5),
+                                    borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                                     borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(50),
                                       bottomLeft: Radius.circular(50),
                                     ),
                                   ),
                                   focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Color.fromARGB(255, 8, 46, 28),
-                                        width: 1.5),
+                                    borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                                     borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(50),
                                       bottomLeft: Radius.circular(50),
@@ -702,9 +604,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                                   bottomRight: Radius.circular(50),
                                 ),
                                 color: Colors.white,
-                                border: Border.all(
-                                    color: Color.fromARGB(255, 8, 46, 28),
-                                    width: 1.5)),
+                                border: Border.all(color: Color.fromARGB(255, 8, 46, 28), width: 1.5)),
                             child: DropdownButton(
                               value: _selectedValue_opcoesmedidas,
                               isExpanded: true,
@@ -714,8 +614,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                                   color: Color.fromARGB(255, 8, 46, 28),
                                 ),
                               ),
-                              items:
-                                  opcoes_medidas.map<DropdownMenuItem<String>>(
+                              items: opcoes_medidas.map<DropdownMenuItem<String>>(
                                 (String value) {
                                   return DropdownMenuItem<String>(
                                     value: value,
@@ -744,9 +643,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                               Radius.circular(50),
                             ),
                             color: Colors.white,
-                            border: Border.all(
-                                color: Color.fromARGB(255, 8, 46, 28),
-                                width: 1.5)),
+                            border: Border.all(color: Color.fromARGB(255, 8, 46, 28), width: 1.5)),
                         child: DropdownButton(
                           value: _selectedValue_metodoAplicacao,
                           isExpanded: true,
@@ -756,8 +653,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                               color: Color.fromARGB(255, 8, 46, 28),
                             ),
                           ),
-                          items: metodo_aplicacao
-                              .map<DropdownMenuItem<String>>((String value) {
+                          items: metodo_aplicacao.map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
                               child: Text(value),
@@ -780,18 +676,13 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                           controller: _responsavelAplicacao,
                           decoration: InputDecoration(
                               labelText: 'Responsável pela Aplicação',
-                              labelStyle: TextStyle(
-                                  color: Color.fromARGB(255, 8, 46, 28)),
+                              labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                               enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: Color.fromARGB(255, 8, 46, 28),
-                                    width: 1.5),
+                                borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                                 borderRadius: BorderRadius.circular(50),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 8, 46, 28),
-                                    width: 1.5),
+                                borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                                 borderRadius: BorderRadius.circular(50),
                               )),
                           validator: (value) {
@@ -817,21 +708,16 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                               keyboardType: TextInputType.number,
                               decoration: InputDecoration(
                                   labelText: 'Período de Carência',
-                                  labelStyle: TextStyle(
-                                      color: Color.fromARGB(255, 8, 46, 28)),
+                                  labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                                   enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Color.fromARGB(255, 8, 46, 28),
-                                        width: 1.5),
+                                    borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                                     borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(50),
                                       bottomLeft: Radius.circular(50),
                                     ),
                                   ),
                                   focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Color.fromARGB(255, 8, 46, 28),
-                                        width: 1.5),
+                                    borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                                     borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(50),
                                       bottomLeft: Radius.circular(50),
@@ -858,9 +744,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                                   bottomRight: Radius.circular(50),
                                 ),
                                 color: Colors.white,
-                                border: Border.all(
-                                    color: Color.fromARGB(255, 8, 46, 28),
-                                    width: 1.5)),
+                                border: Border.all(color: Color.fromARGB(255, 8, 46, 28), width: 1.5)),
                             child: DropdownButton(
                               value: _selectedValue_medidatempo,
                               isExpanded: true,
@@ -870,8 +754,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                                   color: Color.fromARGB(255, 8, 46, 28),
                                 ),
                               ),
-                              items:
-                                  medidas_tempo.map<DropdownMenuItem<String>>(
+                              items: medidas_tempo.map<DropdownMenuItem<String>>(
                                 (String value) {
                                   return DropdownMenuItem<String>(
                                     value: value,
@@ -898,18 +781,13 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                           controller: _observacaoAplicacao,
                           decoration: InputDecoration(
                               labelText: 'Observações',
-                              labelStyle: TextStyle(
-                                  color: Color.fromARGB(255, 8, 46, 28)),
+                              labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                               enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: Color.fromARGB(255, 8, 46, 28),
-                                    width: 1.5),
+                                borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                                 borderRadius: BorderRadius.circular(50),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 8, 46, 28),
-                                    width: 1.5),
+                                borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                                 borderRadius: BorderRadius.circular(50),
                               )),
                         ),
@@ -931,9 +809,7 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
                           child: Center(
                             child: Text(
                               'salvar'.toUpperCase(),
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
+                              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                             ),
                           ),
                         ),
@@ -958,20 +834,14 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
 
   void _aoSalvarLavoura(BuildContext context) {
     if (formKey.currentState!.validate()) {
-      setState(() {
-        _isLoading = true;
-      });
-
       var colecao = FirebaseFirestore.instance.collection('lavouras');
       var uid = FirebaseAuth.instance.currentUser!.uid;
       DocumentReference novoDocumento;
 
       bool novaLavoura = widget.idLavoura_Parametro == null;
       if (novaLavoura) {
-        // Criar nova lavoura
         novoDocumento = colecao.doc();
       } else {
-        // Usar lavoura existente
         novoDocumento = colecao.doc(widget.idLavoura_Parametro);
       }
 
@@ -986,11 +856,16 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
             'dataPlantio': _dataPlantio.text,
             'sistemaPlantio': _selectedValue_sistemaPlantio,
             'uid': uid,
-            'idLavoura': novoDocumento.id
+            'idLavoura': novoDocumento.id,
+            'polygon': polygonPoints
+                .map((point) => {
+                      'lat': point.latitude,
+                      'lng': point.longitude
+                    })
+                .toList(),
           });
         }
 
-        // Adicionando aplicação na subcoleção "aplicacoes"
         var aplicacaoDoc = novoDocumento.collection('aplicacoes').doc();
         transaction.set(aplicacaoDoc, {
           'nomeProduto': _nomeProduto.text,
@@ -1005,17 +880,11 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
           'medidaCarencia': _selectedValue_medidatempo,
           'observacaoAplicacao': _observacaoAplicacao.text,
           'idLavoura': novoDocumento.id,
-          'aplicacaoId': aplicacaoDoc.id,
-          'uid': uid,
+          'idAplicacao': aplicacaoDoc.id,
+          'uid': uid
         });
       }).then((value) {
-        setState(() {
-          _isLoading = false;
-        });
-
-        mostrarSnackBar(
-            context: context, texto: "Dados Salvos com Sucesso", isErro: false);
-        // Limpar os controllers após o uso
+        mostrarSnackBar(context: context, texto: "Dados Salvos com Sucesso", isErro: false);
         _nomeProduto.clear();
         _dataAplicacao.clear();
         _doseAplicada.clear();
@@ -1028,15 +897,10 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
           Navigator.of(context).pop(true);
         }
       }).catchError((error) {
-        setState(() {
-          _isLoading = false;
-        });
-        mostrarSnackBar(
-            context: context, texto: "Erro ao salvar: $error", isErro: true);
+        mostrarSnackBar(context: context, texto: "Erro ao salvar: $error", isErro: true);
       });
     } else {
-      mostrarSnackBar2(
-          context: context, texto: 'Preencha os campos obrigatórios');
+      mostrarSnackBar2(context: context, texto: 'Preencha os campos obrigatórios');
     }
   }
 }

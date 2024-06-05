@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 
 class mapsPage extends StatefulWidget {
-  const mapsPage({super.key});
+  final Function(List<LatLng>) onPolygonDrawn;
+
+  const mapsPage({super.key, required this.onPolygonDrawn});
 
   @override
-  State<mapsPage> createState() => _mapsPageState();
+  State<mapsPage> createState() => _MapsPageState();
 }
 
-@override
-class _mapsPageState extends State<mapsPage> {
+class _MapsPageState extends State<mapsPage> {
+  List<LatLng> polygonPoints = [];
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Row(
           children: [
             Text(
-              'Mapeamento Geográfico',
+              'Mapa',
               style: TextStyle(fontSize: 22),
             ),
           ],
@@ -34,75 +40,50 @@ class _mapsPageState extends State<mapsPage> {
             ),
           ),
         ),
-        //automaticallyImplyLeading: false,
         elevation: 0,
         backgroundColor: Color.fromARGB(255, 2, 89, 47),
         centerTitle: true,
       ),
       body: Stack(
         children: [
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 18.0),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width / 1.1,
-                    height: 50,
-                    child: TextField(
-                      decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.search,
-                              color: Color.fromARGB(255, 8, 46, 28)),
-                          border: InputBorder.none,
-                          labelText: 'Pesquisar Localização do Talhão',
-                          labelStyle:
-                              TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                color: Color.fromARGB(255, 8, 46, 28),
-                                width: 1.5),
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Color.fromARGB(255, 8, 46, 28),
-                                width: 1.5),
-                            borderRadius: BorderRadius.circular(50),
-                          )),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 18.0, bottom: 18),
-                  child: Container(
-                    child: InkWell(
-                      onTap: () {},
-                      child: Container(
-                        height: 60,
-                        width: MediaQuery.of(context).size.width / 1.1,
-                        decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 8, 46, 28),
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(15),
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'selecionar local'.toUpperCase(),
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+          FlutterMap(
+            options: MapOptions(
+              center: LatLng(51.509364, -0.128928),
+              zoom: 9.2,
+              onTap: (tapPosition, point) {
+                setState(() {
+                  polygonPoints.add(point);
+                });
+              },
             ),
-          )
+            children: [
+              TileLayer(
+                urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                userAgentPackageName: 'com.example.app',
+              ),
+              PolygonLayer(
+                polygonCulling: false,
+                polygons: [
+                  Polygon(
+                    points: polygonPoints,
+                    color: Colors.blue.withOpacity(0.5),
+                    borderStrokeWidth: 2,
+                    borderColor: Colors.blue,
+                    isFilled: true,
+                  ),
+                ],
+              ),
+            ],
+          ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          widget.onPolygonDrawn(polygonPoints);
+          Navigator.of(context).pop();
+        },
+        child: Icon(Icons.save),
+        backgroundColor: Color.fromARGB(255, 2, 89, 47),
       ),
     );
   }
