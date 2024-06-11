@@ -11,13 +11,6 @@ mostrarSnackBar({
     shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
     duration: Duration(seconds: 3),
-    action: SnackBarAction(
-      label: "Ok",
-      textColor: Colors.white,
-      onPressed: () {
-        ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
-      },
-    ),
   );
 
   ScaffoldMessenger.of(context).showSnackBar(snackBar);
