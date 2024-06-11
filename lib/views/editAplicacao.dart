@@ -42,16 +42,10 @@ class _editAplicacaoPageState extends State<editAplicacaoPage> {
 
   Future<void> _loadAplicacaoData(String lavouraId, String aplicacaoId) async {
     try {
-      DocumentSnapshot aplicacaoDoc = await FirebaseFirestore.instance
-          .collection('lavouras')
-          .doc(lavouraId)
-          .collection('aplicacoes')
-          .doc(aplicacaoId)
-          .get();
+      DocumentSnapshot aplicacaoDoc = await FirebaseFirestore.instance.collection('lavouras').doc(lavouraId).collection('aplicacoes').doc(aplicacaoId).get();
 
       if (aplicacaoDoc.exists) {
-        Map<String, dynamic> aplicacaoData =
-            aplicacaoDoc.data() as Map<String, dynamic>;
+        Map<String, dynamic> aplicacaoData = aplicacaoDoc.data() as Map<String, dynamic>;
 
         setState(() {
           _nomeProduto.text = aplicacaoData['nomeProduto'];
@@ -81,12 +75,7 @@ class _editAplicacaoPageState extends State<editAplicacaoPage> {
 
   Future<void> updateAplicacao(String lavouraId, String aplicacaoId) async {
     try {
-      await FirebaseFirestore.instance
-          .collection('lavouras')
-          .doc(widget.idLavoura)
-          .collection('aplicacoes')
-          .doc(widget.idAplicacao)
-          .update({
+      await FirebaseFirestore.instance.collection('lavouras').doc(widget.idLavoura).collection('aplicacoes').doc(widget.idAplicacao).update({
         'alvoBiologico': _selectedValue_classe,
         'dataAplicacao': _dataAplicacao.text,
         'doseAplicada': _doseAplicada.text,
@@ -128,8 +117,8 @@ class _editAplicacaoPageState extends State<editAplicacaoPage> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Image.asset(
-                    'images/Logo_SafraApp3.png', // Substitua pelo caminho da sua imagem
-                    height: 40, // Ajuste a altura conforme necessário
+                    'images/Logo_SafraApp3.png',
+                    height: 40,
                   ),
                 ],
               ),
@@ -150,8 +139,7 @@ class _editAplicacaoPageState extends State<editAplicacaoPage> {
                   children: [
                     Text(
                       'Editar Aplicação',
-                      style:
-                          TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -165,18 +153,13 @@ class _editAplicacaoPageState extends State<editAplicacaoPage> {
                     controller: _nomeProduto,
                     decoration: InputDecoration(
                         labelText: 'Nome do Produto',
-                        labelStyle:
-                            TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                        labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5),
+                          borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                           borderRadius: BorderRadius.circular(50),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5),
+                          borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                           borderRadius: BorderRadius.circular(50),
                         )),
                     validator: (value) {
@@ -199,8 +182,7 @@ class _editAplicacaoPageState extends State<editAplicacaoPage> {
                         Radius.circular(50),
                       ),
                       color: Colors.white,
-                      border: Border.all(
-                          color: Color.fromARGB(255, 8, 46, 28), width: 1.5)),
+                      border: Border.all(color: Color.fromARGB(255, 8, 46, 28), width: 1.5)),
                   child: DropdownButton(
                     value: _selectedValue_classe,
                     isExpanded: true,
@@ -210,8 +192,7 @@ class _editAplicacaoPageState extends State<editAplicacaoPage> {
                         color: Color.fromARGB(255, 8, 46, 28),
                       ),
                     ),
-                    items:
-                        opcoes_classe_agronomica.map<DropdownMenuItem<String>>(
+                    items: opcoes_classe_agronomica.map<DropdownMenuItem<String>>(
                       (String value) {
                         return DropdownMenuItem<String>(
                           value: value,
@@ -238,8 +219,7 @@ class _editAplicacaoPageState extends State<editAplicacaoPage> {
                         Radius.circular(50),
                       ),
                       color: Colors.white,
-                      border: Border.all(
-                          color: Color.fromARGB(255, 8, 46, 28), width: 1.5)),
+                      border: Border.all(color: Color.fromARGB(255, 8, 46, 28), width: 1.5)),
                   child: DropdownButton(
                     value: _selectedValue_toxicidade,
                     isExpanded: true,
@@ -249,8 +229,7 @@ class _editAplicacaoPageState extends State<editAplicacaoPage> {
                         color: Color.fromARGB(255, 8, 46, 28),
                       ),
                     ),
-                    items: opcoes_nivel_toxicologico
-                        .map<DropdownMenuItem<String>>((String value) {
+                    items: opcoes_nivel_toxicologico.map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
                         child: Text(value),
@@ -277,18 +256,13 @@ class _editAplicacaoPageState extends State<editAplicacaoPage> {
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                             labelText: 'Data da Aplicação',
-                            labelStyle: TextStyle(
-                                color: Color.fromARGB(255, 8, 46, 28)),
+                            labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
+                              borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                               borderRadius: BorderRadius.circular(50),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
+                              borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                               borderRadius: BorderRadius.circular(50),
                             )),
                         validator: (value) {
@@ -311,21 +285,16 @@ class _editAplicacaoPageState extends State<editAplicacaoPage> {
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                             labelText: 'Dose Aplicada',
-                            labelStyle: TextStyle(
-                                color: Color.fromARGB(255, 8, 46, 28)),
+                            labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
+                              borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(50),
                                 bottomLeft: Radius.circular(50),
                               ),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
+                              borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(50),
                                 bottomLeft: Radius.circular(50),
@@ -352,9 +321,7 @@ class _editAplicacaoPageState extends State<editAplicacaoPage> {
                             bottomRight: Radius.circular(50),
                           ),
                           color: Colors.white,
-                          border: Border.all(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5)),
+                          border: Border.all(color: Color.fromARGB(255, 8, 46, 28), width: 1.5)),
                       child: DropdownButton(
                         value: _selectedValue_opcoesmedidas,
                         isExpanded: true,
@@ -393,8 +360,7 @@ class _editAplicacaoPageState extends State<editAplicacaoPage> {
                         Radius.circular(50),
                       ),
                       color: Colors.white,
-                      border: Border.all(
-                          color: Color.fromARGB(255, 8, 46, 28), width: 1.5)),
+                      border: Border.all(color: Color.fromARGB(255, 8, 46, 28), width: 1.5)),
                   child: DropdownButton(
                     value: _selectedValue_metodoAplicacao,
                     isExpanded: true,
@@ -404,8 +370,7 @@ class _editAplicacaoPageState extends State<editAplicacaoPage> {
                         color: Color.fromARGB(255, 8, 46, 28),
                       ),
                     ),
-                    items: metodo_aplicacao
-                        .map<DropdownMenuItem<String>>((String value) {
+                    items: metodo_aplicacao.map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
                         child: Text(value),
@@ -428,18 +393,13 @@ class _editAplicacaoPageState extends State<editAplicacaoPage> {
                     controller: _responsavelAplicacao,
                     decoration: InputDecoration(
                         labelText: 'Responsável pela Aplicação',
-                        labelStyle:
-                            TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                        labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5),
+                          borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                           borderRadius: BorderRadius.circular(50),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5),
+                          borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                           borderRadius: BorderRadius.circular(50),
                         )),
                     validator: (value) {
@@ -465,21 +425,16 @@ class _editAplicacaoPageState extends State<editAplicacaoPage> {
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                             labelText: 'Período de Carência',
-                            labelStyle: TextStyle(
-                                color: Color.fromARGB(255, 8, 46, 28)),
+                            labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
+                              borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(50),
                                 bottomLeft: Radius.circular(50),
                               ),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
+                              borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(50),
                                 bottomLeft: Radius.circular(50),
@@ -506,9 +461,7 @@ class _editAplicacaoPageState extends State<editAplicacaoPage> {
                             bottomRight: Radius.circular(50),
                           ),
                           color: Colors.white,
-                          border: Border.all(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5)),
+                          border: Border.all(color: Color.fromARGB(255, 8, 46, 28), width: 1.5)),
                       child: DropdownButton(
                         value: _selectedValue_medidatempo,
                         isExpanded: true,
@@ -545,18 +498,13 @@ class _editAplicacaoPageState extends State<editAplicacaoPage> {
                     controller: _observacaoAplicacao,
                     decoration: InputDecoration(
                         labelText: 'Observações',
-                        labelStyle:
-                            TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                        labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5),
+                          borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                           borderRadius: BorderRadius.circular(50),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 1.5),
+                          borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                           borderRadius: BorderRadius.circular(50),
                         )),
                   ),
@@ -565,8 +513,7 @@ class _editAplicacaoPageState extends State<editAplicacaoPage> {
               Container(
                 padding: EdgeInsets.only(top: 30, bottom: 10),
                 child: InkWell(
-                  onTap: () =>
-                      updateAplicacao(widget.idLavoura, widget.idAplicacao),
+                  onTap: () => updateAplicacao(widget.idLavoura, widget.idAplicacao),
                   child: Container(
                     height: 60,
                     width: MediaQuery.of(context).size.width / 1.1,
@@ -579,8 +526,7 @@ class _editAplicacaoPageState extends State<editAplicacaoPage> {
                     child: Center(
                       child: Text(
                         'editar'.toUpperCase(),
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),

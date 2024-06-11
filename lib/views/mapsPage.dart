@@ -33,8 +33,8 @@ class _MapsPageState extends State<mapsPage> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Image.asset(
-                  'images/Logo_SafraApp3.png', // Substitua pelo caminho da sua imagem
-                  height: 40, // Ajuste a altura conforme necessário
+                  'images/Logo_SafraApp3.png',
+                  height: 40,
                 ),
               ],
             ),

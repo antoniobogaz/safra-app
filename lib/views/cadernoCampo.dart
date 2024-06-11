@@ -5,11 +5,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_safraapp/widgets/meu_snackbar.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
 class cadernoCampoPage extends StatefulWidget {
-  //const cadernoCampoPage({super.key});
   final String? idLavoura_Parametro;
   final String? nomePropriedade;
   final String? tamanhoArea;
@@ -113,8 +111,8 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Image.asset(
-                  'images/Logo_SafraApp3.png', // Substitua pelo caminho da sua imagem
-                  height: 40, // Ajuste a altura conforme necessário
+                  'images/Logo_SafraApp3.png',
+                  height: 40,
                 ),
               ],
             ),

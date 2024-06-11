@@ -42,9 +42,7 @@ class _signinPageState extends State<signinPage> {
               height: MediaQuery.of(context).size.height / 4.5,
               decoration: BoxDecoration(
                 color: Color.fromARGB(255, 2, 89, 47),
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(0),
-                    bottomRight: Radius.circular(0)),
+                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(0), bottomRight: Radius.circular(0)),
               ),
               child: Align(
                 alignment: Alignment.center,
@@ -78,8 +76,7 @@ class _signinPageState extends State<signinPage> {
                       Radius.circular(50),
                     ),
                     color: Colors.white,
-                    border: Border.all(
-                        color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
+                    border: Border.all(color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                 child: TextFormField(
                   keyboardType: TextInputType.text,
                   controller: _nomeController,
@@ -92,13 +89,7 @@ class _signinPageState extends State<signinPage> {
                     }
                     return null;
                   },
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      icon: Icon(Icons.person,
-                          color: Color.fromARGB(255, 8, 46, 28)),
-                      hintText: 'Nome',
-                      hintStyle:
-                          TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
+                  decoration: InputDecoration(border: InputBorder.none, icon: Icon(Icons.person, color: Color.fromARGB(255, 8, 46, 28)), hintText: 'Nome', hintStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
                 ),
               ),
             ),
@@ -111,8 +102,7 @@ class _signinPageState extends State<signinPage> {
                     Radius.circular(50),
                   ),
                   color: Colors.white,
-                  border: Border.all(
-                      color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
+                  border: Border.all(color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
               child: TextFormField(
                 keyboardType: TextInputType.emailAddress,
                 controller: _emailController,
@@ -128,13 +118,7 @@ class _signinPageState extends State<signinPage> {
                   }
                   return null;
                 },
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    icon: Icon(Icons.email,
-                        color: Color.fromARGB(255, 8, 46, 28)),
-                    hintText: 'E-mail',
-                    hintStyle:
-                        TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
+                decoration: InputDecoration(border: InputBorder.none, icon: Icon(Icons.email, color: Color.fromARGB(255, 8, 46, 28)), hintText: 'E-mail', hintStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
               ),
             ),
             Container(
@@ -151,8 +135,7 @@ class _signinPageState extends State<signinPage> {
                           Radius.circular(50),
                         ),
                         color: Colors.white,
-                        border: Border.all(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
+                        border: Border.all(color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                     child: TextFormField(
                       controller: _senhaController,
                       validator: (value) {
@@ -176,11 +159,7 @@ class _signinPageState extends State<signinPage> {
                           color: Color.fromARGB(255, 8, 46, 28),
                         ),
                         suffixIcon: IconButton(
-                          icon: Icon(
-                              _obscureText
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
-                              color: Color.fromARGB(255, 8, 46, 28)),
+                          icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off, color: Color.fromARGB(255, 8, 46, 28)),
                           onPressed: () {
                             setState(() {
                               _obscureText = !_obscureText;
@@ -211,8 +190,7 @@ class _signinPageState extends State<signinPage> {
                   child: Center(
                     child: Text(
                       'Cadastrar-se'.toUpperCase(),
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
@@ -236,10 +214,7 @@ class _signinPageState extends State<signinPage> {
                     padding: EdgeInsets.only(top: 200),
                     child: InkWell(
                       onTap: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => loginPage()));
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => loginPage()));
                       },
                       child: Text(
                         ' Fazer Login',
@@ -276,17 +251,13 @@ class _signinPageState extends State<signinPage> {
 
     _autenServico.cadastrarUsuario(nome: nome, senha: senha, email: email).then(
       (String? erro) {
-        //Voltou com erro
         if (erro != null) {
           Navigator.of(context).pop();
           mostrarSnackBar(context: context, texto: erro);
         } else {
           //Deu certo
           Navigator.of(context).pop();
-          mostrarSnackBar(
-              context: context,
-              texto: "Conta criada com sucesso",
-              isErro: false);
+          mostrarSnackBar(context: context, texto: "Conta criada com sucesso", isErro: false);
           _navegarparaEditProfile();
         }
       },
@@ -296,11 +267,7 @@ class _signinPageState extends State<signinPage> {
   void _navegarparaEditProfile() {
     var user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      FirebaseFirestore.instance
-          .collection('usuarios')
-          .doc(user.uid)
-          .get()
-          .then((snapshot) {
+      FirebaseFirestore.instance.collection('usuarios').doc(user.uid).get().then((snapshot) {
         Navigator.push(
           context,
           MaterialPageRoute(

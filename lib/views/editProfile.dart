@@ -63,10 +63,7 @@ class _editProfilePageState extends State<editProfilePage> {
   Future<void> _loadProfilePicture() async {
     try {
       String uid = FirebaseAuth.instance.currentUser!.uid;
-      DocumentSnapshot userDoc = await FirebaseFirestore.instance
-          .collection('usuarios')
-          .doc(uid)
-          .get();
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('usuarios').doc(uid).get();
       if (userDoc.exists) {
         setState(() {
           _downloadUrl = userDoc['profilePicture'];
@@ -79,8 +76,7 @@ class _editProfilePageState extends State<editProfilePage> {
 
   Future<File?> _pickImage() async {
     final ImagePicker picker = ImagePicker();
-    final XFile? pickedFile =
-        await picker.pickImage(source: ImageSource.gallery);
+    final XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
       return File(pickedFile.path);
@@ -91,8 +87,7 @@ class _editProfilePageState extends State<editProfilePage> {
   Future<String?> _uploadProfilePicture(File image) async {
     try {
       String uid = FirebaseAuth.instance.currentUser!.uid;
-      Reference storageReference =
-          FirebaseStorage.instance.ref().child('profile_pictures/$uid.jpg');
+      Reference storageReference = FirebaseStorage.instance.ref().child('profile_pictures/$uid.jpg');
       UploadTask uploadTask = storageReference.putFile(image);
       TaskSnapshot taskSnapshot = await uploadTask;
 
@@ -116,11 +111,9 @@ class _editProfilePageState extends State<editProfilePage> {
           _downloadUrl = downloadUrl;
         });
 
-        // Atualize o Firestore com a nova URL da foto de perfil
-        await FirebaseFirestore.instance
-            .collection('usuarios')
-            .doc(FirebaseAuth.instance.currentUser!.uid)
-            .update({'profilePicture': downloadUrl});
+        await FirebaseFirestore.instance.collection('usuarios').doc(FirebaseAuth.instance.currentUser!.uid).update({
+          'profilePicture': downloadUrl
+        });
       }
     }
   }
@@ -145,8 +138,7 @@ class _editProfilePageState extends State<editProfilePage> {
     super.initState();
     _loadProfilePicture();
     nomeEmpresaController = TextEditingController(text: widget.nomeEmpresa);
-    cnpjController =
-        MaskedTextController(mask: '00.000.000/0000-00', text: widget.cnpj);
+    cnpjController = MaskedTextController(mask: '00.000.000/0000-00', text: widget.cnpj);
     razaoSocialController = TextEditingController(text: widget.razaoSocial);
     nomeFantasiaController = TextEditingController(text: widget.nomeFantasia);
     logradouroController = TextEditingController(text: widget.logradouro);
@@ -155,12 +147,10 @@ class _editProfilePageState extends State<editProfilePage> {
     cidadeController = TextEditingController(text: widget.cidade);
     nomeController = TextEditingController(text: widget.nome);
     sobrenomeController = TextEditingController(text: widget.sobrenome);
-    cpfController =
-        MaskedTextController(mask: '000.000.000-00', text: widget.cpf);
+    cpfController = MaskedTextController(mask: '000.000.000-00', text: widget.cpf);
     rgController = MaskedTextController(mask: '00.000.000-0', text: widget.rg);
     emailController = TextEditingController(text: widget.email);
-    celularController =
-        MaskedTextController(mask: '(00)00000-0000', text: widget.celular);
+    celularController = MaskedTextController(mask: '(00)00000-0000', text: widget.celular);
 
     _selectedValue_estados = widget.estado.isEmpty ? null : widget.estado;
     _selectedValue_area = widget.setor.isEmpty ? null : widget.setor;
@@ -177,8 +167,8 @@ class _editProfilePageState extends State<editProfilePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  'images/Logo_SafraApp3.png', // Substitua pelo caminho da sua imagem
-                  height: 40, // Ajuste a altura conforme necessário
+                  'images/Logo_SafraApp3.png',
+                  height: 40,
                 ),
               ],
             ),
@@ -199,19 +189,14 @@ class _editProfilePageState extends State<editProfilePage> {
               child: Center(
                   child: Text(
                 'Editar Perfil',
-                style: TextStyle(
-                    color: Color.fromARGB(255, 2, 89, 47),
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold),
+                style: TextStyle(color: Color.fromARGB(255, 2, 89, 47), fontSize: 24, fontWeight: FontWeight.bold),
               )),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 22.0),
               child: CircleAvatar(
                 radius: 80,
-                //backgroundColor: Colors.green,
-                backgroundImage:
-                    _downloadUrl != null ? NetworkImage(_downloadUrl!) : null,
+                backgroundImage: _downloadUrl != null ? NetworkImage(_downloadUrl!) : null,
                 child: Container(
                   width: double.infinity,
                   height: double.infinity,
@@ -222,9 +207,7 @@ class _editProfilePageState extends State<editProfilePage> {
                       width: 5.0,
                     ),
                   ),
-                  child: _image == null && _downloadUrl == null
-                      ? Icon(Icons.person, size: 80, color: Colors.white)
-                      : null,
+                  child: _image == null && _downloadUrl == null ? Icon(Icons.person, size: 80, color: Colors.white) : null,
                 ),
               ),
             ),
@@ -260,16 +243,13 @@ class _editProfilePageState extends State<editProfilePage> {
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
                       labelText: 'Nome da Empresa',
-                      labelStyle:
-                          TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                      labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                         borderRadius: BorderRadius.circular(50),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                         borderRadius: BorderRadius.circular(50),
                       )),
                 ),
@@ -285,16 +265,13 @@ class _editProfilePageState extends State<editProfilePage> {
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       labelText: 'CNPJ',
-                      labelStyle:
-                          TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                      labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                         borderRadius: BorderRadius.circular(50),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                         borderRadius: BorderRadius.circular(50),
                       )),
                 ),
@@ -310,16 +287,13 @@ class _editProfilePageState extends State<editProfilePage> {
                   controller: razaoSocialController,
                   decoration: InputDecoration(
                       labelText: 'Razão Social',
-                      labelStyle:
-                          TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                      labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                         borderRadius: BorderRadius.circular(50),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                         borderRadius: BorderRadius.circular(50),
                       )),
                 ),
@@ -335,16 +309,13 @@ class _editProfilePageState extends State<editProfilePage> {
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
                       labelText: 'Nome Fantasia',
-                      labelStyle:
-                          TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                      labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                         borderRadius: BorderRadius.circular(50),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                         borderRadius: BorderRadius.circular(50),
                       )),
                 ),
@@ -372,16 +343,13 @@ class _editProfilePageState extends State<editProfilePage> {
                   keyboardType: TextInputType.streetAddress,
                   decoration: InputDecoration(
                       labelText: 'Logradouro',
-                      labelStyle:
-                          TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                      labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                         borderRadius: BorderRadius.circular(50),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                         borderRadius: BorderRadius.circular(50),
                       )),
                 ),
@@ -400,18 +368,13 @@ class _editProfilePageState extends State<editProfilePage> {
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           labelText: 'CEP',
-                          labelStyle:
-                              TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                          labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                           enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                color: Color.fromARGB(255, 8, 46, 28),
-                                width: 1.5),
+                            borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                             borderRadius: BorderRadius.circular(50),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Color.fromARGB(255, 8, 46, 28),
-                                width: 1.5),
+                            borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                             borderRadius: BorderRadius.circular(50),
                           )),
                     ),
@@ -430,18 +393,13 @@ class _editProfilePageState extends State<editProfilePage> {
                       keyboardType: TextInputType.streetAddress,
                       decoration: InputDecoration(
                           labelText: 'Complemento',
-                          labelStyle:
-                              TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                          labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                           enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                color: Color.fromARGB(255, 8, 46, 28),
-                                width: 1.5),
+                            borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                             borderRadius: BorderRadius.circular(50),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Color.fromARGB(255, 8, 46, 28),
-                                width: 1.5),
+                            borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                             borderRadius: BorderRadius.circular(50),
                           )),
                     ),
@@ -460,8 +418,7 @@ class _editProfilePageState extends State<editProfilePage> {
                       Radius.circular(50),
                     ),
                     color: Colors.white,
-                    border: Border.all(
-                        color: Color.fromARGB(255, 8, 46, 28), width: 1.5)),
+                    border: Border.all(color: Color.fromARGB(255, 8, 46, 28), width: 1.5)),
                 child: DropdownButton(
                   value: _selectedValue_area,
                   isExpanded: true,
@@ -471,8 +428,7 @@ class _editProfilePageState extends State<editProfilePage> {
                       color: Color.fromARGB(255, 8, 46, 28),
                     ),
                   ),
-                  items:
-                      opcoes_area.map<DropdownMenuItem<String>>((String value) {
+                  items: opcoes_area.map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
                       child: Text(value),
@@ -496,16 +452,13 @@ class _editProfilePageState extends State<editProfilePage> {
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
                       labelText: 'Cidade',
-                      labelStyle:
-                          TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                      labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                         borderRadius: BorderRadius.circular(50),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                         borderRadius: BorderRadius.circular(50),
                       )),
                 ),
@@ -522,8 +475,7 @@ class _editProfilePageState extends State<editProfilePage> {
                       Radius.circular(50),
                     ),
                     color: Colors.white,
-                    border: Border.all(
-                        color: Color.fromARGB(255, 8, 46, 28), width: 1.5)),
+                    border: Border.all(color: Color.fromARGB(255, 8, 46, 28), width: 1.5)),
                 child: DropdownButton(
                   value: _selectedValue_estados,
                   isExpanded: true,
@@ -533,8 +485,7 @@ class _editProfilePageState extends State<editProfilePage> {
                       color: Color.fromARGB(255, 8, 46, 28),
                     ),
                   ),
-                  items: opcoes_nivel_estados
-                      .map<DropdownMenuItem<String>>((String value) {
+                  items: opcoes_nivel_estados.map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
                       child: Text(value),
@@ -575,18 +526,13 @@ class _editProfilePageState extends State<editProfilePage> {
                         keyboardType: TextInputType.name,
                         decoration: InputDecoration(
                             labelText: 'Nome',
-                            labelStyle: TextStyle(
-                                color: Color.fromARGB(255, 8, 46, 28)),
+                            labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
+                              borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                               borderRadius: BorderRadius.circular(50),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
+                              borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                               borderRadius: BorderRadius.circular(50),
                             )),
                       ),
@@ -605,18 +551,13 @@ class _editProfilePageState extends State<editProfilePage> {
                         keyboardType: TextInputType.name,
                         decoration: InputDecoration(
                             labelText: 'Sobrenome',
-                            labelStyle: TextStyle(
-                                color: Color.fromARGB(255, 8, 46, 28)),
+                            labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
+                              borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                               borderRadius: BorderRadius.circular(50),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 8, 46, 28),
-                                  width: 1.5),
+                              borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                               borderRadius: BorderRadius.circular(50),
                             )),
                       ),
@@ -638,18 +579,13 @@ class _editProfilePageState extends State<editProfilePage> {
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           labelText: 'CPF',
-                          labelStyle:
-                              TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                          labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                           enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                color: Color.fromARGB(255, 8, 46, 28),
-                                width: 1.5),
+                            borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                             borderRadius: BorderRadius.circular(50),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Color.fromARGB(255, 8, 46, 28),
-                                width: 1.5),
+                            borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                             borderRadius: BorderRadius.circular(50),
                           )),
                     ),
@@ -668,18 +604,13 @@ class _editProfilePageState extends State<editProfilePage> {
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           labelText: 'RG',
-                          labelStyle:
-                              TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                          labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                           enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                color: Color.fromARGB(255, 8, 46, 28),
-                                width: 1.5),
+                            borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                             borderRadius: BorderRadius.circular(50),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Color.fromARGB(255, 8, 46, 28),
-                                width: 1.5),
+                            borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                             borderRadius: BorderRadius.circular(50),
                           )),
                     ),
@@ -709,16 +640,13 @@ class _editProfilePageState extends State<editProfilePage> {
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                       labelText: 'Email',
-                      labelStyle:
-                          TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                      labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                         borderRadius: BorderRadius.circular(50),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                         borderRadius: BorderRadius.circular(50),
                       )),
                 ),
@@ -734,16 +662,13 @@ class _editProfilePageState extends State<editProfilePage> {
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       labelText: 'Celular',
-                      labelStyle:
-                          TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
+                      labelStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28)),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderSide: const BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                         borderRadius: BorderRadius.circular(50),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
+                        borderSide: BorderSide(color: Color.fromARGB(255, 8, 46, 28), width: 1.5),
                         borderRadius: BorderRadius.circular(50),
                       )),
                 ),
@@ -765,8 +690,7 @@ class _editProfilePageState extends State<editProfilePage> {
                   child: Center(
                     child: Text(
                       'salvar'.toUpperCase(),
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
@@ -802,14 +726,9 @@ class _editProfilePageState extends State<editProfilePage> {
       'profilePicture': _downloadUrl,
     }).then(
       (value) {
-        (value) => mostrarSnackBar(
-            context: context, texto: "Dados Salvos com Sucesso", isErro: false);
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => homePage()));
+        (value) => mostrarSnackBar(context: context, texto: "Dados Salvos com Sucesso", isErro: false);
+        Navigator.push(context, MaterialPageRoute(builder: (context) => homePage()));
       },
-    ).catchError((error) => mostrarSnackBar(
-        context: context,
-        texto: "Algo deu errado. Tente Novamente. Erro: $error",
-        isErro: true));
+    ).catchError((error) => mostrarSnackBar(context: context, texto: "Algo deu errado. Tente Novamente. Erro: $error", isErro: true));
   }
 }

@@ -23,10 +23,7 @@ class _profilePageState extends State<profilePage> {
   Future<void> _loadProfilePicture() async {
     try {
       String uid = FirebaseAuth.instance.currentUser!.uid;
-      DocumentSnapshot userDoc = await FirebaseFirestore.instance
-          .collection('usuarios')
-          .doc(uid)
-          .get();
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('usuarios').doc(uid).get();
       if (userDoc.exists) {
         setState(() {
           _downloadUrl = userDoc['profilePicture'];
@@ -55,8 +52,8 @@ class _profilePageState extends State<profilePage> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Image.asset(
-                    'images/Logo_SafraApp3.png', // Substitua pelo caminho da sua imagem
-                    height: 40, // Ajuste a altura conforme necessário
+                    'images/Logo_SafraApp3.png',
+                    height: 40,
                   ),
                 ],
               ),
@@ -69,12 +66,8 @@ class _profilePageState extends State<profilePage> {
         ),
         backgroundColor: Colors.white,
         body: StreamBuilder<DocumentSnapshot>(
-          stream: FirebaseFirestore.instance
-              .collection('usuarios')
-              .doc(uid)
-              .snapshots(),
-          builder:
-              (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+          stream: FirebaseFirestore.instance.collection('usuarios').doc(uid).snapshots(),
+          builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
             if (snapshot.hasError) {
               return Text('Algo deu errado');
             }
@@ -82,8 +75,7 @@ class _profilePageState extends State<profilePage> {
               return Center(child: CircularProgressIndicator());
             }
 
-            Map<String, dynamic> dados =
-                snapshot.data!.data() as Map<String, dynamic>;
+            Map<String, dynamic> dados = snapshot.data!.data() as Map<String, dynamic>;
             String fullName = '${dados['nomeUsuario']} ${dados['sobrenome']}';
             String localidade = '${dados['cidade']}, ${dados['estado']}';
             return SingleChildScrollView(
@@ -92,9 +84,7 @@ class _profilePageState extends State<profilePage> {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(50),
-                          bottomRight: Radius.circular(50)),
+                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50), bottomRight: Radius.circular(50)),
                       color: Color.fromARGB(255, 2, 89, 47),
                     ),
                     height: 280,
@@ -106,9 +96,7 @@ class _profilePageState extends State<profilePage> {
                           child: CircleAvatar(
                             radius: 80,
                             backgroundColor: Colors.red,
-                            backgroundImage: _downloadUrl != null
-                                ? NetworkImage(_downloadUrl!)
-                                : null,
+                            backgroundImage: _downloadUrl != null ? NetworkImage(_downloadUrl!) : null,
                             child: Container(
                               width: double.infinity,
                               height: double.infinity,
@@ -126,10 +114,7 @@ class _profilePageState extends State<profilePage> {
                           padding: const EdgeInsets.only(top: 8.0),
                           child: Text(
                             fullName,
-                            style: TextStyle(
-                                fontSize: 30,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
+                            style: TextStyle(fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold),
                           ),
                         ),
                         Padding(
@@ -159,18 +144,14 @@ class _profilePageState extends State<profilePage> {
                             decoration: BoxDecoration(
                                 //color: Colors.grey,
                                 borderRadius: BorderRadius.circular(20),
-                                border: Border.all(
-                                    color: Color.fromARGB(255, 8, 46, 28),
-                                    width: 2)),
+                                border: Border.all(color: Color.fromARGB(255, 8, 46, 28), width: 2)),
                             child: Row(
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(left: 20.0),
                                   child: Text(
                                     'Editar Perfil',
-                                    style: TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w600),
+                                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
                                   ),
                                 ),
                                 Padding(
@@ -191,22 +172,14 @@ class _profilePageState extends State<profilePage> {
                           child: Container(
                               width: 380,
                               height: 50,
-                              decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 182, 19, 8),
-                                  borderRadius: BorderRadius.circular(20),
-                                  border: Border.all(
-                                      color: Color.fromARGB(255, 8, 46, 28),
-                                      width: 2)),
+                              decoration: BoxDecoration(color: Color.fromARGB(255, 182, 19, 8), borderRadius: BorderRadius.circular(20), border: Border.all(color: Color.fromARGB(255, 8, 46, 28), width: 2)),
                               child: Row(
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(left: 20.0),
                                     child: Text(
                                       'Sair da Conta',
-                                      style: TextStyle(
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.white),
+                                      style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: Colors.white),
                                     ),
                                   ),
                                   Padding(
@@ -272,10 +245,8 @@ class _profilePageState extends State<profilePage> {
       } else {
         //Deu certo
         Navigator.of(context).pop();
-        mostrarSnackBar2(
-            context: context, texto: "Deslogado com sucesso", isErro: false);
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => loginPage()));
+        mostrarSnackBar2(context: context, texto: "Deslogado com sucesso", isErro: false);
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => loginPage()));
       }
     });
   }
@@ -283,11 +254,7 @@ class _profilePageState extends State<profilePage> {
   void _navegarparaEditProfile() {
     var user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      FirebaseFirestore.instance
-          .collection('usuarios')
-          .doc(user.uid)
-          .get()
-          .then((snapshot) {
+      FirebaseFirestore.instance.collection('usuarios').doc(user.uid).get().then((snapshot) {
         if (snapshot.exists) {
           Navigator.push(
             context,

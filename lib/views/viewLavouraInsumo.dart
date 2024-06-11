@@ -25,14 +25,45 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
   @override
   void initState() {
     super.initState();
+    _fetchPolygonPoints();
     data = widget.lavoura.data() as Map<String, dynamic>;
     idLavoura = widget.lavoura.id;
+  }
+
+  List<LatLng> polygonPoints = [];
+  final MapController _mapController = MapController();
+
+  Future<void> _fetchPolygonPoints() async {
+    try {
+      var data = widget.lavoura.data() as Map<String, dynamic>;
+      if (data.containsKey('polygon')) {
+        List<dynamic> points = data['polygon'];
+        setState(() {
+          polygonPoints = points.map((point) => LatLng(point['lat'], point['lng'])).toList();
+        });
+        _fitPolygonBounds();
+      }
+    } catch (e) {
+      print('Erro ao buscar pontos do polígono: $e');
+    }
+  }
+
+  void _fitPolygonBounds() {
+    if (polygonPoints.isNotEmpty) {
+      var bounds = LatLngBounds(polygonPoints[0], polygonPoints[0]);
+      for (var point in polygonPoints) {
+        bounds.extend(point);
+      }
+      _mapController.fitBounds(
+        bounds,
+        options: FitBoundsOptions(padding: EdgeInsets.all(20)),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Color.fromARGB(255, 2, 89, 47),
       appBar: AppBar(
         title: Row(
           children: [
@@ -71,19 +102,31 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
                 decoration: BoxDecoration(
                     //color: Colors.white,
                     ),
-                child: Center(
-                  child: FlutterMap(
-                    options: MapOptions(
-                      center: LatLng(-20.782634700407176, -49.38675446436698),
-                      zoom: 10.2,
+                child: FlutterMap(
+                  mapController: _mapController,
+                  options: MapOptions(center: polygonPoints.isNotEmpty ? polygonPoints[0] : LatLng(0, 0), zoom: 25, onMapReady: _fitPolygonBounds, interactiveFlags: InteractiveFlag.none),
+                  children: [
+                    TileLayer(
+                      urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                      subdomains: [
+                        'a',
+                        'b',
+                        'c'
+                      ],
                     ),
-                    children: [
-                      TileLayer(
-                        urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                        userAgentPackageName: 'com.example.app',
+                    if (polygonPoints.isNotEmpty)
+                      PolygonLayer(
+                        polygons: [
+                          Polygon(
+                            points: polygonPoints,
+                            color: Colors.blue.withOpacity(0.3),
+                            borderStrokeWidth: 2,
+                            borderColor: Colors.blue,
+                            isFilled: true,
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                  ],
                 ),
               ),
             ),
@@ -350,24 +393,14 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
 
   Future<void> deleteLavoura(String lavouraId) async {
     try {
-      // Referência ao documento da lavoura
       var lavouraDocRef = FirebaseFirestore.instance.collection('lavouras').doc(lavouraId);
-
-      // Referência à subcoleção 'aplicacoes'
       var aplicacoesCollectionRef = lavouraDocRef.collection('aplicacoes');
-
-      // Obter todos os documentos na subcoleção 'aplicacoes'
       var aplicacoesSnapshot = await aplicacoesCollectionRef.get();
 
-      // Excluir cada documento na subcoleção 'aplicacoes'
       for (var doc in aplicacoesSnapshot.docs) {
         await doc.reference.delete();
       }
-
-      // Agora exclua o documento principal da lavoura
       await lavouraDocRef.delete();
-
-      // Navegar para a página inicial após a exclusão bem-sucedida
       Navigator.push(context, MaterialPageRoute(builder: (context) => homePage()));
 
       mostrarSnackBar(context: context, texto: 'Lavoura excluída com sucesso!', isErro: false);
