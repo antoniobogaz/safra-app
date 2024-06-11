@@ -26,19 +26,11 @@ class MyBottomNavBar extends StatelessWidget {
           tabs: [
             GButton(
               icon: Icons.home,
-              text: 'Início',
-            ),
-            GButton(
-              icon: Icons.eco_rounded,
-              text: 'Lavoura',
-            ),
-            GButton(
-              icon: Icons.water_drop,
-              text: 'Insumo',
+              text: 'Suas Lavouras',
             ),
             GButton(
               icon: Icons.history_outlined,
-              text: 'Histórico',
+              text: 'Suas Aplicações',
             ),
             GButton(
               icon: Icons.person,

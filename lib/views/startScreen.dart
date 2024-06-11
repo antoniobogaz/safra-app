@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-//import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_safraapp/views/loginPage.dart';
 import 'package:flutter_safraapp/views/signinPage.dart';
 
@@ -28,10 +27,7 @@ class _startScreenState extends State<startScreen> {
             children: <Widget>[
               Text(
                 'Bem-Vindo(a) ao Safra App',
-                style: TextStyle(
-                    color: Colors.black54,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w800),
+                style: TextStyle(color: Colors.black54, fontSize: 24, fontWeight: FontWeight.w800),
               ),
               SizedBox(height: 5),
               Row(
@@ -39,18 +35,14 @@ class _startScreenState extends State<startScreen> {
                 children: [
                   Text(
                     'Faça login ou cadastre-se para continuar.',
-                    style: TextStyle(
-                        color: Colors.black54,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400),
+                    style: TextStyle(color: Colors.black54, fontSize: 20, fontWeight: FontWeight.w400),
                   )
                 ],
               ),
               SizedBox(height: 100),
               InkWell(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => loginPage()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => loginPage()));
                 },
                 child: Container(
                   height: 50,
@@ -64,8 +56,7 @@ class _startScreenState extends State<startScreen> {
                   child: Center(
                     child: Text(
                       'Fazer Login'.toUpperCase(),
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
@@ -90,8 +81,7 @@ class _startScreenState extends State<startScreen> {
                   child: Center(
                     child: Text(
                       'Cadastrar-se'.toUpperCase(),
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),

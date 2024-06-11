@@ -40,6 +40,12 @@ dependencies:
   firebase_auth:
   shared_preferences: ^2.2.2
   cloud_firestore:
+  flutter_masked_text2:
+  firebase_storage:
+  image_picker:
+  intl:
+  flutter_map: ^4.0.0
+  latlong2: ^0.8.1
 
 dev_dependencies:
   flutter_test:

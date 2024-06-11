@@ -39,9 +39,7 @@ class _loginPageState extends State<loginPage> {
                 height: MediaQuery.of(context).size.height / 4.5,
                 decoration: BoxDecoration(
                   color: Color.fromARGB(255, 2, 89, 47),
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(0),
-                      bottomRight: Radius.circular(0)),
+                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(0), bottomRight: Radius.circular(0)),
                 ),
                 child: Align(
                   alignment: Alignment.center,
@@ -58,8 +56,7 @@ class _loginPageState extends State<loginPage> {
                   width: 120,
                   height: 120,
                   decoration: BoxDecoration(
-                    border: Border.all(
-                        color: Color.fromARGB(255, 8, 46, 28), width: 2),
+                    border: Border.all(color: Color.fromARGB(255, 8, 46, 28), width: 2),
                     shape: BoxShape.circle,
                     color: Colors.white,
                   ),
@@ -84,19 +81,11 @@ class _loginPageState extends State<loginPage> {
                             Radius.circular(50),
                           ),
                           color: Colors.white,
-                          border: Border.all(
-                              color: Color.fromARGB(255, 8, 46, 28),
-                              width: 2.0)),
+                          border: Border.all(color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                       child: TextFormField(
                         keyboardType: TextInputType.emailAddress,
                         controller: _emailController,
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            icon: Icon(Icons.person,
-                                color: Color.fromARGB(255, 8, 46, 28)),
-                            hintText: 'Usuário',
-                            hintStyle: TextStyle(
-                                color: Color.fromARGB(255, 8, 46, 28))),
+                        decoration: InputDecoration(border: InputBorder.none, icon: Icon(Icons.person, color: Color.fromARGB(255, 8, 46, 28)), hintText: 'Usuário', hintStyle: TextStyle(color: Color.fromARGB(255, 8, 46, 28))),
                       ),
                     ),
                     Container(
@@ -113,9 +102,7 @@ class _loginPageState extends State<loginPage> {
                                   Radius.circular(50),
                                 ),
                                 color: Colors.white,
-                                border: Border.all(
-                                    color: Color.fromARGB(255, 8, 46, 28),
-                                    width: 2.0)),
+                                border: Border.all(color: Color.fromARGB(255, 8, 46, 28), width: 2.0)),
                             child: TextFormField(
                               controller: _senhaController,
                               obscureText: _obscureText,
@@ -130,11 +117,7 @@ class _loginPageState extends State<loginPage> {
                                   color: Color.fromARGB(255, 8, 46, 28),
                                 ),
                                 suffixIcon: IconButton(
-                                  icon: Icon(
-                                      _obscureText
-                                          ? Icons.visibility
-                                          : Icons.visibility_off,
-                                      color: Color.fromARGB(255, 8, 46, 28)),
+                                  icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off, color: Color.fromARGB(255, 8, 46, 28)),
                                   onPressed: () {
                                     setState(() {
                                       _obscureText = !_obscureText;
@@ -153,10 +136,7 @@ class _loginPageState extends State<loginPage> {
                         padding: EdgeInsets.only(left: 200),
                         child: InkWell(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => forgotpassword()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => forgotpassword()));
                           },
                           child: Text(
                             'Esqueceu sua senha?',
@@ -190,8 +170,7 @@ class _loginPageState extends State<loginPage> {
                     child: Center(
                       child: Text(
                         'Entrar'.toUpperCase(),
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
@@ -215,18 +194,14 @@ class _loginPageState extends State<loginPage> {
                       padding: EdgeInsets.only(top: 150),
                       child: InkWell(
                         onTap: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => signinPage()));
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => signinPage()));
                         },
                         child: Text(
                           ' Cadastre-se',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 19,
-                            color:
-                                Color.fromARGB(255, 2, 89, 47), // Cor do texto
+                            color: Color.fromARGB(255, 2, 89, 47), // Cor do texto
                           ),
                         ),
                       ),
@@ -254,14 +229,13 @@ class _loginPageState extends State<loginPage> {
 
     _autenServico.logarUsuarios(email: email, senha: senha).then(
       (String? erro) {
-        //Voltou com erro
+        //Se voltou com erro
         if (erro != null) {
           Navigator.of(context).pop();
           mostrarSnackBar(context: context, texto: erro);
         } else {
           Navigator.of(context).pop();
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => homePage()));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => homePage()));
         }
       },
     );

@@ -2,8 +2,10 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_safraapp/views/loginPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_safraapp/widgets/meu_snackbar.dart';
 
 class forgotpassword extends StatelessWidget {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController emailController = TextEditingController();
   forgotpassword({super.key});
 
@@ -12,14 +14,23 @@ class forgotpassword extends StatelessWidget {
       await FirebaseAuth.instance.sendPasswordResetEmail(
         email: emailController.text,
       );
+      mostrarSnackBar2(
+          context: context,
+          texto: 'Email Enviado! Verifique sua Caixa de Entrada',
+          isErro: false);
     } catch (e) {
       print('Error: $e');
+      mostrarSnackBar2(
+          context: context,
+          texto: 'Ocorreu um problema. Tente novamente',
+          isErro: true);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: true,
         title: Row(

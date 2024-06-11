@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_safraapp/views/historicoPage.dart';
-import 'package:flutter_safraapp/views/insumoPage.dart';
-import 'package:flutter_safraapp/views/lavouraPage.dart';
 import 'package:flutter_safraapp/views/profilePage.dart';
 import 'package:flutter_safraapp/widgets/bottom_nav_bar.dart';
 import 'package:flutter_safraapp/views/dashboardPage.dart';
@@ -25,8 +23,6 @@ class _homePageState extends State<homePage> {
   //pages
   final List<Widget> _pages = [
     dashboardPage(),
-    lavouraPage(),
-    insumoPage(),
     historicoPage(),
     profilePage(),
   ];
