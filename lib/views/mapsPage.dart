@@ -48,7 +48,7 @@ class _MapsPageState extends State<mapsPage> {
         children: [
           FlutterMap(
             options: MapOptions(
-              center: LatLng(51.509364, -0.128928),
+              center: LatLng(-20.80483180133384, -49.38405811880083),
               zoom: 9.2,
               onTap: (tapPosition, point) {
                 setState(() {

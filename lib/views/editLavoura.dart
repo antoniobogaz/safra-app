@@ -355,7 +355,7 @@ class _editLavouraPageState extends State<editLavouraPage> {
                   ),
                 ],
               ),
-              Padding(
+              /*Padding(
                 padding: const EdgeInsets.only(top: 28.0, left: 12),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -447,7 +447,7 @@ class _editLavouraPageState extends State<editLavouraPage> {
                     ),
                   ),
                 ],
-              ),
+              ),*/
               Container(
                 padding: EdgeInsets.only(top: 30, bottom: 10),
                 child: InkWell(

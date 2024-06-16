@@ -26,10 +26,7 @@ class _dashboardPageState extends State<dashboardPage> {
       isLoading = true;
     });
 
-    var colecao = firestore
-        .collection('lavouras')
-        .where('uid', isEqualTo: user.uid)
-        .orderBy('nomePropriedade');
+    var colecao = firestore.collection('lavouras').where('uid', isEqualTo: user.uid).orderBy('nomePropriedade');
 
     colecao.snapshots().listen((snapshot) {
       setState(() {
@@ -107,8 +104,7 @@ class _dashboardPageState extends State<dashboardPage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text("Nenhuma lavoura cadastrada!",
-                            style: TextStyle(fontSize: 22, color: Colors.grey)),
+                        Text("Nenhuma lavoura cadastrada!", style: TextStyle(fontSize: 22, color: Colors.grey)),
                         SizedBox(height: 20),
                         ElevatedButton(
                           onPressed: () {
@@ -133,18 +129,14 @@ class _dashboardPageState extends State<dashboardPage> {
                       DocumentSnapshot lavoura = lavouras[index];
                       return InkWell(
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => viewLavouraInsumoPage(lavoura: lavoura)));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => viewLavouraInsumoPage(lavoura: lavoura)));
                         },
                         child: Card(
                           margin: EdgeInsets.only(top: 1),
                           child: ListTile(
                               tileColor: Colors.white,
                               title: Text(lavoura['nomePropriedade']),
-                              subtitle:
-                                  Text("Área: ${lavoura['tamanhoArea']} ${lavoura['medidaArea']}"),
+                              subtitle: Text("Área: ${lavoura['tamanhoArea']} ${lavoura['medidaArea']}"),
                               trailing: const Icon(
                                 Icons.arrow_forward,
                                 color: Color.fromARGB(255, 2, 89, 47),

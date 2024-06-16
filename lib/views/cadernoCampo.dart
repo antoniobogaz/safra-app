@@ -891,9 +891,9 @@ class _cadernoCampoPageState extends State<cadernoCampoPage> {
         _observacaoAplicacao.clear();
         limparFormulario();
 
-        if (novaLavoura) {
+        /*if (novaLavoura) {
           Navigator.of(context).pop(true);
-        }
+        }*/
       }).catchError((error) {
         mostrarSnackBar(context: context, texto: "Erro ao salvar: $error", isErro: true);
       });

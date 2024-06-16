@@ -111,9 +111,24 @@ class _editProfilePageState extends State<editProfilePage> {
           _downloadUrl = downloadUrl;
         });
 
-        await FirebaseFirestore.instance.collection('usuarios').doc(FirebaseAuth.instance.currentUser!.uid).update({
-          'profilePicture': downloadUrl
-        });
+        String uid = FirebaseAuth.instance.currentUser!.uid;
+
+        DocumentReference userDocRef = FirebaseFirestore.instance.collection('usuarios').doc(uid);
+
+        // Verifique se o documento do usuário existe
+        DocumentSnapshot userDoc = await userDocRef.get();
+        if (!userDoc.exists) {
+          // Se o documento não existir, crie-o
+          await userDocRef.set({
+            'profilePicture': downloadUrl,
+            // Adicione outros campos padrão, se necessário
+          });
+        } else {
+          // Se o documento já existir, faça o update
+          await userDocRef.update({
+            'profilePicture': downloadUrl,
+          });
+        }
       }
     }
   }

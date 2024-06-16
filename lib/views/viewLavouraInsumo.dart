@@ -104,7 +104,11 @@ class _viewLavouraInsumoPageState extends State<viewLavouraInsumoPage> {
                     ),
                 child: FlutterMap(
                   mapController: _mapController,
-                  options: MapOptions(center: polygonPoints.isNotEmpty ? polygonPoints[0] : LatLng(0, 0), zoom: 25, onMapReady: _fitPolygonBounds, interactiveFlags: InteractiveFlag.none),
+                  options: MapOptions(
+                    center: polygonPoints.isNotEmpty ? polygonPoints[0] : LatLng(0, 0),
+                    zoom: 15,
+                    onMapReady: _fitPolygonBounds,
+                  ),
                   children: [
                     TileLayer(
                       urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',

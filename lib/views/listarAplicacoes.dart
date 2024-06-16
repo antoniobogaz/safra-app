@@ -15,10 +15,7 @@ class _listarAplicacoesPageState extends State<listarAplicacoesPage> {
   Future<List<Aplicacao>>? _futureAplicacoes;
 
   Future<List<Aplicacao>> fetchAplicacoes() async {
-    var collection = FirebaseFirestore.instance
-        .collection('lavouras')
-        .doc(widget.lavouraId)
-        .collection('aplicacoes');
+    var collection = FirebaseFirestore.instance.collection('lavouras').doc(widget.lavouraId).collection('aplicacoes');
     var snapshot = await collection.get();
     if (snapshot.docs.isEmpty) return [];
     return snapshot.docs.map((doc) => Aplicacao.fromFirestore(doc)).toList();
@@ -75,14 +72,11 @@ class _listarAplicacoesPageState extends State<listarAplicacoesPage> {
             return Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasError) {
-            return Center(
-                child: Text('Erro ao carregar dados: ${snapshot.error}',
-                    style: TextStyle(fontSize: 22, color: Colors.grey)));
+            return Center(child: Text('Erro ao carregar dados: ${snapshot.error}', style: TextStyle(fontSize: 22, color: Colors.grey)));
           }
           if (snapshot.data!.isEmpty) {
             return Center(
-              child: Text("Não há aplicações registradas neste talhão",
-                  style: TextStyle(fontSize: 22, color: Colors.grey)),
+              child: Text("Não há aplicações registradas neste talhão", style: TextStyle(fontSize: 22, color: Colors.grey)),
             );
           }
           return ListView.builder(
@@ -94,8 +88,7 @@ class _listarAplicacoesPageState extends State<listarAplicacoesPage> {
                   bool? result = await Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          viewAplicacaoPage(aplicacao: aplicacao),
+                      builder: (context) => viewAplicacaoPage(aplicacao: aplicacao),
                     ),
                   );
                   if (result == true) {
@@ -107,10 +100,8 @@ class _listarAplicacoesPageState extends State<listarAplicacoesPage> {
                     tileColor: Colors.white,
                     title: Text(aplicacao.nomeProduto),
                     subtitle: Text('Aplicado em: ${aplicacao.dataAplicacao}'),
-                    trailing: Icon(Icons.arrow_forward,
-                        color: Color.fromARGB(255, 2, 89, 47)),
-                    leading: Icon(Icons.water_drop,
-                        color: Color.fromARGB(255, 2, 89, 47)),
+                    trailing: Icon(Icons.arrow_forward, color: Color.fromARGB(255, 2, 89, 47)),
+                    leading: Icon(Icons.water_drop, color: Color.fromARGB(255, 2, 89, 47)),
                   ),
                 ),
               );
@@ -167,7 +158,7 @@ class Aplicacao {
       periodoCarencia: (doc['periodoCarencia']),
       responsavelAplicacao: (doc['responsavelAplicacao']),
       lavouraId: (doc['idLavoura']),
-      aplicacaoId: (doc['aplicacaoId']),
+      aplicacaoId: (doc['idAplicacao']),
     );
   }
 }
