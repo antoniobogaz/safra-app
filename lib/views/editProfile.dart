@@ -720,28 +720,31 @@ class _editProfilePageState extends State<editProfilePage> {
   void _aoSalvarUsuario(BuildContext context) {
     var colecao = FirebaseFirestore.instance.collection('usuarios');
     var uid = FirebaseAuth.instance.currentUser!.uid;
-    colecao.doc(uid).set({
-      'nomeEmpresa': nomeEmpresaController.text,
-      'CNPJ': cnpjController.text,
-      'razaoSocial': razaoSocialController.text,
-      'nomeFantasia': nomeFantasiaController.text,
-      'logradouro': logradouroController.text,
-      'CEP': cepController.text,
-      'Complemento': complementoController.text,
-      'setor': _selectedValue_area,
-      'cidade': cidadeController.text,
-      'estado': _selectedValue_estados,
-      'nomeUsuario': nomeController.text,
-      'sobrenome': sobrenomeController.text,
-      'CPF': cpfController.text,
-      'RG': rgController.text,
-      'email': emailController.text,
-      'celular': celularController.text,
+
+    Map<String, dynamic> dadosUsuario = {
+      'nomeEmpresa': nomeEmpresaController.text.isEmpty ? null : nomeEmpresaController.text,
+      'CNPJ': cnpjController.text.isEmpty ? null : cnpjController.text,
+      'razaoSocial': razaoSocialController.text.isEmpty ? null : razaoSocialController.text,
+      'nomeFantasia': nomeFantasiaController.text.isEmpty ? null : nomeFantasiaController.text,
+      'logradouro': logradouroController.text.isEmpty ? null : logradouroController.text,
+      'CEP': cepController.text.isEmpty ? null : cepController.text,
+      'Complemento': complementoController.text.isEmpty ? null : complementoController.text,
+      'setor': _selectedValue_area?.isEmpty ?? true ? null : _selectedValue_area,
+      'cidade': cidadeController.text.isEmpty ? null : cidadeController.text,
+      'estado': _selectedValue_estados?.isEmpty ?? true ? null : _selectedValue_estados,
+      'nomeUsuario': nomeController.text.isEmpty ? null : nomeController.text,
+      'sobrenome': sobrenomeController.text.isEmpty ? null : sobrenomeController.text,
+      'CPF': cpfController.text.isEmpty ? null : cpfController.text,
+      'RG': rgController.text.isEmpty ? null : rgController.text,
+      'email': emailController.text.isEmpty ? null : emailController.text,
+      'celular': celularController.text.isEmpty ? null : celularController.text,
       'uid': uid,
-      'profilePicture': _downloadUrl,
-    }).then(
+      'profilePicture': _downloadUrl?.isEmpty ?? true ? null : _downloadUrl,
+    };
+
+    colecao.doc(uid).set(dadosUsuario).then(
       (value) {
-        (value) => mostrarSnackBar(context: context, texto: "Dados Salvos com Sucesso", isErro: false);
+        mostrarSnackBar(context: context, texto: "Dados Salvos com Sucesso", isErro: false);
         Navigator.push(context, MaterialPageRoute(builder: (context) => homePage()));
       },
     ).catchError((error) => mostrarSnackBar(context: context, texto: "Algo deu errado. Tente Novamente. Erro: $error", isErro: true));
